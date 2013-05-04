@@ -2,22 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lager;
+package Datentypen;
 
 import java.util.Objects;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
-public class Produkt {
+public class ProduktTyp {
+
     private String name;
     private String produktNr;
     private int lagerBestand;
     
-    private Produkt(){};
-
-    public Produkt(String name, String produktNr, int lagerBestand) {
+    public ProduktTyp(String name, String produktNr, int lagerBestand){
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
@@ -27,17 +26,12 @@ public class Produkt {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getProduktNr() {
         return produktNr;
     }
 
-    public void setProduktNr(String produktNr) {
-        this.produktNr = produktNr;
-    }
+   
 
     public int getLagerBestand() {
         return lagerBestand;
@@ -49,10 +43,10 @@ public class Produkt {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.name);
-        hash = 43 * hash + Objects.hashCode(this.produktNr);
-        hash = 43 * hash + this.lagerBestand;
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.name);
+        hash = 31 * hash + Objects.hashCode(this.produktNr);
+        hash = 31 * hash + this.lagerBestand;
         return hash;
     }
 
@@ -64,7 +58,7 @@ public class Produkt {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Produkt other = (Produkt) obj;
+        final ProduktTyp other = (ProduktTyp) obj;
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -79,8 +73,7 @@ public class Produkt {
 
     @Override
     public String toString() {
-        return "Produkt{" + "name=" + name + ", produktNr=" + produktNr + ", lagerBestand=" + lagerBestand + '}';
+        return "ProduktTyp{" + "name=" + name + ", produktNr=" + produktNr + ", lagerBestand=" + lagerBestand + '}';
     }
-    
     
 }

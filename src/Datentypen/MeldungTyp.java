@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lager;
+package Datentypen;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
-public class ProduktManager implements IProduktManager{
+public class MeldungTyp {
     
 }

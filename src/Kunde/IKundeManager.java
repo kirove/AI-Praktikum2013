@@ -1,5 +1,9 @@
 package Kunde;
 
+import Datentypen.AdresseTyp;
+import Datentypen.TelefonNrTyp;
+import Datentypen.KundenTyp;
+
 /**
  *
  * @author NED
