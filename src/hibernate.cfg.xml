@@ -7,6 +7,16 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/AIP_A2</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">bobo</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="show_sql">true</property>
+    
+    <mapping class="Kunde.Kunde"/>
+    <mapping class="Lager.Produkt"/>
+    <mapping class="Einkauf.Bestellung"/>
+    <mapping class="Einkauf.OrderBuch"/>
+    <mapping class="Lager.Produkt"/>
+    <mapping class="Lieferant.Lieferant"/>
+    <mapping class="Verkauf.Angebot"/>
+    <mapping class="Verkauf.Auftrag"/>
   </session-factory>
 </hibernate-configuration>

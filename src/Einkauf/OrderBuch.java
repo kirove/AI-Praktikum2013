@@ -4,10 +4,15 @@
  */
 package Einkauf;
 
-/**
- *
- * @author NED
- */
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="OrderBuch")
 public class OrderBuch {
+    
+    @Id
+    private String orderBuchNr;
     
 }

@@ -4,62 +4,70 @@ import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Datentypen.KundenTyp;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author NED
  */
+@Entity
+@Table(name = "kunde")
 public class Kunde {
 
+    @Id
     private String kundenNr;
+    
     private String vorname;
     private String nachname;
-    private AdresseTyp adresse;
-    private TelefonNrTyp telNr;
+    //private AdresseTyp adresse;
+    //private TelefonNrTyp telNr;
 
-    private Kunde() {
+    public Kunde() {
     }
 
-    public Kunde(String vorname, String nachname, AdresseTyp adresse, TelefonNrTyp telNr) {
+    public Kunde(String vorname, String nachname /*, AdresseTyp adresse, TelefonNrTyp telNr */) {
         this.kundenNr = "KundeID:" + UUID.randomUUID();
         this.vorname = vorname;
-        this.adresse = adresse;
-        this.telNr = telNr;
+        this.nachname = nachname;
+       // this.adresse = adresse;
+        //this.telNr = telNr;
     }
-
+/*
     public KundenTyp getKundenTyp() {
         return new KundenTyp(kundenNr, vorname, nachname, adresse, telNr);
     }
-
-    String getKundenNr() {
+*/
+    public String getKundenNr() {
         return kundenNr;
     }
 
-    void setKundenNr(String kundenNr) {
+    public void setKundenNr(String kundenNr) {
         this.kundenNr = kundenNr;
     }
 
-    String getvorName() {
+    public String getvorName() {
         return vorname;
     }
 
-    void setvorName(String vorname) {
+    public void setvorName(String vorname) {
         this.vorname = vorname;
     }
 
-    String getnachName() {
+    public String getnachName() {
         return nachname;
     }
 
-    void setnachName(String nachname) {
+    public void setnachName(String nachname) {
         this.nachname = nachname;
     }
-
-    AdresseTyp getAdresse() {
+/*
+    public AdresseTyp getAdresse() {
         return adresse;
     }
 
-    void setAdresse(AdresseTyp adresse) {
+    public void setAdresse(AdresseTyp adresse) {
         this.adresse = adresse;
     }
 
@@ -70,15 +78,15 @@ public class Kunde {
     public void setTelNr(TelefonNrTyp telNr) {
         this.telNr = telNr;
     }
-
+*/
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Kunde{");
         sb.append("kunden-Nummer='").append(kundenNr);
         sb.append(", Vorname='").append(vorname);
         sb.append(", Nachname='").append(nachname);
-        sb.append(", Adresse='").append(adresse);
-        sb.append(", Telefon-Nummer='").append(telNr);
+ //       sb.append(", Adresse='").append(adresse);
+ //       sb.append(", Telefon-Nummer='").append(telNr);
         sb.append('}');
         return sb.toString();
     }

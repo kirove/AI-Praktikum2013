@@ -4,10 +4,14 @@
  */
 package Lieferant;
 
-/**
- *
- * @author NED
- */
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Lieferant")
 public class Lieferant {
-    
+
+    @Id
+    private String lieferantenNr;
 }

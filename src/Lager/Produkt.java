@@ -5,14 +5,18 @@
 package Lager;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
- *
- * @author NED
- */
+@Entity
+@Table(name="produkt")
 public class Produkt {
-    private String name;
+    
+    @Id
     private String produktNr;
+
+    private String name;
     private int lagerBestand;
     
     private Produkt(){};

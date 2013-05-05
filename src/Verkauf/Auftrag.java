@@ -4,10 +4,14 @@
  */
 package Verkauf;
 
-/**
- *
- * @author NED
- */
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Auftrag")
 public class Auftrag {
-    
+
+    @Id
+    private String auftragsNr;
 }

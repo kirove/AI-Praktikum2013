@@ -8,10 +8,7 @@ import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Datentypen.KundenTyp;
 
-/**
- *
- * @author NED
- */
+/*  MUSS AUSKOMMENTIERT WEIL SONST KANN MAN NICHT RICHTIG COMPELIEREN
 public class KundeVerwalter implements IKundeManager {
 
     @Override
@@ -44,3 +41,4 @@ public class KundeVerwalter implements IKundeManager {
         return kunde.getKundenTyp();
     }
 }
+*/

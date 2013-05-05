@@ -1,8 +1,13 @@
+package Main;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+
+import Datentypen.AdresseTyp;
+import Datentypen.TelefonNrTyp;
+import Kunde.Kunde;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,9 +22,13 @@ public class HES {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        AdresseTyp adr = new AdresseTyp("Berliner Tor", 5, 20537, "Hamburg", "Germany");
+        TelefonNrTyp telNr = new TelefonNrTyp("040", 123456);     
+        Kunde k1 = new Kunde("hans", "peter");
+        saveOrUpdate(k1);  
     }
-    
+
     private static void saveOrUpdate(Object object) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -71,5 +80,4 @@ public class HES {
             }
         }
     }
-    
 }

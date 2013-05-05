@@ -4,7 +4,7 @@ package Kunde;
  *
  * @author NED
  */
-class TelefonNrTyp {
+public class TelefonNrTyp {
 
     private String vorwahl;
     private int nummer;
