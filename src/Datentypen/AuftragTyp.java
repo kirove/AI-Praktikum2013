@@ -11,23 +11,37 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class AuftragTyp implements Serializable{
+public class AuftragTyp implements Serializable {
+
+    private String auftragsNr;
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
-    
-    private AuftragTyp(){
-        
+
+    private AuftragTyp() {
     }
 
-    public AuftragTyp(AngebotTyp angebot) {
+    public AuftragTyp(String auftragsNr,AngebotTyp angebot,boolean isAbgeschlossen) {
+        this.auftragsNr = auftragsNr;
         this.angebot = angebot;
-        this.isAbgeschlossen = false;
+        this.isAbgeschlossen = isAbgeschlossen;
     }
 
+    
     public AngebotTyp getAngebot() {
         return angebot;
     }
 
+    public void setAngebot(AngebotTyp angebot) {
+        this.angebot = angebot;
+    }
+
+    public String getAuftragsNr() {
+        return auftragsNr;
+    }
+
+    public void setAuftragsNr(String auftragsNr) {
+        this.auftragsNr = auftragsNr;
+    }
 
     public boolean isIsAbgeschlossen() {
         return isAbgeschlossen;
@@ -67,7 +81,4 @@ public class AuftragTyp implements Serializable{
     public String toString() {
         return "AuftragTyp{" + "angebot=" + angebot + ", isAbgeschlossen=" + isAbgeschlossen + '}';
     }
-    
-    
-    
 }

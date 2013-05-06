@@ -8,26 +8,39 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
-
-
+import java.util.UUID;
 
 /**
  *
  * @author Barzgun
  */
-public class AngebotTyp implements Serializable{
+public class AngebotTyp implements Serializable {
+
+    private String angebotsNr;
     private KundenTyp kunde;
     private Date gueltigBis;
     private Map<ProduktTyp, Integer> produktListe;
     private double preis;
-    
-    private AngebotTyp(){};
 
-    public AngebotTyp(KundenTyp kunde, Date gueltigBis, Map<ProduktTyp, Integer> produktListe, double preis) {
+    private AngebotTyp() {
+    }
+
+    ;
+
+    public AngebotTyp(String angebotsNr, KundenTyp kunde, Date gueltigBis, Map<ProduktTyp, Integer> produktListe, double preis) {
+        this.angebotsNr = angebotsNr;
         this.kunde = kunde;
         this.gueltigBis = gueltigBis;
         this.produktListe = produktListe;
         this.preis = preis;
+    }
+
+    public String getAngebotsNr() {
+        return angebotsNr;
+    }
+
+    public void setAngebotsNr(String angebotsNr) {
+        this.angebotsNr = angebotsNr;
     }
 
     public KundenTyp getKunde() {
@@ -84,6 +97,4 @@ public class AngebotTyp implements Serializable{
     public String toString() {
         return "AngebotTyp{" + "kunde=" + kunde + ", gueltigBis=" + gueltigBis + ", produktListe=" + produktListe + ", preis=" + preis + '}';
     }
-    
-    
 }
