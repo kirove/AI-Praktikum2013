@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Datentypen;
+package Lager;
 
-import java.io.Serializable;
+import Datentypen.LieferantTyp;
+import Datentypen.OrderBuchTyp;
+import Datentypen.ProduktTyp;
 import java.util.Map;
 import java.util.Objects;
 
@@ -12,14 +14,20 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class OrderBuchTyp implements Serializable {
-
+public class OrderBuch {
     private Map<ProduktTyp, LieferantTyp> eintraege;
-
-    public OrderBuchTyp(Map<ProduktTyp, LieferantTyp> eintrag) {
-        this.eintraege = eintrag;
+    
+     public OrderBuch(){
+        
     }
 
+    public OrderBuch(Map<ProduktTyp, LieferantTyp> eintraege) {
+        this.eintraege = eintraege;
+    }
+
+     public OrderBuchTyp getTyp() {
+        return new OrderBuchTyp(eintraege);
+    }
     public Map<ProduktTyp, LieferantTyp> getEintraege() {
         return eintraege;
     }
@@ -30,8 +38,8 @@ public class OrderBuchTyp implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.eintraege);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.eintraege);
         return hash;
     }
 
@@ -43,7 +51,7 @@ public class OrderBuchTyp implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OrderBuchTyp other = (OrderBuchTyp) obj;
+        final OrderBuch other = (OrderBuch) obj;
         if (!Objects.equals(this.eintraege, other.eintraege)) {
             return false;
         }
@@ -52,6 +60,8 @@ public class OrderBuchTyp implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderBuchTyp{" + "eintraege=" + eintraege + '}';
+        return "OrderBuch{" + "eintraege=" + eintraege + '}';
     }
+     
+    
 }

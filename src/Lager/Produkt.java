@@ -4,6 +4,7 @@
  */
 package Lager;
 
+import Datentypen.ProduktTyp;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +26,10 @@ public class Produkt {
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
+    }
+    
+     public ProduktTyp getTyp() {
+        return new ProduktTyp(name,produktNr,lagerBestand);
     }
 
     public String getName() {

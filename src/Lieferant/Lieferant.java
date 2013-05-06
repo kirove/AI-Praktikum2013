@@ -5,6 +5,7 @@
 package Lieferant;
 
 import Datentypen.AdresseTyp;
+import Datentypen.LieferantTyp;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -28,6 +29,10 @@ public class Lieferant {
         this.lieferantenNr = "LieferantID: " + UUID.randomUUID();
         this.name = name;
         this.adresse = adresse;
+    }
+    
+     public LieferantTyp getTyp() {
+        return new LieferantTyp(lieferantenNr, name, adresse);
     }
 
     public String getLieferantenNr() {

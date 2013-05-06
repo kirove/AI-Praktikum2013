@@ -4,6 +4,7 @@
  */
 package Lager;
 
+import Datentypen.EinkaufsinfosatzTyp;
 import Datentypen.ProduktTyp;
 import java.util.Map;
 import java.util.Objects;
@@ -14,12 +15,16 @@ import java.util.Objects;
  */
 public class Einkaufsinfosatz {
     private Map<ProduktTyp,Integer> eintraege;
-    private Einkaufsinfosatz(){
+    public Einkaufsinfosatz(){
         
     }
 
     public Einkaufsinfosatz(Map<ProduktTyp, Integer> eintraege) {
         this.eintraege = eintraege;
+    }
+    
+     public EinkaufsinfosatzTyp getTyp() {
+        return new EinkaufsinfosatzTyp(eintraege);
     }
 
     public Map<ProduktTyp, Integer> getEintraege() {
