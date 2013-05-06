@@ -2,18 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lager;
+package Einkauf;
 
 import Datentypen.EinkaufsinfosatzTyp;
 import Datentypen.ProduktTyp;
 import java.util.Map;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Barzgun
  */
+@Entity
+@Table(name = "OrderBuch")
 public class Einkaufsinfosatz {
+    @Id
     private Map<ProduktTyp,Integer> eintraege;
     public Einkaufsinfosatz(){
         
