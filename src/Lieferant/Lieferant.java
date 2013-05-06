@@ -18,6 +18,7 @@ public class Lieferant {
 
     @Id
     private String lieferantenNr;
+    
     private String name;
     private AdresseTyp adresse;
     

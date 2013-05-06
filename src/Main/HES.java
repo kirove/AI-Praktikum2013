@@ -4,7 +4,6 @@ package Main;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Kunde.Kunde;
@@ -24,9 +23,9 @@ public class HES {
     public static void main(String[] args) {
 
         AdresseTyp adr = new AdresseTyp("Berliner Tor", 5, 20537, "Hamburg", "Germany");
-        TelefonNrTyp telNr = new TelefonNrTyp("040", 123456);     
-        Kunde k1 = new Kunde("hans", "peter");
-        saveOrUpdate(k1);  
+        TelefonNrTyp telNr = new TelefonNrTyp("040", 123456);
+        Kunde k1 = new Kunde("hans", "peter", adr, telNr);
+        saveOrUpdate(k1);
     }
 
     private static void saveOrUpdate(Object object) {

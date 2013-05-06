@@ -27,7 +27,7 @@ public class Kunde {
     public Kunde() {
     }
 
-    public Kunde(String vorname, String nachname /*, AdresseTyp adresse, TelefonNrTyp telNr */) {
+    public Kunde(String vorname, String nachname , AdresseTyp adresse, TelefonNrTyp telNr ) {
         this.kundenNr = "KundeID:" + UUID.randomUUID();
         this.vorname = vorname;
         this.nachname = nachname;
@@ -62,7 +62,7 @@ public class Kunde {
     public void setnachName(String nachname) {
         this.nachname = nachname;
     }
-/*
+
     public AdresseTyp getAdresse() {
         return adresse;
     }
@@ -78,15 +78,15 @@ public class Kunde {
     public void setTelNr(TelefonNrTyp telNr) {
         this.telNr = telNr;
     }
-*/
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Kunde{");
         sb.append("kunden-Nummer='").append(kundenNr);
         sb.append(", Vorname='").append(vorname);
         sb.append(", Nachname='").append(nachname);
- //       sb.append(", Adresse='").append(adresse);
- //       sb.append(", Telefon-Nummer='").append(telNr);
+        sb.append(", Adresse='").append(adresse);
+        sb.append(", Telefon-Nummer='").append(telNr);
         sb.append('}');
         return sb.toString();
     }
