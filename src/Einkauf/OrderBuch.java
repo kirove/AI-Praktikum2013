@@ -7,6 +7,7 @@ package Einkauf;
 import Datentypen.LieferantTyp;
 import Datentypen.OrderBuchTyp;
 import Datentypen.ProduktTyp;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -22,6 +23,8 @@ import javax.persistence.Table;
 public class OrderBuch {
     @Id
     private Map<ProduktTyp, LieferantTyp> eintraege;
+//    private List<ProduktTyp> produkte;
+//    private List<LieferantTyp> lieferante;
     
      public OrderBuch(){
         

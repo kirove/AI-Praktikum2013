@@ -12,17 +12,27 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class BestellungTyp implements Serializable{
+public class BestellungTyp implements Serializable {
+
+    private String bestellungsNr;
     private Map<ProduktTyp, Integer> produktListe;
     private LieferantTyp lieferant;
-    
-    private BestellungTyp(){
-        
+
+    private BestellungTyp() {
     }
 
-    public BestellungTyp(Map<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
+    public BestellungTyp(String bestellungsNr, Map<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
         this.produktListe = produktListe;
         this.lieferant = lieferant;
+        this.bestellungsNr = bestellungsNr;
+    }
+
+    public String getBestellungsNr() {
+        return bestellungsNr;
+    }
+
+    public void setBestellungsNr(String bestellungsNr) {
+        this.bestellungsNr = bestellungsNr;
     }
 
     public Map<ProduktTyp, Integer> getProduktListe() {
@@ -69,8 +79,6 @@ public class BestellungTyp implements Serializable{
 
     @Override
     public String toString() {
-        return "BestellungTyp{" + "produktListe=" + produktListe + ", lieferant=" + lieferant + '}';
+        return "BestellungTyp{" + "bestellungsNr=" + bestellungsNr + "produktListe=" + produktListe + ", lieferant=" + lieferant + '}';
     }
-    
-    
 }

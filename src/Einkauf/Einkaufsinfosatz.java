@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author Barzgun
  */
 @Entity
-@Table(name = "OrderBuch")
+@Table(name = "Einkaufsinfosatz")
 public class Einkaufsinfosatz {
     @Id
     private Map<ProduktTyp,Integer> eintraege;
