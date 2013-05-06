@@ -4,10 +4,19 @@
  */
 package Lieferant;
 
+import Datentypen.LieferantTyp;
+import Datentypen.OrderBuchTyp;
+
 /**
  *
  * @author NED
  */
-public class LieferantManager {
+public class LieferantManager implements ILieferant{
+
+    @Override
+    public LieferantTyp getLieferant(OrderBuchTyp orderBuch) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
     
 }

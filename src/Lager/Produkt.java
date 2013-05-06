@@ -19,7 +19,7 @@ public class Produkt {
     private String name;
     private int lagerBestand;
     
-    private Produkt(){};
+    public Produkt(){};
 
     public Produkt(String name, String produktNr, int lagerBestand) {
         this.name = name;

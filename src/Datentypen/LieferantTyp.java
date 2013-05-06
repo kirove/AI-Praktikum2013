@@ -4,14 +4,15 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Barzgun
  */
-public class LieferantTyp {
-    private int nummer;
+public class LieferantTyp implements Serializable{
+    private String nummer;
     private String name;
     private AdresseTyp adresse;
     
@@ -19,13 +20,13 @@ public class LieferantTyp {
         
     }
 
-    public LieferantTyp(int nummer, String name, AdresseTyp adresse) {
+    public LieferantTyp(String nummer, String name, AdresseTyp adresse) {
         this.nummer = nummer;
         this.name = name;
         this.adresse = adresse;
     }
 
-    public int getNummer() {
+    public String getNummer() {
         return nummer;
     }
 
@@ -48,7 +49,7 @@ public class LieferantTyp {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + this.nummer;
+        hash = 29 * hash + Objects.hashCode(this.nummer);
         hash = 29 * hash + Objects.hashCode(this.name);
         hash = 29 * hash + Objects.hashCode(this.adresse);
         return hash;

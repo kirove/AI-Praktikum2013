@@ -4,11 +4,13 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
+
 /**
  *
  * @author NED
  */
-public class AdresseTyp {
+public class AdresseTyp implements Serializable{
 
     private String strasse;
     private int hausNr;

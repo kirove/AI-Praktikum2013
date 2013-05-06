@@ -4,6 +4,7 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class AngebotTyp {
+public class AngebotTyp implements Serializable{
     private KundenTyp kunde;
     private Date gueltigBis;
     private Map<ProduktTyp, Integer> produktListe;

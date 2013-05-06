@@ -1,10 +1,12 @@
 package Datentypen;
 
+import java.io.Serializable;
+
 /**
  *
  * @author NED
  */
-public class TelefonNrTyp {
+public class TelefonNrTyp implements Serializable{
 
     private String vorwahl;
     private int nummer;

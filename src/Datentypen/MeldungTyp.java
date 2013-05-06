@@ -4,10 +4,12 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Barzgun
  */
-public class MeldungTyp {
+public class MeldungTyp implements Serializable{
     
 }

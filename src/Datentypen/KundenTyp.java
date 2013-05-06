@@ -1,10 +1,12 @@
 package Datentypen;
 
+import java.io.Serializable;
+
 /**
  *
  * @author NED
  */
-public class KundenTyp {
+public class KundenTyp implements Serializable{
 
     private String kundenNr;
     private String vorname;

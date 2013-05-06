@@ -4,13 +4,14 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Barzgun
  */
-public class ProduktTyp {
+public class ProduktTyp implements Serializable{
 
     private String name;
     private String produktNr;

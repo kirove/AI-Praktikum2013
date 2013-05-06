@@ -21,8 +21,8 @@ public class Kunde {
     
     private String vorname;
     private String nachname;
-    //private AdresseTyp adresse;
-    //private TelefonNrTyp telNr;
+    private AdresseTyp adresse;
+    private TelefonNrTyp telNr;
 
     public Kunde() {
     }
@@ -31,14 +31,14 @@ public class Kunde {
         this.kundenNr = "KundeID:" + UUID.randomUUID();
         this.vorname = vorname;
         this.nachname = nachname;
-       // this.adresse = adresse;
-        //this.telNr = telNr;
+        this.adresse = adresse;
+        this.telNr = telNr;
     }
-/*
+
     public KundenTyp getKundenTyp() {
         return new KundenTyp(kundenNr, vorname, nachname, adresse, telNr);
     }
-*/
+
     public String getKundenNr() {
         return kundenNr;
     }

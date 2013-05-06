@@ -4,6 +4,7 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class BestellungTyp {
+public class BestellungTyp implements Serializable{
     private Map<ProduktTyp, Integer> produktListe;
     private LieferantTyp lieferant;
     

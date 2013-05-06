@@ -4,13 +4,14 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Barzgun
  */
-public class AuftragTyp {
+public class AuftragTyp implements Serializable{
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
     
