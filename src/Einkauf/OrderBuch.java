@@ -7,12 +7,11 @@ package Einkauf;
 import Datentypen.LieferantTyp;
 import Datentypen.OrderBuchTyp;
 import Datentypen.ProduktTyp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -22,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "OrderBuch")
 public class OrderBuch {
     @Id
-    private Map<ProduktTyp, LieferantTyp> eintraege;
+    private HashMap<ProduktTyp, LieferantTyp> eintraege;
 //    private List<ProduktTyp> produkte;
 //    private List<LieferantTyp> lieferante;
     
@@ -30,7 +29,7 @@ public class OrderBuch {
         
     }
 
-    public OrderBuch(Map<ProduktTyp, LieferantTyp> eintraege) {
+    public OrderBuch(HashMap<ProduktTyp, LieferantTyp> eintraege) {
         this.eintraege = eintraege;
     }
 
@@ -41,7 +40,7 @@ public class OrderBuch {
         return eintraege;
     }
 
-    public void setEintraege(Map<ProduktTyp, LieferantTyp> eintraege) {
+    public void setEintraege(HashMap<ProduktTyp, LieferantTyp> eintraege) {
         this.eintraege = eintraege;
     }
 

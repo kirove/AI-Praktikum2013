@@ -7,23 +7,32 @@ package Rechnung;
 import Datentypen.ZahlungseingangTyp;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
-/**
- *
- * @author Barzgun
- */
+@Entity
+@Table(name = "Zahlungseingang")
 public class Zahlungseingang {
     
+    @Id
+    private int id;
+    
+    @OneToOne
     private Rechnung rechnung;
     private Date datum;
     private double betrag;
-    private int id;
 
-    public Zahlungseingang(Rechnung rechnung, Date datum, double betrag, int id) {
+    public Zahlungseingang() {
+    }
+
+    public Zahlungseingang(int id, Rechnung rechnung, Date datum, double betrag) {
+        this.id = id;
         this.rechnung = rechnung;
         this.datum = datum;
         this.betrag = betrag;
-        this.id = id;
     }
     
     public ZahlungseingangTyp getTp(){

@@ -6,26 +6,23 @@ package Einkauf;
 
 import Datentypen.EinkaufsinfosatzTyp;
 import Datentypen.ProduktTyp;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author Barzgun
- */
 @Entity
 @Table(name = "Einkaufsinfosatz")
 public class Einkaufsinfosatz {
+    
     @Id
-    private Map<ProduktTyp,Integer> eintraege;
+    private HashMap<ProduktTyp,Integer> eintraege;
+    
     public Einkaufsinfosatz(){
         
     }
 
-    public Einkaufsinfosatz(Map<ProduktTyp, Integer> eintraege) {
+    public Einkaufsinfosatz(HashMap<ProduktTyp, Integer> eintraege) {
         this.eintraege = eintraege;
     }
     
@@ -37,7 +34,7 @@ public class Einkaufsinfosatz {
         return eintraege;
     }
 
-    public void setEintraege(Map<ProduktTyp, Integer> eintraege) {
+    public void setEintraege(HashMap<ProduktTyp, Integer> eintraege) {
         this.eintraege = eintraege;
     }
 

@@ -12,26 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 
-//@Entity
-//@Table(name = "Angebot")
+@Entity
+@Table(name = "Angebot")
 public class Angebot {
 
-   //  @Id
+    @Id
     private String angebotsNr;
+    
     private KundenTyp kunde;
     private Date gueltigBis;
-    private Map<ProduktTyp, Integer> produktListe;
+    private HashMap<ProduktTyp, Integer> produktListe;
     private double preis;
 
     public Angebot() {
     }
 
-    public Angebot(KundenTyp kunde, Date gueltigBis, Map<ProduktTyp, Integer> produktListe, double preis) {
+    public Angebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe, double preis) {
         this.angebotsNr = "AngebotsNr:" + UUID.randomUUID();
         this.kunde = kunde;
         this.gueltigBis = gueltigBis;
@@ -67,11 +65,11 @@ public class Angebot {
         this.gueltigBis = gueltigBis;
     }
 
-    public Map<ProduktTyp, Integer> getProduktListe() {
+    public HashMap<ProduktTyp, Integer> getProduktListe() {
         return produktListe;
     }
 
-    public void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    public void setProduktListe(HashMap<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 

@@ -18,6 +18,8 @@
     <mapping class="Lieferant.Lieferant"/>
     <mapping class="Verkauf.Angebot"/>
     <mapping class="Verkauf.Auftrag"/>
+    <mapping class="Rechnung.Zahlungseingang"/>
+    <mapping class="Rechnung.Rechnung"/>
     <mapping class="Einkauf.Einkaufsinfosatz"/>
   </session-factory>
 </hibernate-configuration>

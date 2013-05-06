@@ -7,6 +7,7 @@ package Einkauf;
 import Datentypen.BestellungTyp;
 import Datentypen.LieferantTyp;
 import Datentypen.ProduktTyp;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -19,14 +20,14 @@ public class Bestellung {
 
     @Id
     private String bestellungsNr;
-    @Id
-    private Map<ProduktTyp, Integer> produktListe;
+    
+    private HashMap<ProduktTyp, Integer> produktListe;
     private LieferantTyp lieferant;
 
     public Bestellung() {
     }
 
-    public Bestellung(String bestellungsNr, Map<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
+    public Bestellung(String bestellungsNr, HashMap<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
         this.bestellungsNr = bestellungsNr;
         this.produktListe = produktListe;
         this.lieferant = lieferant;
@@ -48,7 +49,7 @@ public class Bestellung {
         return produktListe;
     }
 
-    public void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    public void setProduktListe(HashMap<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 

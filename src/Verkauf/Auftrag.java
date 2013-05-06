@@ -11,12 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "Auftrag")
+@Entity
+@Table(name = "Auftrag")
 public class Auftrag {
 
-    // @Id
+    @Id
     private String auftragsNr;
+     
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
 

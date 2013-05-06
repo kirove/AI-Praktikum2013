@@ -8,17 +8,21 @@ import Datentypen.RechnungTyp;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
 
-/**
- *
- * @author Barzgun
- */
+@Entity
+@Table(name = "Rechnung")
 public class Rechnung {
 
+    @Id
     private int id;
+    
     private boolean isBezahlt;
     private double betrag;
     private Date datum;
+
+    public Rechnung() {
+    }
 
     public Rechnung(int id, boolean isBezahlt, double betrag, Date datum) {
         this.id = id;
