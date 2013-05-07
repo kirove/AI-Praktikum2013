@@ -43,7 +43,7 @@ public class LagerEvents implements ILagerEvents {
 
     @Override
     public void triggerWareneingang(ProduktTyp produkt, int produktMenge) {
-        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() + produktMenge));
+        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() + produktMenge),produkt.getPreis());
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(produktNeu);
@@ -52,7 +52,7 @@ public class LagerEvents implements ILagerEvents {
 
     @Override
     public void triggerWarenAusgang(ProduktTyp produkt, int produktMenge) {
-        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() - produktMenge));
+        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() - produktMenge),produkt.getPreis());
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(produktNeu);
@@ -87,7 +87,7 @@ public class LagerEvents implements ILagerEvents {
     public void produktReservieren(AngebotTyp angebot) {
         for (Map.Entry<ProduktTyp, Integer> pr : angebot.getProduktListe().entrySet()) {
             ProduktTyp produktTyp = pr.getKey();
-            Produkt produkt = new Produkt(produktTyp.getName(), produktTyp.getProduktNr(), produktTyp.getLagerBestand());
+            Produkt produkt = new Produkt(produktTyp.getName(), produktTyp.getProduktNr(), produktTyp.getLagerBestand(),produktTyp.getPreis());
             produkt.setReserviert();
             int lagerBestand = produkt.getLagerBestand();
             int lagerBestandNeu = lagerBestand - pr.getValue();

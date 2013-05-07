@@ -29,7 +29,7 @@ public class RechnungTyp {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public class RechnungTyp {
         return isBezahlt;
     }
 
-    public void setIsBezahlt(boolean isBezahlt) {
+    private void setIsBezahlt(boolean isBezahlt) {
         this.isBezahlt = isBezahlt;
     }
 
@@ -45,7 +45,7 @@ public class RechnungTyp {
         return betrag;
     }
 
-    public void setBetrag(double betrag) {
+    private void setBetrag(double betrag) {
         this.betrag = betrag;
     }
 
@@ -53,7 +53,7 @@ public class RechnungTyp {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    private void setDatum(Date datum) {
         this.datum = datum;
     }
 

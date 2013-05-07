@@ -29,7 +29,7 @@ public class ZahlungseingangTyp {
         return rechnung;
     }
 
-    public void setRechnung(Rechnung rechnung) {
+    private void setRechnung(Rechnung rechnung) {
         this.rechnung = rechnung;
     }
 
@@ -37,7 +37,7 @@ public class ZahlungseingangTyp {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    private void setDatum(Date datum) {
         this.datum = datum;
     }
 
@@ -45,7 +45,7 @@ public class ZahlungseingangTyp {
         return betrag;
     }
 
-    public void setBetrag(double betrag) {
+    private void setBetrag(double betrag) {
         this.betrag = betrag;
     }
 
@@ -53,7 +53,7 @@ public class ZahlungseingangTyp {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 

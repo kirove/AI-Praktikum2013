@@ -31,7 +31,7 @@ public class BestellungTyp implements Serializable {
         return bestellungsNr;
     }
 
-    public void setBestellungsNr(String bestellungsNr) {
+    private void setBestellungsNr(String bestellungsNr) {
         this.bestellungsNr = bestellungsNr;
     }
 
@@ -39,7 +39,7 @@ public class BestellungTyp implements Serializable {
         return produktListe;
     }
 
-    public void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    private void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 
@@ -47,7 +47,7 @@ public class BestellungTyp implements Serializable {
         return lieferant;
     }
 
-    public void setLieferant(LieferantTyp lieferant) {
+    private void setLieferant(LieferantTyp lieferant) {
         this.lieferant = lieferant;
     }
 

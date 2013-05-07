@@ -20,7 +20,7 @@ public class TelefonNrTyp implements Serializable{
         return vorwahl;
     }
 
-    public void setVorwahl(String vorwahl) {
+    private void setVorwahl(String vorwahl) {
         this.vorwahl = vorwahl;
     }
 
@@ -28,7 +28,7 @@ public class TelefonNrTyp implements Serializable{
         return nummer;
     }
 
-    public void setNummer(int nummer) {
+    private void setNummer(int nummer) {
         this.nummer = nummer;
     }
 

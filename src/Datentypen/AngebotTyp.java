@@ -39,7 +39,7 @@ public class AngebotTyp implements Serializable {
         return angebotsNr;
     }
 
-    public void setAngebotsNr(String angebotsNr) {
+    private void setAngebotsNr(String angebotsNr) {
         this.angebotsNr = angebotsNr;
     }
 

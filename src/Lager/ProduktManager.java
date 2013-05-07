@@ -15,8 +15,8 @@ import org.hibernate.Session;
 public class ProduktManager implements IProduktManager{
 
     @Override
-    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand) {
-        Produkt produkt = new Produkt(name, produktNr, lagerBestand);
+    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand, double preis) {
+        Produkt produkt = new Produkt(name, produktNr, lagerBestand,preis);
         
         Session session = HibernateUtil.getSession();
         session.beginTransaction();

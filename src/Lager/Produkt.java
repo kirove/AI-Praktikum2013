@@ -19,21 +19,31 @@ public class Produkt {
     private String name;
     private int lagerBestand;
     private boolean isReserviert;
+    private double preis;
 
     public Produkt() {
     }
 
     ;
 
-    public Produkt(String name, String produktNr, int lagerBestand) {
+    public Produkt(String name, String produktNr, int lagerBestand, double preis) {
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
         this.isReserviert = false;
+        this.preis = preis;
     }
 
     public ProduktTyp getTyp() {
-        return new ProduktTyp(name, produktNr, lagerBestand);
+        return new ProduktTyp(name, produktNr, lagerBestand, preis);
+    }
+
+    public double getPreis() {
+        return preis;
+    }
+
+    public void setPreis(double preis) {
+        this.preis = preis;
     }
 
     public String getName() {

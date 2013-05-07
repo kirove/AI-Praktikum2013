@@ -27,7 +27,7 @@ public class EinkaufsinfosatzTyp implements Serializable{
         return eintraege;
     }
 
-    public void setEintraege(Map<ProduktTyp, Integer> eintraege) {
+    private void setEintraege(Map<ProduktTyp, Integer> eintraege) {
         this.eintraege = eintraege;
     }
 

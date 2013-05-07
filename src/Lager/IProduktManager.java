@@ -11,7 +11,7 @@ import Datentypen.ProduktTyp;
  * @author NED
  */
 public interface IProduktManager extends ILagerManager{
-    public ProduktTyp erstelleProdukt(String name,String produktNr,int lagerBestand);
+    public ProduktTyp erstelleProdukt(String name,String produktNr,int lagerBestand, double preis);
     public ProduktTyp fordereProduktInformationen(int produktNummer);
     
     

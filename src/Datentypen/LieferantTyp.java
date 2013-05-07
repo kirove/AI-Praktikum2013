@@ -42,7 +42,7 @@ public class LieferantTyp implements Serializable{
         return adresse;
     }
 
-    public void setAdresse(AdresseTyp adresse) {
+    private void setAdresse(AdresseTyp adresse) {
         this.adresse = adresse;
     }
 
