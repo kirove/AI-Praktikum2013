@@ -6,8 +6,8 @@ package Lager;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
-public class ProduktVerwalter {
+public interface ILager {
     
 }

@@ -3,6 +3,7 @@ package Verkauf;
 import java.util.*;
 import Lager.IProdukt;
 import Kunde.IKunde;
+import Lager.ILager;
 
 /**
  *
@@ -16,7 +17,7 @@ public interface IVerkauf {
     
     public IKunde erstelleKunde(String vorName, String nachName, String adresse);
 
-    public IProduckt fordereProduktInformationen(int produktNummer);
+    public ILager fordereProduktInformationen(int produktNummer);
 
     public IAngebot erstelleAngebot (String kundenName, Date gueltigBis, Map<String, Integer> produktListe);
 

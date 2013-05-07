@@ -18,7 +18,7 @@ import Verkauf.*;
  *
  * @author NED
  */
-public interface ILagerEvents {
+public interface ILagerEvents extends ILager{
 
     public List<ProduktTyp> getProduktList();
 

@@ -8,7 +8,7 @@ import Datentypen.KundenTyp;
  *
  * @author NED
  */
-public interface IKundeManager {
+public interface IKundeManager extends IKunde{
 
     public KundenTyp erstelleKunde(KundenTyp kunde);
 

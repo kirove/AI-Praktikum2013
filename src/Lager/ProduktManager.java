@@ -4,6 +4,7 @@
  */
 package Lager;
 
+import Datentypen.ProduktTyp;
 import Main.HibernateUtil;
 import org.hibernate.Session;
 
@@ -14,14 +15,20 @@ import org.hibernate.Session;
 public class ProduktManager implements IProduktManager{
 
     @Override
-    public Produkt erstelleProdukt(String name, String produktNr, int lagerBestand) {
+    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand) {
         Produkt produkt = new Produkt(name, produktNr, lagerBestand);
         
         Session session = (Session) HibernateUtil.getSessionFactory();
         session.beginTransaction();
         session.save(produkt);
         session.getTransaction().commit();
-        return produkt;
+        return produkt.getTyp();
+    }
+
+    @Override
+    public ProduktTyp fordereProduktInformationen(int produktNummer) {
+        
+        return null;
     }
     
 }
