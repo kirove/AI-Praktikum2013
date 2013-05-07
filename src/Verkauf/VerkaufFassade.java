@@ -3,6 +3,7 @@ package Verkauf;
 
 import Datentypen.*;
 import Kunde.IKundeManager;
+import Lager.ILager;
 
 import Lieferant.ILieferantManager;
 

@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -31,7 +31,7 @@ public class LagerEvents implements ILagerEvents {
         boolean ausreichend = false;
         for (Map.Entry<ProduktTyp, Integer> entry : angebot.getProduktListe().entrySet()) {
             if (!(entry.getKey().getLagerBestand() - entry.getValue() >= 0)) {
-                ausreichend = false;
+                return false;
             } else {
                 ausreichend = true;
             }
