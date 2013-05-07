@@ -8,6 +8,6 @@ package Lager;
  *
  * @author Barzgun
  */
-public interface ILager {
+public interface ILagerManager {
     
 }
