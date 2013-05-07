@@ -2,16 +2,19 @@ package Verkauf;
 
 import Datentypen.*;
 import Kunde.IKundeFassade;
+import Kunde.KundenLogic;
 
 import Lieferant.ILieferantManager;
 
-import Rechnung.IRechnungManager;
+import Rechnung.IRechnungFassade;
 
 import Lager.ILagerFassade;
-import Lager.ILagerManager;
+import Lager.LagerLogic;
 
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +26,14 @@ public class VerkaufFassade implements IVerkauf {
     private ILagerFassade LF;
     private IAuftragManager AufM;
     private IAngebotManager AngM;
+    private IRechnungFassade RF;
+
+    public VerkaufFassade() {
+        this.KM = new KundenLogic();
+        this.LF = new LagerLogic();
+        this.AngM = new AngebotLogic();
+        this.AufM = new AuftragLogic();
+    }
 
     @Override
     public KundenTyp getKunde(String kundeNr) {
@@ -72,5 +83,22 @@ public class VerkaufFassade implements IVerkauf {
     @Override
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) {
         return AufM.sucheAuftragePerNr(auftragNr);
+    }
+    
+    
+    public void markiereBezahlteAuftraege() {
+        List<AuftragTyp> nichtAbgeschlosseneAuftraege =  AufM.getNichtAbgeschlosseneAuftraege();
+        for (int i = 0; i <nichtAbgeschlosseneAuftraege.size() ; i++){
+            try {
+                RechnungTyp rechnung = this.RF.getRechnungPerAuftragNr(nichtAbgeschlosseneAuftraege.get(i).getAuftragsNr());
+                
+                if (rechnung.IsBezahlt()){
+                    this.AufM.schliesseAuftrag(nichtAbgeschlosseneAuftraege.get(i));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }

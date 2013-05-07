@@ -17,7 +17,9 @@ public interface IAuftragManager {
 
     public AuftragTyp sucheAuftragePerNr(String auftragNr);
 
-    public AuftragTyp schliesseAuftrag(Auftrag auftrag);
+    public AuftragTyp schliesseAuftrag(AuftragTyp auftrag);
 
     public AuftragTyp erstelleAuftrag(AngebotTyp angebot);
+
+    public List<AuftragTyp> getNichtAbgeschlosseneAuftraege();
 }

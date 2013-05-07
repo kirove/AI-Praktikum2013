@@ -14,9 +14,10 @@ import java.util.List;
  * @author NED
  */
 public class RechnungRepository {
+
     private Exception SQLException;
 
-    public Rechnung createRechnung(int betrag, String auftragNr, Date date, String KundenNr) {
+    public Rechnung createRechnung(double betrag, String auftragNr, Date date, String KundenNr) {
         Rechnung newRechnung = new Rechnung(betrag, auftragNr, date, KundenNr);
 
         //save in datenBank
@@ -31,9 +32,11 @@ public class RechnungRepository {
 
     Rechnung getRechnung(String rechnungsNr) throws Exception {
         //get from DB
-        Rechnung rechnung = null ;
-        if (rechnung == null)
+        Rechnung rechnung = null;
+        if (rechnung == null) {
             throw SQLException;
+        }
         return rechnung;
     }
+
 }

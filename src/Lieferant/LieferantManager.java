@@ -9,7 +9,7 @@ import Datentypen.OrderBuchTyp;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
 public class LieferantManager implements ILieferant{
 

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import Lager.ILagerFassade;
+import Lager.LagerLogic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,11 @@ public class AngebotLogic implements IAngebotManager {
 
     private ILagerFassade LF;
     private AngebotRepository AR;
+
+    public AngebotLogic() {
+        this.AR = new AngebotRepository();
+        this.LF = new LagerLogic();
+    }
 
     @Override
     public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) {
