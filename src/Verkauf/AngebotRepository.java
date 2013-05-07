@@ -23,11 +23,13 @@ public class AngebotRepository {
     }
 
     public List<Angebot> getAngebote(String kundenName) {
+        List<Angebot> angebotListe = null;
         //get alle Angebot anhand KundenName
        return angebotListe;
     }
 
     public Angebot getAngebot(String angebotNr) {
+        Angebot angebot = null;
         // get angebot from DatenBank anhand KundenNr
          return angebot;
     }

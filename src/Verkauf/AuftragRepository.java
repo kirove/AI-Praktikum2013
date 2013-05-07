@@ -1,7 +1,6 @@
-
 package Verkauf;
 
-import Datentypen.AuftragTyp;
+import Datentypen.AngebotTyp;
 import java.util.List;
 
 /**
@@ -10,24 +9,28 @@ import java.util.List;
  */
 public class AuftragRepository {
 
-    public createAuftrag(AngebotTyp angebot, s){
-        
+    public Auftrag createAuftrag(AngebotTyp angebot) {
+
         Auftrag newAuftrag = new Auftrag();
+
+        return newAuftrag;
     }
-    
+
     public Auftrag getAuftragPerNr(String auftragNr) {
-       //get Auftrag anhand auftragNr
+        Auftrag auftrag = null;
+        //get Auftrag anhand auftragNr
         return auftrag;
     }
 
     public List<Auftrag> getAuftrage(String kundenName) {
+        List<Auftrag> auftraegeListe = null;
         //get aufträge Liste anhand KundenName
-        return auftraegeListe
+        return auftraegeListe;
     }
 
     public Auftrag updateAuftrag(Auftrag auftrag) {
+
         // update auftrag
         return auftrag;
     }
-    
 }
