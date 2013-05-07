@@ -4,9 +4,11 @@ package Verkauf;
 import Datentypen.AngebotTyp;
 import Datentypen.KundenTyp;
 import Datentypen.ProduktTyp;
+import Main.HibernateUtil;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import org.hibernate.Session;
 
 
 /**
@@ -18,7 +20,11 @@ public class AngebotRepository {
     public Angebot erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe, Double gesamtKosten){
         Angebot angebot = new Angebot(kunde, gueltigBis, produktListe,gesamtKosten);
         
-        // save in DatenBank Todo
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.save(angebot);
+        session.getTransaction().commit();
+        
         return angebot;
     }
 

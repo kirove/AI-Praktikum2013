@@ -19,6 +19,10 @@ import Lager.LagerLogic;
 import Lager.Produkt;
 import Lieferant.Lieferant;
 import Transport.TransportRepository;
+import Verkauf.AngebotLogic;
+import Verkauf.AuftragLogic;
+import Verkauf.IAngebotManager;
+import Verkauf.IAuftragManager;
 import Verkauf.IVerkauf;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +53,7 @@ public class HES {
         ProduktTyp produktT = new ProduktTyp("Laptop", "345", 9999, 1200);
         HashMap<ProduktTyp, Integer> produktListe= new HashMap<ProduktTyp, Integer>();
         produktListe.put(produktT, 1);
-        Date datum = new Date(2013,5,8);
+        Date datum = new Date((long) 20000);
         KundenTyp kundenT = new KundenTyp("12-3", "Sohrab", "Duck", adr1, telNr);
         AngebotTyp angebotT = new AngebotTyp("222", kundenT, datum, produktListe, 1500.00);
         AuftragTyp auftragT = new AuftragTyp("2-3", angebotT, false, datum);
@@ -66,61 +70,21 @@ public class HES {
         //Produkt erstellen
         ILagerFassade lf= new LagerLogic();
         lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
+        lf.erstelleProdukt("Macbook", "234-r", 999, 1700);
+        lf.erstelleProdukt("ALDI-PC", "238-w", 999, 700);
+        
         //Lieferung erstellen
-        //TransportRepository.erstelleLieferung(auftragT);
+     //   TransportRepository.erstelleLieferung(auftragT);
+        
+        //Angebot erstellen
+        IAngebotManager am1= new AngebotLogic();
+        am1.erstelleAngebot(kundenT, datum, produktListe);
+        
+        //Auftrag erstellen
+        IAuftragManager am2= new AuftragLogic();
+        //am2.erstelleAuftrag(angebotT);
+        
 
         session.close();
-    }
-
-    private static void saveOrUpdate(Object object) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-
-        try {
-            transaction = session.beginTransaction();
-
-            session.saveOrUpdate(object);
-            // Committing the change in the database.
-            session.flush();
-            transaction.commit();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-            // Rolling back the changes to make the data consistent in case of any failure
-            // in between multiple database write operations.
-            transaction.rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
-    private static void delete(Object object) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Transaction transaction = null;
-
-        try {
-
-            transaction = session.beginTransaction();
-
-            session.delete(object);
-            // Committing the change in the database.
-            session.flush();
-            transaction.commit();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-            // Rolling back the changes to make the data consistent in case of any failure
-            // in between multiple database write operations.
-            transaction.rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
     }
 }

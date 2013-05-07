@@ -1,7 +1,9 @@
 package Verkauf;
 
 import Datentypen.AngebotTyp;
+import Main.HibernateUtil;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -11,7 +13,12 @@ public class AuftragRepository {
 
     public Auftrag createAuftrag(AngebotTyp angebot) {
 
-        Auftrag newAuftrag = new Auftrag();
+        Auftrag newAuftrag = new Auftrag(angebot);
+        
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.save(newAuftrag);
+        session.getTransaction().commit();
 
         return newAuftrag;
     }

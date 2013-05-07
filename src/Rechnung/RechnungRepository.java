@@ -6,8 +6,10 @@ package Rechnung;
 
 import Datentypen.RechnungTyp;
 import Exceptions.SQLException;
+import Main.HibernateUtil;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,8 +21,12 @@ public class RechnungRepository {
 
     public Rechnung createRechnung(double betrag, String auftragNr, Date date, String KundenNr) {
         Rechnung newRechnung = new Rechnung(betrag, auftragNr, date, KundenNr);
-
-        //save in datenBank
+        
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.save(newRechnung);
+        session.getTransaction().commit();
+        
         return newRechnung;
     }
 
