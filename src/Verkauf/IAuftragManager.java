@@ -4,6 +4,7 @@
  */
 package Verkauf;
 
+import Datentypen.*;
 import java.util.List;
 
 /**
@@ -11,9 +12,12 @@ import java.util.List;
  * @author NED
  */
 public interface IAuftragManager {
-     public List<Auftrag> sucheAuftrage(String kundenName);
 
-    public Auftrag schliesseAuftrag(Auftrag auftrag);
-    
-    public Auftrag erstelleAuftrag(Angebot angebot);
+    public List<AuftragTyp> sucheAuftrage(String kundenName);
+
+    public AuftragTyp sucheAuftragePerNr(String auftragNr);
+
+    public AuftragTyp schliesseAuftrag(Auftrag auftrag);
+
+    public AuftragTyp erstelleAuftrag(AngebotTyp angebot);
 }

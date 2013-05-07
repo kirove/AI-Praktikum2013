@@ -7,11 +7,7 @@ package Verkauf;
 import Datentypen.AngebotTyp;
 import Datentypen.KundenTyp;
 import Datentypen.ProduktTyp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import javax.persistence.*;
 
 @Entity

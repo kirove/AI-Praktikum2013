@@ -11,56 +11,48 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class RechnungTyp {
+public class RechnungTyp2 {
 
-    private int id;
+    private String id;
     private boolean isBezahlt;
     private double betrag;
     private Date datum;
+    private String auftragNr;
+    private String kundeNr;
 
-    public RechnungTyp(int id, boolean isBezahlt, double betrag, Date datum) {
+    public RechnungTyp2(String id, boolean isBezahlt, double betrag, Date datum, String auftragNr, String kundeNr) {
         this.id = id;
         this.isBezahlt = isBezahlt;
         this.betrag = betrag;
         this.datum = datum;
+        this.auftragNr = auftragNr;
+        this.kundeNr = kundeNr;
     }
 
-    public int getId() {
+    public String getKundenNr() {
+        return this.kundeNr;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isIsBezahlt() {
+    public boolean IsBezahlt() {
         return isBezahlt;
-    }
-
-    public void setIsBezahlt(boolean isBezahlt) {
-        this.isBezahlt = isBezahlt;
     }
 
     public double getBetrag() {
         return betrag;
     }
 
-    public void setBetrag(double betrag) {
-        this.betrag = betrag;
-    }
-
     public Date getDatum() {
         return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + this.id;
+        hash = 47 * hash + this.id.hashCode();
         hash = 47 * hash + (this.isBezahlt ? 1 : 0);
         hash = 47 * hash + (int) (Double.doubleToLongBits(this.betrag) ^ (Double.doubleToLongBits(this.betrag) >>> 32));
         hash = 47 * hash + Objects.hashCode(this.datum);
@@ -75,8 +67,8 @@ public class RechnungTyp {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Datentypen.RechnungTyp other = (Datentypen.RechnungTyp) obj;
-        if (this.id != other.id) {
+        final Datentypen.RechnungTyp2 other = (Datentypen.RechnungTyp2) obj;
+        if (this.id == null ? other.id != null : !this.id.equals(other.id)) {
             return false;
         }
         if (this.isBezahlt != other.isBezahlt) {
@@ -93,8 +85,12 @@ public class RechnungTyp {
 
     @Override
     public String toString() {
-        return "RechnungTyp{" + "id=" + id + ", isBezahlt=" + isBezahlt + ", betrag=" + betrag + ", datum=" + datum + '}';
+        StringBuilder sb = new StringBuilder("Rechnung{");
+        sb.append("ID: ").append(id);
+        sb.append(", Auftrag-Nummer: ").append(auftragNr);
+        sb.append(", Kunde-Nummer: ").append(kundeNr);
+        sb.append(", istBezahlt: ").append(isBezahlt);
+        sb.append(", Date: ").append(datum).append("} ");
+        return sb.toString();
     }
-    
-    
 }

@@ -4,10 +4,11 @@
  */
 package Rechnung;
 
-import Datentypen.RechnungTyp;
+import Datentypen.RechnungTyp2;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
@@ -15,33 +16,34 @@ import javax.persistence.*;
 public class Rechnung {
 
     @Id
-    private int id;
+    private String id;
     
     private boolean isBezahlt;
     private double betrag;
+    private String auftragNr;
     private Date datum;
+    private String kundeNr;
 
     public Rechnung() {
     }
 
-    public Rechnung(int id, boolean isBezahlt, double betrag, Date datum) {
-        this.id = id;
-        this.isBezahlt = isBezahlt;
+    public Rechnung(double betrag, String auftragNr, Date datum, String kundeNr) {
+        this.id = "Rechnung-Nr: " + UUID.randomUUID();
         this.betrag = betrag;
+        this.auftragNr = auftragNr;
         this.datum = datum;
+        this.isBezahlt = false;
+        this.kundeNr = kundeNr;
     }
 
-    public RechnungTyp getTyp(){
-        return new RechnungTyp(id, isBezahlt, betrag, datum);
+    public RechnungTyp2 getTyp(){
+        return new RechnungTyp2(id, isBezahlt, betrag, datum, auftragNr, kundeNr);
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public boolean isIsBezahlt() {
         return isBezahlt;
@@ -66,11 +68,15 @@ public class Rechnung {
     public void setDatum(Date datum) {
         this.datum = datum;
     }
+    
+    public String getKundenNr(){
+        return this.kundeNr;
+    }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + this.id;
+        hash = 47 * hash + this.id.hashCode();
         hash = 47 * hash + (this.isBezahlt ? 1 : 0);
         hash = 47 * hash + (int) (Double.doubleToLongBits(this.betrag) ^ (Double.doubleToLongBits(this.betrag) >>> 32));
         hash = 47 * hash + Objects.hashCode(this.datum);
@@ -86,7 +92,7 @@ public class Rechnung {
             return false;
         }
         final Rechnung other = (Rechnung) obj;
-        if (this.id != other.id) {
+        if (this.id == null ? other.id != null : !this.id.equals(other.id)) {
             return false;
         }
         if (this.isBezahlt != other.isBezahlt) {
@@ -103,7 +109,13 @@ public class Rechnung {
 
     @Override
     public String toString() {
-        return "Rechnung{" + "id=" + id + ", isBezahlt=" + isBezahlt + ", betrag=" + betrag + ", datum=" + datum + '}';
+        StringBuilder sb = new StringBuilder("Rechnung{");
+        sb.append("ID: ").append(id);
+        sb.append(", Auftrag-Nummer: ").append(auftragNr);
+        sb.append(", Kunde-Nummer: ").append(kundeNr);
+        sb.append(", istBezahlt: ").append(isBezahlt);
+        sb.append(", Date: ").append(datum).append("} ");
+        return sb.toString();
     }
     
     

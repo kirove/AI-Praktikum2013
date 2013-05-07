@@ -1,29 +1,31 @@
-
 package Verkauf;
 
 import Datentypen.*;
-import Kunde.IKundeManager;
-import Lager.ILager;
+import Kunde.KundeLogic;
+import Lager.ILagerEvents;
 
 import Lieferant.ILieferantManager;
 
 import Rechnung.IRechnungManager;
 
 import Lager.ILagerManager;
+import Lager.IProduktManager;
+
 
 import java.util.*;
-
-
-
 
 /**
  *
  * @author NED
  */
-public class VerkaufFassade implements IVerkauf{
+public class VerkaufFassade implements IVerkauf {
 
-    IKundeManager KM;
-    ILagerManager LM; 
+    private KundeLogic KM;
+    private IProduktManager PM;
+    private ILagerEvents LE;
+    private IAuftragManager AufM;
+    private IAngebotManager AngM;
+
     @Override
     public KundenTyp getKunde(String kundeNr) {
         return KM.getKunde(kundeNr);
@@ -31,67 +33,46 @@ public class VerkaufFassade implements IVerkauf{
 
     @Override
     public KundenTyp getKunde(String vorname, String nachname, AdresseTyp adresse) {
-        return KM.getKunde(vorname, nachname,adresse );
+        return KM.getKunde(vorname, nachname, adresse);
     }
 
     @Override
-    public KundenTyp erstelleKunde(String vorName, String nachName, String adresse, TelefonNrTyp telefon) {
+    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
         return KM.erstelleKunde(vorName, nachName, adresse, telefon);
     }
 
     @Override
     public ProduktTyp fordereProduktInformationen(int produktNummer) {
-        
+        return PM.fordereProduktInformationen(produktNummer);
     }
 
     @Override
-    public AngebotTyp erstelleAngebot(String kundenName, Date gueltigBis, Map<String, Integer> produktListe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IAuftrag erstelleAuftrag(AngebotTyp angebot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<AngebotTyp> getAngebot(String kundenName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<IAuftrag> getAuftrag(String kundenName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public KundenTyp erstelleKunde(String vorName, String nachName, String adresse, TelefonNrTyp telefon) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) {
+        return AngM.erstelleAngebot(kunde, gueltigBis, produktListe);
     }
 
     @Override
     public AuftragTyp erstelleAuftrag(AngebotTyp angebot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AufM.erstelleAuftrag(angebot);
     }
 
     @Override
     public List<AngebotTyp> getAngebot(String kundenName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AngM.sucheAngebote(kundenName);
     }
 
     @Override
     public List<AuftragTyp> getAuftrag(String kundenName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AufM.sucheAuftrage(kundenName);
     }
 
     @Override
     public AngebotTyp getAngebotPerAngebotNr(String angebotNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AngM.sucheAngebotePerNr(angebotNr);
     }
 
     @Override
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AufM.sucheAuftragePerNr(auftragNr);
     }
-    
 }

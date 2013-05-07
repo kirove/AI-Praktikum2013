@@ -11,6 +11,7 @@ import Einkauf.Bestellung;
 import Kunde.Kunde;
 import Lager.Produkt;
 import Lieferant.Lieferant;
+import Verkauf.IVerkauf;
 import java.util.HashMap;
 
 import org.hibernate.Session;
@@ -45,7 +46,9 @@ public class HES {
      //   Bestellung bestellung1= new Bestellung("213", produktliste, lieferant1);
         
         //Angebot erstellen
-        
+        IVerkauf verkaufInterface = null;
+        verkaufInterface.erstelleKunde("sergej", "osman", adr1, telNr);
+        verkaufInterface.getAngebot("sergej");
         //Auftrag erstellen
         
         //Bestellung erstellen

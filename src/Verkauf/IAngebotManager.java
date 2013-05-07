@@ -4,9 +4,10 @@
  */
 package Verkauf;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import Datentypen.AngebotTyp;
+import Datentypen.KundenTyp;
+import Datentypen.ProduktTyp;
+import java.util.*;
 
 /**
  *
@@ -14,8 +15,9 @@ import java.util.Map;
  */
 public interface IAngebotManager {
 
-    public Angebot erstelleAngebot(String kundenName,
-            Date gueltigBis, Map<String, Integer> produktListe);
+    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe);
 
-    public List<Angebot> sucheAngebote(String kundenName);
+    public List<AngebotTyp> sucheAngebote(String kundenName);
+
+    public AngebotTyp sucheAngebotePerNr(String kundenNr);
 }
