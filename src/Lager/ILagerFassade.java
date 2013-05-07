@@ -16,7 +16,7 @@ import Verkauf.*;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
 public interface ILagerFassade extends ILagerManager {
 

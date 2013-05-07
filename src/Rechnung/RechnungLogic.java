@@ -10,17 +10,19 @@ import Verkauf.Angebot;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author NED
  */
-public class RechnungLogic implements IRechnungManager {
+public class RechnungLogic implements IRechnungFassade {
 
     RechnungRepository RR;
 
     @Override
-    public RechnungTyp erstelleRechnung(int betrag, String auftragNr, Date date, String KundenNr) {
+    public RechnungTyp erstelleRechnung(double betrag, String auftragNr, Date date, String KundenNr) {
 
         return this.RR.createRechnung(betrag, auftragNr, date, KundenNr).getTyp();
     }
@@ -39,7 +41,12 @@ public class RechnungLogic implements IRechnungManager {
     }
 
     @Override
-    public RechnungTyp getRechnungPerID(String rechnungsNr) {
-       return this.RR.getRechnung(rechnungsNr).getTyp();
+    public RechnungTyp getRechnungPerID(String rechnungsNr) throws Exception{
+            return this.RR.getRechnung(rechnungsNr).getTyp();
+    }
+
+    @Override
+    public RechnungTyp getRechnungPerAuftragNr(String auftragNr) throws Exception {
+        return this.RR.getRechnung(auftragNr).getTyp();
     }
 }

@@ -6,7 +6,7 @@ package Lieferant;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
 public interface ILieferantManager {
     

@@ -33,4 +33,10 @@ public class AuftragRepository {
         // update auftrag
         return auftrag;
     }
+
+    public List<Auftrag> getAuftrag(boolean isAbgeschlossen) {
+        List<Auftrag> auftraegeListe = null;
+       //get alle aufträge die noch nicht abgeschlossen sind
+        return auftraegeListe;
+    }
 }
