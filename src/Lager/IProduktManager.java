@@ -9,5 +9,7 @@ package Lager;
  * @author NED
  */
 public interface IProduktManager {
+    public Produkt erstelleProdukt(String name,String produktNr,int lagerBestand);
+    
     
 }

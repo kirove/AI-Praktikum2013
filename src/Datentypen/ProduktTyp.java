@@ -16,11 +16,13 @@ public class ProduktTyp implements Serializable{
     private String name;
     private String produktNr;
     private int lagerBestand;
+    private boolean isReserviert;
     
     public ProduktTyp(String name, String produktNr, int lagerBestand){
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
+        this.isReserviert = false;
     }
 
     public String getName() {
@@ -41,6 +43,11 @@ public class ProduktTyp implements Serializable{
     public void setLagerBestand(int lagerBestand) {
         this.lagerBestand = lagerBestand;
     }
+
+    public void setReserviert() {
+        this.isReserviert = true;
+    }
+
 
     @Override
     public int hashCode() {

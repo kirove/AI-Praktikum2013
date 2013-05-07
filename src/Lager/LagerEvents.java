@@ -5,10 +5,15 @@
 package Lager;
 
 import Datentypen.AngebotTyp;
+import Datentypen.AuftragTyp;
 import Datentypen.BestellungTyp;
-import Datentypen.MeldungTyp;
+import Datentypen.WarenAusgangMeldungTyp;
 import Datentypen.ProduktTyp;
+import Datentypen.WarenEingangMeldungTyp;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.print.attribute.standard.DateTimeAtProcessing;
 
 /**
  *
@@ -23,27 +28,52 @@ public class LagerEvents implements ILagerEvents {
 
     @Override
     public boolean isLagerbestandAusreichend(AngebotTyp angebot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean ausreichend = false;
+        for (Map.Entry<ProduktTyp, Integer> entry : angebot.getProduktListe().entrySet()) {
+            if (!(entry.getKey().getLagerBestand() - entry.getValue() >= 0)) {
+                ausreichend = false;
+            } else {
+                ausreichend = true;
+            }
+        }
+        return ausreichend;
     }
 
     @Override
     public void triggerWareneingang(ProduktTyp produkt, int produktMenge) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() + produktMenge));
+
     }
 
     @Override
-    public MeldungTyp triggerWarenAusgangMeldung(AngebotTyp angebot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void triggerWarenAusgang(ProduktTyp produkt, int produktMenge) {
+        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() - produktMenge));
+
     }
 
     @Override
-    public MeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp auftrag) {
+        Map<ProduktTyp, Integer> produktListe = auftrag.getAngebot().getProduktListe();
+        WarenAusgangMeldung wam = new WarenAusgangMeldung(new Date(), produktListe);
+        return wam.getTyp();
     }
 
     @Override
-    public ProduktTyp produktReservieren(AngebotTyp angebot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
+        Map<ProduktTyp, Integer> produktListe = bestellung.getProduktListe();
+        WarenEingangMeldung wem = new WarenEingangMeldung(new Date(), produktListe);
+        return wem.getTyp();
     }
-    
+
+    @Override
+    public void produktReservieren(AngebotTyp angebot) {
+        for (Map.Entry<ProduktTyp, Integer> pr : angebot.getProduktListe().entrySet()) {
+            ProduktTyp produktTyp = pr.getKey();
+            Produkt produkt = new Produkt(produktTyp.getName(), produktTyp.getProduktNr(), produktTyp.getLagerBestand());
+            produkt.setReserviert();
+            int lagerBestand = produkt.getLagerBestand();
+            int lagerBestandNeu = lagerBestand - pr.getValue();
+            produkt.setLagerBestand(lagerBestandNeu);
+        }
+    }
 }

@@ -11,25 +11,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="produkt")
+@Table(name = "produkt")
 public class Produkt {
-    
+
     @Id
     private String produktNr;
-
     private String name;
     private int lagerBestand;
-    
-    public Produkt(){};
+    private boolean isReserviert;
+
+    public Produkt() {
+    }
+
+    ;
 
     public Produkt(String name, String produktNr, int lagerBestand) {
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
+        this.isReserviert = false;
     }
-    
-     public ProduktTyp getTyp() {
-        return new ProduktTyp(name,produktNr,lagerBestand);
+
+    public ProduktTyp getTyp() {
+        return new ProduktTyp(name, produktNr, lagerBestand);
     }
 
     public String getName() {
@@ -54,6 +58,10 @@ public class Produkt {
 
     public void setLagerBestand(int lagerBestand) {
         this.lagerBestand = lagerBestand;
+    }
+
+    public void setReserviert() {
+        this.isReserviert = true;
     }
 
     @Override
@@ -90,6 +98,4 @@ public class Produkt {
     public String toString() {
         return "Produkt{" + "name=" + name + ", produktNr=" + produktNr + ", lagerBestand=" + lagerBestand + '}';
     }
-    
-    
 }
