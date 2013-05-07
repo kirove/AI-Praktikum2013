@@ -26,7 +26,7 @@ public class KundenTyp implements Serializable{
         return kundenNr;
     }
 
-    public void setKundenNr(String kundenNr) {
+    private void setKundenNr(String kundenNr) {
         this.kundenNr = kundenNr;
     }
 
@@ -34,7 +34,7 @@ public class KundenTyp implements Serializable{
         return vorname;
     }
 
-    public void setvorName(String vorname) {
+    private void setvorName(String vorname) {
         this.vorname = vorname;
     }
 
@@ -42,7 +42,7 @@ public class KundenTyp implements Serializable{
         return nachname;
     }
 
-    public void setnachName(String nachname) {
+    private void setnachName(String nachname) {
         this.nachname = nachname;
     }
 
@@ -50,7 +50,7 @@ public class KundenTyp implements Serializable{
         return adresse;
     }
 
-    public void setAdresse(AdresseTyp adresse) {
+    private void setAdresse(AdresseTyp adresse) {
         this.adresse = adresse;
     }
 
@@ -58,7 +58,7 @@ public class KundenTyp implements Serializable{
         return telNr;
     }
 
-    public void setTelNr(TelefonNrTyp telNr) {
+    private void setTelNr(TelefonNrTyp telNr) {
         this.telNr = telNr;
     }
 

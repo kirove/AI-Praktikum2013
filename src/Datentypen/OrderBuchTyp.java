@@ -24,7 +24,7 @@ public class OrderBuchTyp implements Serializable {
         return eintraege;
     }
 
-    public void setEintraege(Map<ProduktTyp, LieferantTyp> eintraege) {
+    private void setEintraege(Map<ProduktTyp, LieferantTyp> eintraege) {
         this.eintraege = eintraege;
     }
 

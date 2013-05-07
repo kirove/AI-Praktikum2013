@@ -11,43 +11,49 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class ProduktTyp implements Serializable{
+public class ProduktTyp implements Serializable {
 
     private String name;
     private String produktNr;
     private int lagerBestand;
     private boolean isReserviert;
-    
-    public ProduktTyp(String name, String produktNr, int lagerBestand){
+    private double preis;
+
+    public ProduktTyp(String name, String produktNr, int lagerBestand, double preis) {
         this.name = name;
         this.produktNr = produktNr;
         this.lagerBestand = lagerBestand;
         this.isReserviert = false;
+        this.preis = preis;
+    }
+
+    public double getPreis() {
+        return preis;
+    }
+
+    private void setPreis(double preis) {
+        this.preis = preis;
     }
 
     public String getName() {
         return name;
     }
 
-
     public String getProduktNr() {
         return produktNr;
     }
-
-   
 
     public int getLagerBestand() {
         return lagerBestand;
     }
 
-    public void setLagerBestand(int lagerBestand) {
+    private void setLagerBestand(int lagerBestand) {
         this.lagerBestand = lagerBestand;
     }
 
-    public void setReserviert() {
+    private void setReserviert() {
         this.isReserviert = true;
     }
-
 
     @Override
     public int hashCode() {
@@ -83,5 +89,4 @@ public class ProduktTyp implements Serializable{
     public String toString() {
         return "ProduktTyp{" + "name=" + name + ", produktNr=" + produktNr + ", lagerBestand=" + lagerBestand + '}';
     }
-    
 }

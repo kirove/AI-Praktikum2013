@@ -9,6 +9,7 @@ import Datentypen.ProduktTyp;
 import Datentypen.TelefonNrTyp;
 import Einkauf.Bestellung;
 import Kunde.Kunde;
+import Lager.ILagerFassade;
 import Lager.Produkt;
 import Lieferant.Lieferant;
 import Verkauf.IVerkauf;
@@ -38,8 +39,9 @@ public class HES {
         Lieferant lieferant1 = new Lieferant("DELL",adr2);
         
         //Produkte erstellen
-        Produkt produkt1 = new Produkt("Laptop", "42", 9999);
-        
+      //  Produkt produkt1 = new Produkt("Laptop", "42", 9999,5.2);
+        ILagerFassade ip = null;
+       ProduktTyp produktTyp;
         //Bestellung erstellen
       //  HashMap<ProduktTyp, Integer> produktListe;
      //   produktListe.put(produkt1, 2);
@@ -52,12 +54,13 @@ public class HES {
         //Auftrag erstellen
         
         //Bestellung erstellen
+        produktTyp = ip.erstelleProdukt("Laptop", "42", 999,5.2);
         
         
         //in Datenbank persestieren
         saveOrUpdate(kunde1);
         saveOrUpdate(lieferant1);
-        saveOrUpdate(produkt1);
+        saveOrUpdate(produktTyp);
     }
 
     private static void saveOrUpdate(Object object) {

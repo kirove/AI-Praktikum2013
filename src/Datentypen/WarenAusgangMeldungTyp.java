@@ -29,7 +29,7 @@ public class WarenAusgangMeldungTyp implements Serializable {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public class WarenAusgangMeldungTyp implements Serializable {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    private void setDatum(Date datum) {
         this.datum = datum;
     }
 
@@ -45,7 +45,7 @@ public class WarenAusgangMeldungTyp implements Serializable {
         return produktListe;
     }
 
-    public void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    private void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 

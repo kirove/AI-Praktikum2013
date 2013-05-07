@@ -31,7 +31,7 @@ public class AuftragTyp implements Serializable {
         return angebot;
     }
 
-    public void setAngebot(AngebotTyp angebot) {
+    private void setAngebot(AngebotTyp angebot) {
         this.angebot = angebot;
     }
 
@@ -47,7 +47,7 @@ public class AuftragTyp implements Serializable {
         return isAbgeschlossen;
     }
 
-    public void setIsAbgeschlossen(boolean isAbgeschlossen) {
+    private void setIsAbgeschlossen(boolean isAbgeschlossen) {
         this.isAbgeschlossen = isAbgeschlossen;
     }
 

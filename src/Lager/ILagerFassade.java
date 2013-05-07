@@ -18,9 +18,13 @@ import Verkauf.*;
  *
  * @author NED
  */
-public interface ILagerEvents extends ILagerManager{
+public interface ILagerFassade extends ILagerManager {
+
+    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand, double preis);
 
     public List<ProduktTyp> getProduktList();
+
+    public ProduktTyp fordereProduktInformationen(int produktNummer);
 
     public boolean isLagerbestandAusreichend(AngebotTyp angebot);
 
