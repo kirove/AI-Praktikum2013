@@ -6,29 +6,27 @@ package Lager;
 
 import Datentypen.ProduktTyp;
 import Main.HibernateUtil;
+import java.util.List;
 import org.hibernate.Session;
 
 /**
  *
  * @author NED
  */
-public class ProduktManager implements IProduktManager{
+public class LagerRepository {
 
-    @Override
-    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand, double preis) {
-        Produkt produkt = new Produkt(name, produktNr, lagerBestand,preis);
-        
+    public static Produkt erstelleProdukt(String name, String produktNr, int lagerBestand, double preis) {
+        Produkt produkt = new Produkt(name, produktNr, lagerBestand, preis);
+
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(produkt);
         session.getTransaction().commit();
-        return produkt.getTyp();
+        return produkt;
     }
 
-    @Override
-    public ProduktTyp fordereProduktInformationen(int produktNummer) {
-        
-        return null;
+    public static List<ProduktTyp> getProduktList() {
+        // get liste aller Produkte
+        return null;//produktListe;
     }
-    
 }

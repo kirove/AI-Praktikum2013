@@ -8,8 +8,8 @@ import Lieferant.ILieferantManager;
 
 import Rechnung.IRechnungManager;
 
-import Lager.IProduktManager;
-import Lager.ILagerEvents;
+import Lager.ILagerRepository;
+import Lager.ILagerFassade;
 
 import java.util.*;
 

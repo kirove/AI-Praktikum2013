@@ -21,11 +21,12 @@ import org.hibernate.Session;
  *
  * @author NED
  */
-public class LagerEvents implements ILagerEvents {
+public class LagerLogic implements ILagerFassade {
 
     @Override
-    public List<ProduktTyp> getProduktList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ProduktTyp fordereProduktInformationen(int produktNummer) {
+        
+        return null;
     }
 
     @Override
@@ -93,5 +94,18 @@ public class LagerEvents implements ILagerEvents {
             int lagerBestandNeu = lagerBestand - pr.getValue();
             produkt.setLagerBestand(lagerBestandNeu);
         }
+    }
+
+    @Override
+    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand, double preis) {
+        ProduktTyp produkt = LagerRepository.erstelleProdukt(name, produktNr, lagerBestand, preis).getTyp();
+        return produkt;
+    }
+
+    @Override
+    public List<ProduktTyp> getProduktList() {
+        List<ProduktTyp> produktListe = LagerRepository.getProduktList();
+        
+        return produktListe;
     }
 }
