@@ -4,7 +4,10 @@
  */
 package Rechnung;
 
-import Datentypen.RechnungTyp2;
+import Datentypen.AngebotTyp;
+import Datentypen.RechnungTyp;
+import Verkauf.Angebot;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,21 +15,31 @@ import java.util.List;
  *
  * @author NED
  */
-public class RechnungLogic implements IRechnungManager{
+public class RechnungLogic implements IRechnungManager {
+
+    RechnungRepository RR;
 
     @Override
-    public RechnungTyp2 erstelleRechnung(int betrag, String auftragNr, Date date, String KundenNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RechnungTyp erstelleRechnung(int betrag, String auftragNr, Date date, String KundenNr) {
+
+        return this.RR.createRechnung(betrag, auftragNr, date, KundenNr).getTyp();
     }
 
     @Override
-    public List<RechnungTyp2> getRechnungenPerKunde(String kundenNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<RechnungTyp> getRechnungenPerKunde(String kundenNr) {
+
+        List<RechnungTyp> RechnungListe = new ArrayList<>();
+        List<Rechnung> aListe = this.RR.getRechnungen(kundenNr);
+
+        for (int i = 0; i < aListe.size(); i++) {
+            RechnungListe.add(aListe.get(i).getTyp());
+        }
+        return RechnungListe;
+
     }
 
     @Override
-    public RechnungTyp2 getRechnungPerID(String rechnungsNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RechnungTyp getRechnungPerID(String rechnungsNr) {
+       return this.RR.getRechnung(rechnungsNr).getTyp();
     }
-    
 }

@@ -5,6 +5,7 @@
 package Datentypen;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -20,7 +21,7 @@ public class AuftragTyp implements Serializable {
     private AuftragTyp() {
     }
 
-    public AuftragTyp(String auftragsNr,AngebotTyp angebot,boolean isAbgeschlossen) {
+    public AuftragTyp(String auftragsNr,AngebotTyp angebot,boolean isAbgeschlossen, Date datesSS) {
         this.auftragsNr = auftragsNr;
         this.angebot = angebot;
         this.isAbgeschlossen = isAbgeschlossen;

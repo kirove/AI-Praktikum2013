@@ -6,8 +6,7 @@ package Verkauf;
 
 import Datentypen.AngebotTyp;
 import Datentypen.AuftragTyp;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,28 +21,24 @@ public class Auftrag {
      
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
-    private Date date;
+    private Calendar date;
 
     public Auftrag() {
     }
 
     
-    public Auftrag(String auftragsNr, AngebotTyp angebot) {
-        this.auftragsNr = auftragsNr;
+    public Auftrag(AngebotTyp angebot) {
+        this.auftragsNr = "AuftragsNr:" + UUID.randomUUID();;
         this.angebot = angebot;
         this.isAbgeschlossen = false;
-        this.date.g
+        this.date.
     }
     public AuftragTyp getTyp(){
-        return new AuftragTyp(auftragsNr, angebot, isAbgeschlossen);
+        return new AuftragTyp(auftragsNr, angebot, isAbgeschlossen,date);
     }
 
     public String getAuftragsNr() {
         return auftragsNr;
-    }
-
-    public void setAuftragsNr(String auftragsNr) {
-        this.auftragsNr = auftragsNr;
     }
 
     public AngebotTyp getAngebot() {

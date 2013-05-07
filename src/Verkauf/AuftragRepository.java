@@ -10,8 +10,9 @@ import java.util.List;
  */
 public class AuftragRepository {
 
-    public createAuftrag(AngebotTyp angebot, ){
+    public createAuftrag(AngebotTyp angebot, s){
         
+        Auftrag newAuftrag = new Auftrag();
     }
     
     public Auftrag getAuftragPerNr(String auftragNr) {

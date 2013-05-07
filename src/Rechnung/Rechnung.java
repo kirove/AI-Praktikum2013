@@ -4,7 +4,7 @@
  */
 package Rechnung;
 
-import Datentypen.RechnungTyp2;
+import Datentypen.RechnungTyp;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -36,8 +36,8 @@ public class Rechnung {
         this.kundeNr = kundeNr;
     }
 
-    public RechnungTyp2 getTyp(){
-        return new RechnungTyp2(id, isBezahlt, betrag, datum, auftragNr, kundeNr);
+    public RechnungTyp getTyp(){
+        return new RechnungTyp(id, isBezahlt, betrag, datum, auftragNr, kundeNr);
     }
     
     public String getId() {

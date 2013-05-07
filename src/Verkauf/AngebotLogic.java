@@ -6,7 +6,7 @@ import Datentypen.ProduktTyp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import Lager.IProduktManager;
+import Lager.ILagerFassade;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class AngebotLogic implements IAngebotManager {
 
-    private IProduktManager PM;
+    private ILagerFassade LF;
     private AngebotRepository AR;
 
     @Override
@@ -44,7 +44,7 @@ public class AngebotLogic implements IAngebotManager {
     }
 
     @Override
-    public AngebotTyp sucheAngebotePerNr(String kundenNr) {
-        return this.AR.getAngebot(kundenNr).getTyp();
+    public AngebotTyp sucheAngebotePerNr(String angebotNr) {
+        return this.AR.getAngebot(angebotNr).getTyp();
     }
 }

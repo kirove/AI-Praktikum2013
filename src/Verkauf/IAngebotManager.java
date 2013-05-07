@@ -19,5 +19,5 @@ public interface IAngebotManager {
 
     public List<AngebotTyp> sucheAngebote(String kundenName);
 
-    public AngebotTyp sucheAngebotePerNr(String kundenNr);
+    public AngebotTyp sucheAngebotePerNr(String angebotNr);
 }

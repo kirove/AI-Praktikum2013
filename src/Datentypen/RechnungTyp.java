@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class RechnungTyp2 {
+public class RechnungTyp {
 
     private String id;
     private boolean isBezahlt;
@@ -20,7 +20,7 @@ public class RechnungTyp2 {
     private String auftragNr;
     private String kundeNr;
 
-    public RechnungTyp2(String id, boolean isBezahlt, double betrag, Date datum, String auftragNr, String kundeNr) {
+    public RechnungTyp(String id, boolean isBezahlt, double betrag, Date datum, String auftragNr, String kundeNr) {
         this.id = id;
         this.isBezahlt = isBezahlt;
         this.betrag = betrag;
@@ -67,7 +67,7 @@ public class RechnungTyp2 {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Datentypen.RechnungTyp2 other = (Datentypen.RechnungTyp2) obj;
+        final Datentypen.RechnungTyp other = (Datentypen.RechnungTyp) obj;
         if (this.id == null ? other.id != null : !this.id.equals(other.id)) {
             return false;
         }

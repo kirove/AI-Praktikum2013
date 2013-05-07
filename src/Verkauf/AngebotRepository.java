@@ -27,7 +27,7 @@ public class AngebotRepository {
        return angebotListe;
     }
 
-    public Angebot getAngebot(String kundenNr) {
+    public Angebot getAngebot(String angebotNr) {
         // get angebot from DatenBank anhand KundenNr
          return angebot;
     }

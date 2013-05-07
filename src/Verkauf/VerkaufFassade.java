@@ -1,15 +1,14 @@
 package Verkauf;
 
 import Datentypen.*;
-import Kunde.KundeLogic;
-import Lager.ILagerEvents;
+import Kunde.IKundeFassade;
 
 import Lieferant.ILieferantManager;
 
 import Rechnung.IRechnungManager;
 
+import Lager.ILagerFassade;
 import Lager.ILagerManager;
-import Lager.IProduktManager;
 
 
 import java.util.*;
@@ -20,9 +19,8 @@ import java.util.*;
  */
 public class VerkaufFassade implements IVerkauf {
 
-    private KundeLogic KM;
-    private IProduktManager PM;
-    private ILagerEvents LE;
+    private IKundeFassade KM;
+    private ILagerFassade LF;
     private IAuftragManager AufM;
     private IAngebotManager AngM;
 
@@ -43,7 +41,7 @@ public class VerkaufFassade implements IVerkauf {
 
     @Override
     public ProduktTyp fordereProduktInformationen(int produktNummer) {
-        return PM.fordereProduktInformationen(produktNummer);
+        return LF.fordereProduktInformationen(produktNummer);
     }
 
     @Override
