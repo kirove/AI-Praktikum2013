@@ -1,8 +1,6 @@
 package Kunde;
 
-import Datentypen.AdresseTyp;
-import Datentypen.TelefonNrTyp;
-import Datentypen.KundenTyp;
+import Datentypen.*;
 
 /**
  *
@@ -10,7 +8,7 @@ import Datentypen.KundenTyp;
  */
 public interface IKundeManager {
 
-    public KundenTyp erstelleKunde(KundenTyp kunde);
+    public KundenTyp erstelleKunde(String vorName, String nachName, String adresse, TelefonNrTyp telefon);
 
     public KundenTyp getKunde(String kundeNr);
     

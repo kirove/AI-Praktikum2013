@@ -1,8 +1,8 @@
 package Verkauf;
 
 import java.util.*;
-import Lager.IProdukt;
-import Kunde.IKunde;
+
+import Datentypen.*;
 
 /**
  *
@@ -10,20 +10,26 @@ import Kunde.IKunde;
  */
 public interface IVerkauf {
     
-    public IKunde getKunde(String kundeNr);
+    public KundenTyp getKunde(String kundeNr);
     
-    public IKunde getKunde(String vorname,String nachname);
+    public KundenTyp getKunde(String vorname,String nachname,AdresseTyp adresse);
     
-    public IKunde erstelleKunde(String vorName, String nachName, String adresse);
+    public KundenTyp erstelleKunde(String vorName, String nachName, String adresse, TelefonNrTyp telefon);
 
-    public IProduckt fordereProduktInformationen(int produktNummer);
+    public ProduktTyp fordereProduktInformationen(int produktNummer);
 
-    public IAngebot erstelleAngebot (String kundenName, Date gueltigBis, Map<String, Integer> produktListe);
+    public AngebotTyp erstelleAngebot (String kundenName, Date gueltigBis, Map<String, Integer> produktListe);
 
-    public IAuftrag erstelleAuftrag(IAngebot angebot);
+    public AuftragTyp erstelleAuftrag(AngebotTyp angebot);
     
-    public List<IAngebot> getAngebot(String kundenName);
+    public List<AngebotTyp> getAngebot(String kundenName);
     
-    public List<IAuftrag> getAuftrag(String kundenName);
+    public List<AuftragTyp> getAuftrag(String kundenName);
+
+    public AngebotTyp getAngebotPerAngebotNr(String angebotNr);
+    
+    public AuftragTyp getAuftragPerAuftragNr(String auftragNr);
+    
+    
 
 }
