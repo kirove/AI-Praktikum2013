@@ -19,7 +19,7 @@ public class KundeVerwalter implements IKundeManager {
         Kunde newkunde = new Kunde(kunde.getvorName(), kunde.getnachName(), kunde.getAdresse(),kunde.getTelNr());
        // erstelle Kunde in der DatenBank
        // create(kunde);
-        Session session = (Session) HibernateUtil.getSessionFactory();
+        Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(newkunde);
         session.getTransaction().commit();

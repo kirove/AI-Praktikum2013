@@ -2,7 +2,7 @@
 package Verkauf;
 
 import Kunde.IKundeManager;
-import Lager.ILager;
+import Lager.ILagerManager;
 
 import Lieferant.ILieferantManager;
 
@@ -38,7 +38,7 @@ public class VerkaufFassade implements IVerkauf{
     }
 
     @Override
-    public ILager fordereProduktInformationen(int produktNummer) {
+    public ILagerManager fordereProduktInformationen(int produktNummer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -18,7 +18,7 @@ public class ProduktManager implements IProduktManager{
     public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand) {
         Produkt produkt = new Produkt(name, produktNr, lagerBestand);
         
-        Session session = (Session) HibernateUtil.getSessionFactory();
+        Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(produkt);
         session.getTransaction().commit();
