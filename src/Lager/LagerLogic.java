@@ -12,6 +12,7 @@ import Datentypen.ProduktTyp;
 import Datentypen.WarenEingangMeldungTyp;
 import Main.HibernateUtil;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.print.attribute.standard.DateTimeAtProcessing;
@@ -63,7 +64,7 @@ public class LagerLogic implements ILagerFassade {
     @Override
     public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp auftrag) {
         Map<ProduktTyp, Integer> produktListe = auftrag.getAngebot().getProduktListe();
-        WarenAusgangMeldung wam = new WarenAusgangMeldung(new Date(), produktListe);
+        WarenAusgangMeldung wam = new WarenAusgangMeldung(new Date(), (HashMap<ProduktTyp, Integer>) produktListe);
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(wam);
@@ -75,7 +76,7 @@ public class LagerLogic implements ILagerFassade {
     @Override
     public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
         Map<ProduktTyp, Integer> produktListe = bestellung.getProduktListe();
-        WarenEingangMeldung wem = new WarenEingangMeldung(new Date(), produktListe);
+        WarenEingangMeldung wem = new WarenEingangMeldung(new Date(), (HashMap<ProduktTyp, Integer>) produktListe);
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(wem);

@@ -18,10 +18,12 @@ public class TransportRepository {
 
     public static Lieferung erstelleLieferung(AuftragTyp auftrag) {
         Lieferung lieferung = new Lieferung(auftrag);
+        
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(lieferung);
         session.getTransaction().commit();
+        
         return lieferung;
     }
 

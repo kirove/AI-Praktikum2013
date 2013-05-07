@@ -6,6 +6,7 @@ package Datentypen;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class AngebotTyp implements Serializable {
     private String angebotsNr;
     private KundenTyp kunde;
     private Date gueltigBis;
-    private Map<ProduktTyp, Integer> produktListe;
+    private HashMap<ProduktTyp, Integer> produktListe;
     private double preis;
 
     private AngebotTyp() {
@@ -27,7 +28,7 @@ public class AngebotTyp implements Serializable {
 
     ;
 
-    public AngebotTyp(String angebotsNr, KundenTyp kunde, Date gueltigBis, Map<ProduktTyp, Integer> produktListe, double preis) {
+    public AngebotTyp(String angebotsNr, KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe, double preis) {
         this.angebotsNr = angebotsNr;
         this.kunde = kunde;
         this.gueltigBis = gueltigBis;
