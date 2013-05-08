@@ -63,4 +63,11 @@ public class LagerFassade implements ILagerFassade {
     public List<ProduktTyp> produktReservieren(AngebotTyp angebot) {
         return ProduktLogic.produktReservieren(angebot);
     }
+    
+    @Override
+    public void save(ProduktTyp produkt) {
+        Produkt produkt1 = new Produkt(produkt.getName(),produkt.getProduktNr(),produkt.getLagerBestand(),produkt.getPreis());
+        ProduktRepository.save(produkt1);
+    }
+    
 }
