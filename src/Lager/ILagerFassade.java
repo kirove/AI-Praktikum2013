@@ -24,7 +24,7 @@ public interface ILagerFassade extends ILagerManager {
 
     public List<ProduktTyp> getProduktList();
 
-    public ProduktTyp fordereProduktInformationen(int produktNummer);
+    public ProduktTyp fordereProduktInformationen(String produktNummer);
 
     public boolean isLagerbestandAusreichend(AngebotTyp angebot);
 
