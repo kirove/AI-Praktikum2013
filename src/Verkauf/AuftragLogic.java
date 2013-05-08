@@ -61,11 +61,11 @@ public class AuftragLogic implements IAuftragManager {
     @Override
     public AuftragTyp erstelleAuftrag(AngebotTyp angebot) {
         if (istLagerbestandAusreichend(angebot)) {
-            LF.produktReservieren(angebot);
             AuftragTyp auftrag = this.AR.createAuftrag(angebot).getTyp();
+            if (LF.produktReservieren(auftrag) != null) {
 
-            this.VF.erstelleLieferung(auftrag);
-
+                this.VF.erstelleLieferung(auftrag);
+            }
             try {
                 this.RF.erstelleRechnung(angebot.getPreis(), auftrag.getAuftragsNr(), new Date(), angebot.getKunde().getKundenNr());
             } catch (Exception ex) {
