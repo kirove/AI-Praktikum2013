@@ -16,9 +16,10 @@ public class Angebot {
 
     @Id
     private String angebotsNr;
-    
+    @Column(name="kunde", length = 100000) 
     private KundenTyp kunde;
     private Date gueltigBis;
+    @Column(name="produktListe", length = 100000)
     private HashMap<ProduktTyp, Integer> produktListe;
     private double preis;
 

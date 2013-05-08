@@ -1,36 +1,21 @@
 package Main;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-import Datentypen.AdresseTyp;
-import Datentypen.AngebotTyp;
-import Datentypen.AuftragTyp;
-import Datentypen.KundenTyp;
-import Datentypen.ProduktTyp;
-import Datentypen.TelefonNrTyp;
-import Einkauf.Bestellung;
-import Kunde.IKundeFassade;
-import Kunde.Kunde;
-import Kunde.KundenLogic;
+import Datentypen.*;
 import Lager.ILagerFassade;
-import Lager.LagerLogic;
-import Lager.Produkt;
-import Lager.WarenAusgangMeldung;
-import Lager.WarenEingangMeldung;
-import Lieferant.Lieferant;
+import Lager.LagerFassade;
+
+
 import Rechnung.IBank;
 import Rechnung.IRechnungFassade;
 import Rechnung.RechnungLogic;
-import Transport.TransportRepository;
-import Verkauf.AngebotLogic;
-import Verkauf.AuftragLogic;
-import Verkauf.IAngebotManager;
-import Verkauf.IAuftragManager;
+import Rechnung.ZahlungsEingangLogic;
+
 import Verkauf.IVerkauf;
-import java.util.Date;
-import java.util.HashMap;
+import Verkauf.VerkaufFassade;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -58,74 +43,90 @@ public class HES {
         ProduktTyp produktT = new ProduktTyp("Laptop", "345", 9999, 1200);
         HashMap<ProduktTyp, Integer> produktListe = new HashMap<ProduktTyp, Integer>();
         produktListe.put(produktT, 1);
-        Date datum = new Date((long) 20000);
-        KundenTyp kundenT = new KundenTyp("12-3", "Sohrab", "Duck", adr1, telNr);
-        AngebotTyp angebotT = new AngebotTyp("222", kundenT, datum, produktListe, 1500.00);
-        AuftragTyp auftragT = new AuftragTyp("2-3", angebotT, false, datum);
-
+        Date datum = new Date((long) 10);
         AdresseTyp adr2 = new AdresseTyp("Hauptstr.", 1, 33423, "Hamburg", "Germany");
-        Lieferant lieferant1 = new Lieferant("DELL", adr2);
+        
+        //Produkt erstellen
+        ILagerFassade lf = new LagerFassade();
+        ProduktTyp thinkpad = lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
+        ProduktTyp macbook = lf.erstelleProdukt("Macbook", "234-r", 999, 1700);
+        ProduktTyp aldiPC = lf.erstelleProdukt("ALDI-PC", "238-w", 999, 700);
 
         //Kunden erstellen
-        IKundeFassade kf = new KundenLogic();
-        kf.erstelleKunde("Sergej", "Chan", adr1, telNr);
-        kf.erstelleKunde("Nicolay", "Anderson", adr1, telNr);
-        kf.erstelleKunde("Nidal", "Smith", adr1, telNr);
+        IVerkauf verkaufF = new VerkaufFassade();
+        KundenTyp sergej = verkaufF.erstelleKunde("Sergej", "Chan", adr1, telNr);
+        KundenTyp Nico = verkaufF.erstelleKunde("Nicolay", "Anderson", adr1, telNr);
+        KundenTyp nidal = verkaufF.erstelleKunde("Nidal", "Smith", adr1, telNr);
 
-        //Produkt erstellen
-        ILagerFassade lf = new LagerLogic();
-        lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
-        lf.erstelleProdukt("Macbook", "234-r", 999, 1700);
-        lf.erstelleProdukt("ALDI-PC", "238-w", 999, 700);
-
-        //Lieferung erstellen
-        //TransportRepository.erstelleLieferung(auftragT);
-
-        //Angebot erstellen
-        IAngebotManager am1 = new AngebotLogic();
-        // am1.erstelleAngebot(kundenT, datum, produktListe);
-
-        //Auftrag erstellen
-        IAuftragManager am2 = new AuftragLogic();
-        //am2.erstelleAuftrag(angebotT);
-
-        //Rechnung erstellen
-        IRechnungFassade rf = new RechnungLogic();
-        //rf.erstelleRechnung(3000.00, "234-r", datum, "345");
-        // überall NULLPOINTER?!
-
-        WarenAusgangMeldung wam = new WarenAusgangMeldung(datum, produktListe);
-        WarenEingangMeldung wem = new WarenEingangMeldung(datum, produktListe);
         
-        session.close();
+        //Szenario
+        //hole Kunde
+        KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
+        System.out.println("Kunde Information: "+ kunde1.toString());
         
-        // Date ist irgendwie nicht richtig?!
-        //saveOrUpdate(wam);
-        //saveOrUpdate(wem);
-    }
-
-    private static void saveOrUpdate(Object object) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-
+        //hole Produktinformation
+        ProduktTyp thinkPad = verkaufF.fordereProduktInformationen(thinkpad.getProduktNr());
+        System.out.println("Produckt Information: "+thinkPad.toString());
+        
+        //erstelle Angebot
+        AngebotTyp angebot1 = verkaufF.erstelleAngebot(kunde1, datum, produktListe);
+        System.out.println("Angebot wurde erstellt: "+ angebot1.toString());
+        
+        
+        //erstelle Auftrag
+        AuftragTyp auftrag1 = verkaufF.erstelleAuftrag(angebot1);
+        System.out.println("Auftrag erstellt :"+ auftrag1.toString());
+        
+        //auftrag status
+        auftrag1.toString();
+        
+        // get rechnung 
+        IRechnungFassade RF;
+        RF = new RechnungLogic();
+        RechnungTyp rechnung1= null;
         try {
-            transaction = session.beginTransaction();
-
-            session.saveOrUpdate(object);
-            // Committing the change in the database.
-            session.flush();
-            transaction.commit();
-
+            rechnung1 = RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
         } catch (Exception ex) {
-            ex.printStackTrace();
-
-            // Rolling back the changes to make the data consistent in case of any failure
-            // in between multiple database write operations.
-            transaction.rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            Logger.getLogger(HES.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        //Überweisung ist angekommen
+        IBank sparkasse;
+        sparkasse = new ZahlungsEingangLogic();
+        sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
+        
+        //nacht ablauf (bezahlte verträge abschliessen)
+        VerkaufFassade vf = new VerkaufFassade();
+        vf.markiereBezahlteAuftraege();
+        
+        //get neue Auftrag status
+        auftrag1.toString();
+
+        session.close();
     }
+
+//    private static void saveOrUpdate(Object object) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Transaction transaction = null;
+//
+//        try {
+//            transaction = session.beginTransaction();
+//
+//            session.saveOrUpdate(object);
+//            // Committing the change in the database.
+//            session.flush();
+//            transaction.commit();
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//
+//            // Rolling back the changes to make the data consistent in case of any failure
+//            // in between multiple database write operations.
+//            transaction.rollback();
+//        } finally {
+//            if (session != null) {
+//                session.close();
+//            }
+//        }
+//    }
 }
