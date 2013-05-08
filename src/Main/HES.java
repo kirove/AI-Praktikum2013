@@ -15,6 +15,7 @@ import Kunde.IKundeFassade;
 import Kunde.Kunde;
 import Kunde.KundenLogic;
 import Lager.ILagerFassade;
+import Lager.LagerFassade;
 import Lager.LagerLogic;
 import Lager.Produkt;
 import Lager.WarenAusgangMeldung;
@@ -23,12 +24,12 @@ import Lieferant.Lieferant;
 import Rechnung.IBank;
 import Rechnung.IRechnungFassade;
 import Rechnung.RechnungLogic;
-import Transport.TransportRepository;
 import Verkauf.AngebotLogic;
 import Verkauf.AuftragLogic;
 import Verkauf.IAngebotManager;
 import Verkauf.IAuftragManager;
 import Verkauf.IVerkauf;
+import Verkauf.VerkaufFassade;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -58,36 +59,42 @@ public class HES {
         ProduktTyp produktT = new ProduktTyp("Laptop", "345", 9999, 1200);
         HashMap<ProduktTyp, Integer> produktListe = new HashMap<ProduktTyp, Integer>();
         produktListe.put(produktT, 1);
-        Date datum = new Date((long) 20000);
-        KundenTyp kundenT = new KundenTyp("12-3", "Sohrab", "Duck", adr1, telNr);
-        AngebotTyp angebotT = new AngebotTyp("222", kundenT, datum, produktListe, 1500.00);
-        AuftragTyp auftragT = new AuftragTyp("2-3", angebotT, false, datum);
-
+        Date datum = new Date((long) 10);
         AdresseTyp adr2 = new AdresseTyp("Hauptstr.", 1, 33423, "Hamburg", "Germany");
-        Lieferant lieferant1 = new Lieferant("DELL", adr2);
-
+        
         //Kunden erstellen
-        IKundeFassade kf = new KundenLogic();
-        kf.erstelleKunde("Sergej", "Chan", adr1, telNr);
-        kf.erstelleKunde("Nicolay", "Anderson", adr1, telNr);
-        kf.erstelleKunde("Nidal", "Smith", adr1, telNr);
+        IVerkauf verkaufF = new VerkaufFassade();
+        verkaufF.erstelleKunde("Sergej", "Chan", adr1, telNr);
+        verkaufF.erstelleKunde("Nicolay", "Anderson", adr1, telNr);
+        verkaufF.erstelleKunde("Nidal", "Smith", adr1, telNr);
 
         //Produkt erstellen
-        ILagerFassade lf = new LagerLogic();
-        lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
+        ILagerFassade lf = new LagerFassade();
+        ProduktTyp thinkpad = lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
         lf.erstelleProdukt("Macbook", "234-r", 999, 1700);
         lf.erstelleProdukt("ALDI-PC", "238-w", 999, 700);
-
-        //Lieferung erstellen
-        //TransportRepository.erstelleLieferung(auftragT);
+        
+        //Szenario
+        //hole Kunde
+        KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
+        
+        //hole Produktinformation
+        verkaufF.fordereProduktInformationen(thinkpad.getProduktNr());
+        
+        //erstelle Angebot
+        AngebotTyp angebot2 = verkaufF.erstelleAngebot(kunde1, datum, produktListe);
+        
+        //erstelle Auftrag
+        verkaufF.erstelleAuftrag(angebot2);
+        
 
         //Angebot erstellen
         IAngebotManager am1 = new AngebotLogic();
-        // am1.erstelleAngebot(kundenT, datum, produktListe);
+        am1.erstelleAngebot(kunde1, datum, produktListe);
 
         //Auftrag erstellen
         IAuftragManager am2 = new AuftragLogic();
-        //am2.erstelleAuftrag(angebotT);
+        am2.erstelleAuftrag(angebotT);
 
         //Rechnung erstellen
         IRechnungFassade rf = new RechnungLogic();

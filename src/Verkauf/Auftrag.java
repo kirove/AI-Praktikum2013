@@ -8,6 +8,7 @@ import Datentypen.AngebotTyp;
 import Datentypen.AuftragTyp;
 import java.util.*;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,6 +21,7 @@ public class Auftrag {
     @Id
     private String auftragsNr;
      
+    @Column(name="angebot", length = 100000)
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
     private Date date;
