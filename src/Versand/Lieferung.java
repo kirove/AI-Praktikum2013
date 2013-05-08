@@ -2,22 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Transport;
+package Versand;
 
 import Datentypen.LieferungTyp;
 import Datentypen.AuftragTyp;
 import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.*;
 
-@Entity
-@Table(name = "Lieferung")
+/**
+ *
+ * @author Barzgun
+ */
 public class Lieferung {
 
-    @Id
-    String lieferungNr;
-    
     AuftragTyp auftrag;
+    String lieferungNr;
     boolean lieferungErfolgt;
 
     public Lieferung() {

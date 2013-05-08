@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Transport;
+package Versand;
 
 import Datentypen.AuftragTyp;
 import Datentypen.LieferungTyp;

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import Lager.ILagerFassade;
-import Lager.LagerLogic;
+import Lager.LagerFassade;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,11 +22,11 @@ public class AngebotLogic implements IAngebotManager {
 
     public AngebotLogic() {
         this.AR = new AngebotRepository();
-        this.LF = new LagerLogic();
+        this.LF = new LagerFassade();
     }
 
     @Override
-    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) {
+    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) throws Exception{
         Double gesamtKosten = 0.0;
 
         for (Map.Entry<ProduktTyp, Integer> entry : produktListe.entrySet()) {

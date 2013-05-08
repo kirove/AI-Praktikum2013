@@ -5,6 +5,7 @@
 package Datentypen;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -15,13 +16,13 @@ import java.util.Objects;
 public class BestellungTyp implements Serializable {
 
     private String bestellungsNr;
-    private Map<ProduktTyp, Integer> produktListe;
+    private HashMap<ProduktTyp, Integer> produktListe;
     private LieferantTyp lieferant;
 
     private BestellungTyp() {
     }
 
-    public BestellungTyp(String bestellungsNr, Map<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
+    public BestellungTyp(String bestellungsNr, HashMap<ProduktTyp, Integer> produktListe, LieferantTyp lieferant) {
         this.produktListe = produktListe;
         this.lieferant = lieferant;
         this.bestellungsNr = bestellungsNr;
@@ -35,11 +36,11 @@ public class BestellungTyp implements Serializable {
         this.bestellungsNr = bestellungsNr;
     }
 
-    public Map<ProduktTyp, Integer> getProduktListe() {
+    public HashMap<ProduktTyp, Integer> getProduktListe() {
         return produktListe;
     }
 
-    private void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    private void setProduktListe(HashMap<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 

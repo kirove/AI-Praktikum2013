@@ -5,10 +5,12 @@ import Datentypen.AuftragTyp;
 import java.util.ArrayList;
 import java.util.List;
 import Lager.ILagerFassade;
+import Lager.LagerFassade;
 import Lager.LagerLogic;
-import Transport.TransportLogic;
+import Versand.IVersandFassade;
 import Rechnung.IRechnungFassade;
 import Rechnung.RechnungLogic;
+import Versand.VersandFassade;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +23,13 @@ public class AuftragLogic implements IAuftragManager {
 
     AuftragRepository AR;
     ILagerFassade LF;
-    TransportLogic TL;
+    IVersandFassade VF;
     IRechnungFassade RF;
 
     public AuftragLogic() {
         this.AR = new AuftragRepository();
-        this.LF = new LagerLogic();
-        this.TL = new TransportLogic();
+        this.LF = new LagerFassade();
+        this.VF = new VersandFassade();
         this.RF = new RechnungLogic();
     }
 
@@ -62,7 +64,7 @@ public class AuftragLogic implements IAuftragManager {
             LF.produktReservieren(angebot);
             AuftragTyp auftrag = this.AR.createAuftrag(angebot).getTyp();
 
-            this.TL.erstelleLieferung(auftrag);
+            this.VF.erstelleLieferung(auftrag);
 
             try {
                 this.RF.erstelleRechnung(angebot.getPreis(), auftrag.getAuftragsNr(), new Date(), angebot.getKunde().getKundenNr());

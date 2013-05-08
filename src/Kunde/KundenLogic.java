@@ -3,6 +3,9 @@ package Kunde;
 import Datentypen.AdresseTyp;
 import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
+import Exceptions.KundeException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,14 +15,20 @@ public class KundenLogic implements IKundeFassade {
 
     KundeRepository KR;
     IKundeFassade kf;
+    private Exception KundeException;
     
     public KundenLogic(){
 
     }
 
     @Override
-    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
-        return this.KR.erstelleKunde(vorName, nachName, adresse, telefon).getKundenTyp();
+    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws KundeException{
+        try {
+            return this.KR.erstelleKunde(vorName, nachName, adresse, telefon).getKundenTyp();
+        } catch (Exception ex) {
+            throw new KundeException();
+            
+        }
     }
 
     @Override

@@ -22,16 +22,9 @@ import org.hibernate.Session;
  *
  * @author Barzgun
  */
-public class LagerLogic implements ILagerFassade {
+public class LagerLogic {
 
-    @Override
-    public ProduktTyp fordereProduktInformationen(int produktNummer) {
-        
-        return null;
-    }
-
-    @Override
-    public boolean isLagerbestandAusreichend(AngebotTyp angebot) {
+    public static boolean isLagerbestandAusreichend(AngebotTyp angebot) {
         boolean ausreichend = false;
         for (Map.Entry<ProduktTyp, Integer> entry : angebot.getProduktListe().entrySet()) {
             if (!(entry.getKey().getLagerBestand() - entry.getValue() >= 0)) {
@@ -41,72 +34,5 @@ public class LagerLogic implements ILagerFassade {
             }
         }
         return ausreichend;
-    }
-
-    @Override
-    public void triggerWareneingang(ProduktTyp produkt, int produktMenge) {
-        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() + produktMenge),produkt.getPreis());
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(produktNeu);
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void triggerWarenAusgang(ProduktTyp produkt, int produktMenge) {
-        Produkt produktNeu = new Produkt(produkt.getName(), produkt.getProduktNr(), (produkt.getLagerBestand() - produktMenge),produkt.getPreis());
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(produktNeu);
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp auftrag) {
-        Map<ProduktTyp, Integer> produktListe = auftrag.getAngebot().getProduktListe();
-        WarenAusgangMeldung wam = new WarenAusgangMeldung(new Date(), (HashMap<ProduktTyp, Integer>) produktListe);
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(wam);
-        session.getTransaction().commit();
-
-        return wam.getTyp();
-    }
-
-    @Override
-    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
-        Map<ProduktTyp, Integer> produktListe = bestellung.getProduktListe();
-        WarenEingangMeldung wem = new WarenEingangMeldung(new Date(), (HashMap<ProduktTyp, Integer>) produktListe);
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(wem);
-        session.getTransaction().commit();
-
-        return wem.getTyp();
-    }
-
-    @Override
-    public void produktReservieren(AngebotTyp angebot) {
-        for (Map.Entry<ProduktTyp, Integer> pr : angebot.getProduktListe().entrySet()) {
-            ProduktTyp produktTyp = pr.getKey();
-            Produkt produkt = new Produkt(produktTyp.getName(), produktTyp.getProduktNr(), produktTyp.getLagerBestand(),produktTyp.getPreis());
-            produkt.setReserviert();
-            int lagerBestand = produkt.getLagerBestand();
-            int lagerBestandNeu = lagerBestand - pr.getValue();
-            produkt.setLagerBestand(lagerBestandNeu);
-        }
-    }
-
-    @Override
-    public ProduktTyp erstelleProdukt(String name, String produktNr, int lagerBestand, double preis) {
-        ProduktTyp produkt = LagerRepository.erstelleProdukt(name, produktNr, lagerBestand, preis).getTyp();
-        return produkt;
-    }
-
-    @Override
-    public List<ProduktTyp> getProduktList() {
-        List<ProduktTyp> produktListe = LagerRepository.getProduktList();
-        
-        return produktListe;
     }
 }

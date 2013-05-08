@@ -4,6 +4,7 @@ package Verkauf;
 import Datentypen.AngebotTyp;
 import Datentypen.KundenTyp;
 import Datentypen.ProduktTyp;
+import Exceptions.SQLException;
 import Main.HibernateUtil;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import org.hibernate.Session;
  * @author NED
  */
 public class AngebotRepository {
+    private Exception SQLException;
     
     public Angebot erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe, Double gesamtKosten) throws Exception{
         Angebot angebot = new Angebot(kunde, gueltigBis, produktListe,gesamtKosten);

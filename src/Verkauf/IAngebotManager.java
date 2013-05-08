@@ -16,7 +16,7 @@ import java.util.*;
  */
 public interface IAngebotManager {
 
-    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe);
+    public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) throws Exception;
 
     public List<AngebotTyp> sucheAngebote(String kundenName);
 

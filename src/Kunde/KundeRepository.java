@@ -7,14 +7,16 @@ package Kunde;
 import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Datentypen.KundenTyp;
+import Exceptions.SQLException;
 import Main.HibernateUtil;
 import java.sql.SQLClientInfoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class KundeRepository {
+    private static Exception SQLException;
 
-    public static Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
+    public static Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws Exception {
         Kunde newkunde = new Kunde(vorName, nachName, adresse, telefon);
 
         Session session = HibernateUtil.getSession();

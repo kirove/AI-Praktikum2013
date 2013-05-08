@@ -54,7 +54,7 @@ public class WarenAusgangMeldung {
         this.datum = datum;
     }
 
-    public Map<ProduktTyp, Integer> getProduktListe() {
+    public HashMap<ProduktTyp, Integer> getProduktListe() {
         return produktListe;
     }
 

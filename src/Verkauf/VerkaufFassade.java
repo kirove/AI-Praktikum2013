@@ -1,6 +1,7 @@
 package Verkauf;
 
 import Datentypen.*;
+import Exceptions.KundeException;
 import Kunde.IKundeFassade;
 import Kunde.KundenLogic;
 
@@ -9,6 +10,7 @@ import Lieferant.ILieferantManager;
 import Rechnung.IRechnungFassade;
 
 import Lager.ILagerFassade;
+import Lager.LagerFassade;
 import Lager.LagerLogic;
 
 
@@ -30,7 +32,7 @@ public class VerkaufFassade implements IVerkauf {
 
     public VerkaufFassade() {
         this.KM = new KundenLogic();
-        this.LF = new LagerLogic();
+        this.LF = new LagerFassade();
         this.AngM = new AngebotLogic();
         this.AufM = new AuftragLogic();
     }
@@ -47,7 +49,14 @@ public class VerkaufFassade implements IVerkauf {
 
     @Override
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
-        return KM.erstelleKunde(vorName, nachName, adresse, telefon);
+        try {
+            System.out.println("Kunde wurde erstellt :)");
+            return KM.erstelleKunde(vorName, nachName, adresse, telefon);
+        } catch (KundeException ex) {
+            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Kunde wurde nicht erstellt :(");
+            return null;
+        }
     }
 
     @Override
@@ -57,7 +66,14 @@ public class VerkaufFassade implements IVerkauf {
 
     @Override
     public AngebotTyp erstelleAngebot(KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe) {
-        return AngM.erstelleAngebot(kunde, gueltigBis, produktListe);
+        try {
+            System.out.println("Angebot wurde erstellet :)");
+            return AngM.erstelleAngebot(kunde, gueltigBis, produktListe);
+        } catch (Exception ex) {
+            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Angebot wurde nicht erstellet :(");
+            return null;
+        }
     }
 
     @Override

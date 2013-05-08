@@ -36,5 +36,5 @@ public interface ILagerFassade extends ILagerManager {
 
     public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung);
 
-    public void produktReservieren(AngebotTyp angebot);
+    public List<ProduktTyp> produktReservieren(AngebotTyp angebot);
 }

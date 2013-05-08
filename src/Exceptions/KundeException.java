@@ -8,6 +8,6 @@ package Exceptions;
  *
  * @author NED
  */
-public class KundeException {
+public class KundeException  extends Exception{
     
 }

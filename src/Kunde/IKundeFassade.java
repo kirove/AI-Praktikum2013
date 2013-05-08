@@ -3,6 +3,7 @@ package Kunde;
 import Datentypen.AdresseTyp;
 import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
+import Exceptions.KundeException;
 
 /**
  *
@@ -10,7 +11,7 @@ import Datentypen.TelefonNrTyp;
  */
 public interface IKundeFassade {
 
-    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon);
+    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon)throws KundeException;
 
     public KundenTyp getKunde(String kundeNr);
 

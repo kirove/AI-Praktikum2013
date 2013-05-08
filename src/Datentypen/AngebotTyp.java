@@ -52,7 +52,7 @@ public class AngebotTyp implements Serializable {
         return gueltigBis;
     }
 
-    public Map<ProduktTyp, Integer> getProduktListe() {
+    public HashMap<ProduktTyp, Integer> getProduktListe() {
         return produktListe;
     }
 
