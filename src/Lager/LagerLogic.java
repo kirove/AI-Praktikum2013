@@ -35,4 +35,12 @@ public class LagerLogic {
         }
         return ausreichend;
     }
+    
+    public static WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp auftrag) {
+        return LagerRepository.triggerWarenAusgangMeldung(auftrag).getTyp();
+    }
+
+     public static WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
+        return LagerRepository.triggerWarenEingangMeldung(bestellung).getTyp();
+    }
 }

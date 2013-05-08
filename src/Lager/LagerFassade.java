@@ -49,19 +49,19 @@ public class LagerFassade implements ILagerFassade {
         LagerRepository.triggerWarenAusgang(produkt, produktMenge);
     }
 
-    @Override
-    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp angebot) {
-        return LagerRepository.triggerWarenAusgangMeldung(angebot).getTyp();
-    }
+//    @Override
+//    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp auftrag) {
+//        return LagerRepository.triggerWarenAusgangMeldung(auftrag).getTyp();
+//    }
+
+//    @Override
+//    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
+//        return LagerRepository.triggerWarenEingangMeldung(bestellung).getTyp();
+//    }
 
     @Override
-    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung) {
-        return LagerRepository.triggerWarenEingangMeldung(bestellung).getTyp();
-    }
-
-    @Override
-    public List<ProduktTyp> produktReservieren(AngebotTyp angebot) {
-        return ProduktLogic.produktReservieren(angebot);
+    public List<ProduktTyp> produktReservieren(AuftragTyp auftrag) {
+        return ProduktLogic.produktReservieren(auftrag);
     }
     
     @Override

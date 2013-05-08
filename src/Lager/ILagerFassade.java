@@ -32,11 +32,11 @@ public interface ILagerFassade extends ILagerManager {
 
     public void triggerWarenAusgang(ProduktTyp produkt, int produktMenge);
 
-    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp angebot);
+//    public WarenAusgangMeldungTyp triggerWarenAusgangMeldung(AuftragTyp angebot);
+//
+//    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung);
 
-    public WarenEingangMeldungTyp triggerWarenEingangMeldung(BestellungTyp bestellung);
-
-    public List<ProduktTyp> produktReservieren(AngebotTyp angebot);
+    public List<ProduktTyp> produktReservieren(AuftragTyp auftrag);
 
     public void save(ProduktTyp produkt);
 }

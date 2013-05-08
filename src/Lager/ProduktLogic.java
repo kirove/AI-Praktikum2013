@@ -5,6 +5,7 @@
 package Lager;
 
 import Datentypen.AngebotTyp;
+import Datentypen.AuftragTyp;
 import Datentypen.ProduktTyp;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,10 @@ import java.util.Map;
  */
 public class ProduktLogic {
 
-    public static List<ProduktTyp> produktReservieren(AngebotTyp angebot) {
+    public static List<ProduktTyp> produktReservieren(AuftragTyp auftrag) {
         List<ProduktTyp> produktListe = new ArrayList<>();
 
-        for (Map.Entry<ProduktTyp, Integer> pr : angebot.getProduktListe().entrySet()) {
+        for (Map.Entry<ProduktTyp, Integer> pr : auftrag.getAngebot().getProduktListe().entrySet()) {
             ProduktTyp produktTyp = pr.getKey();
             Produkt produkt = new Produkt(produktTyp.getName(), produktTyp.getProduktNr(), produktTyp.getLagerBestand(), produktTyp.getPreis());
             produkt.setReserviert();
@@ -29,6 +30,7 @@ public class ProduktLogic {
 
             produktListe.add(produkt.getTyp());
         }
+        LagerLogic.triggerWarenAusgangMeldung(auftrag);
         return produktListe;
     }
 }
