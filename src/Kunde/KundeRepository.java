@@ -46,4 +46,14 @@ public class KundeRepository {
         // select Kunde anhand kunde Vorname, Nachname, Adresse
         return null;//kunde.getKundenTyp();
     }
+    
+    public static void save(Kunde kunde) {
+		if (kunde != null) {
+			Session session = HibernateUtil.getSession();
+			session.beginTransaction();
+			session.save(kunde);
+			session.getTransaction().commit();
+		}
+	}
+
 }
