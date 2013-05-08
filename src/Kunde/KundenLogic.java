@@ -11,6 +11,11 @@ import Datentypen.TelefonNrTyp;
 public class KundenLogic implements IKundeFassade {
 
     KundeRepository KR;
+    IKundeFassade kf;
+    
+    public KundenLogic(){
+
+    }
 
     @Override
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {

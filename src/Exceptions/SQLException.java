@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lieferant;
+package Exceptions;
 
 /**
  *
- * @author Barzgun
+ * @author NED
  */
-public class LieferantVerwalter {
+public class SQLException {
     
 }

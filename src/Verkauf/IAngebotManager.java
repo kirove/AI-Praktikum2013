@@ -5,6 +5,7 @@
 package Verkauf;
 
 import Datentypen.AngebotTyp;
+import Datentypen.AuftragTyp;
 import Datentypen.KundenTyp;
 import Datentypen.ProduktTyp;
 import java.util.*;
@@ -20,4 +21,5 @@ public interface IAngebotManager {
     public List<AngebotTyp> sucheAngebote(String kundenName);
 
     public AngebotTyp sucheAngebotePerNr(String angebotNr);
+
 }

@@ -14,12 +14,10 @@ import org.hibernate.SessionFactory;
 
 public class KundeRepository {
 
-    public Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws Exception {
-        
+    public static Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
         Kunde newkunde = new Kunde(vorName, nachName, adresse, telefon);
-        
-        
-        Session session = (Session) HibernateUtil.getSessionFactory();
+
+        Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(newkunde);
         session.getTransaction().commit();

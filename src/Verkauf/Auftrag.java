@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "Auftrag")
@@ -21,7 +22,7 @@ public class Auftrag {
      
     private AngebotTyp angebot;
     private boolean isAbgeschlossen;
-    private Calendar date;
+    private Date date;
 
     public Auftrag() {
     }
@@ -31,7 +32,7 @@ public class Auftrag {
         this.auftragsNr = "AuftragsNr:" + UUID.randomUUID();;
         this.angebot = angebot;
         this.isAbgeschlossen = false;
-        this.date.
+        this.date = new Date();
     }
     public AuftragTyp getTyp(){
         return new AuftragTyp(auftragsNr, angebot, isAbgeschlossen,date);

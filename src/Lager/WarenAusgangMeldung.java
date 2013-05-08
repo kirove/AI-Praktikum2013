@@ -7,26 +7,28 @@ package Lager;
 import Datentypen.ProduktTyp;
 import Datentypen.WarenAusgangMeldungTyp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.*;
 
-/**
- *
- * @author Barzgun
- */
+@Entity
+@Table(name = "WarenAusgangMeldung")
 public class WarenAusgangMeldung {
 
+    @Id
     private String id;
+    
     private Date datum;
-    private Map<ProduktTyp, Integer> produktListe;
+    private HashMap<ProduktTyp, Integer> produktListe;
 //    private int menge;
 //    private ProduktTyp produkt;
 
     public WarenAusgangMeldung() {
     }
 
-    public WarenAusgangMeldung(Date datum, Map<ProduktTyp, Integer> produktListe) {
+    public WarenAusgangMeldung(Date datum, HashMap<ProduktTyp, Integer> produktListe) {
         this.id = "WarenAusgangMeldungID:" + UUID.randomUUID();
         this.datum = datum;
         this.produktListe = produktListe;
@@ -56,7 +58,7 @@ public class WarenAusgangMeldung {
         return produktListe;
     }
 
-    public void setProduktListe(Map<ProduktTyp, Integer> produktListe) {
+    public void setProduktListe(HashMap<ProduktTyp, Integer> produktListe) {
         this.produktListe = produktListe;
     }
 

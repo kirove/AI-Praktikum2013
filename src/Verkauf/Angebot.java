@@ -18,7 +18,6 @@ public class Angebot {
     private String angebotsNr;
     
     private KundenTyp kunde;
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date gueltigBis;
     private HashMap<ProduktTyp, Integer> produktListe;
     private double preis;

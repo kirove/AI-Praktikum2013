@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author NED
+ * @author Barzgun
  */
 public class LagerRepository {
 
