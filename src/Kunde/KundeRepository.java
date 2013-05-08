@@ -8,19 +8,23 @@ import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Datentypen.KundenTyp;
 import Main.HibernateUtil;
+import java.sql.SQLClientInfoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class KundeRepository {
 
-    public Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
+    public Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws Exception {
+        
         Kunde newkunde = new Kunde(vorName, nachName, adresse, telefon);
-
+        
+        
         Session session = (Session) HibernateUtil.getSessionFactory();
         session.beginTransaction();
         session.save(newkunde);
         session.getTransaction().commit();
-
+        if (newkunde == null)
+            throw SQLException;
         return newkunde;
     }
 
