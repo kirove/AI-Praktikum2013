@@ -60,7 +60,7 @@ public class VerkaufFassade implements IVerkauf {
     }
 
     @Override
-    public ProduktTyp fordereProduktInformationen(int produktNummer) {
+    public ProduktTyp fordereProduktInformationen(String produktNummer) {
         return LF.fordereProduktInformationen(produktNummer);
     }
 

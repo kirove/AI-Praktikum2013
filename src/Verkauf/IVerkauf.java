@@ -16,7 +16,7 @@ public interface IVerkauf {
     
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp dresse, TelefonNrTyp telefon);
 
-    public ProduktTyp fordereProduktInformationen(int produktNummer);
+    public ProduktTyp fordereProduktInformationen(String produktNummer);
 
     public AngebotTyp erstelleAngebot (KundenTyp kunde, Date gueltigBis, HashMap<ProduktTyp, Integer> produktListe);
 

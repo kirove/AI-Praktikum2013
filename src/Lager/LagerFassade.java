@@ -30,7 +30,7 @@ public class LagerFassade implements ILagerFassade {
     }
 
     @Override
-    public ProduktTyp fordereProduktInformationen(int produktNummer) {
+    public ProduktTyp fordereProduktInformationen(String produktNummer) {
 
         return null;
     }
