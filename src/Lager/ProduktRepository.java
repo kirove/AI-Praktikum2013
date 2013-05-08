@@ -29,4 +29,9 @@ public class ProduktRepository {
         // get liste aller Produkte
         return null;//produktListe;
     }
+    
+    public static Produkt getProdukt(){
+        // hybernate
+        return null;//produkt;
+    }
 }
