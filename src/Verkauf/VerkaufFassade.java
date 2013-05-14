@@ -38,7 +38,7 @@ public class VerkaufFassade implements IVerkauf {
     }
 
     @Override
-    public KundenTyp getKunde(String kundeNr) {
+    public KundenTyp getKunde(String kundeNr) throws    {
         return KM.getKunde(kundeNr);
     }
 
