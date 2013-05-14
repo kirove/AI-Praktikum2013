@@ -1,6 +1,8 @@
 package Main;
 
 import Datentypen.*;
+import Exceptions.KundeException;
+import Exceptions.RechnungException;
 import Lager.ILagerFassade;
 import Lager.LagerFassade;
 
@@ -16,8 +18,6 @@ import Verkauf.IVerkauf;
 import Verkauf.VerkaufFassade;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,90 +42,104 @@ public class HES {
         //Typen erstellen
         AdresseTyp adr1 = new AdresseTyp("Berliner Tor", 5, 20537, "Hamburg", "Germany");
         TelefonNrTyp telNr = new TelefonNrTyp("040", 123456);
-        ProduktTyp produktT = new ProduktTyp("Laptop", "345", 9999, 1200);
-        HashMap<ProduktTyp, Integer> produktListe = new HashMap<ProduktTyp, Integer>();
-        produktListe.put(produktT, 1);
+        HashMap<ProduktTyp, Integer> produktEinkaufList = new HashMap<ProduktTyp, Integer>();
         Date datum = new Date((long) 10);
-        AdresseTyp adr2 = new AdresseTyp("Hauptstr.", 1, 33423, "Hamburg", "Germany");
 
-        //Produkt erstellen
+        //Produkt erstellen @Der Lagerist
         ILagerFassade lf = new LagerFassade();
         ProduktTyp thinkpad = lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
         ProduktTyp macbook = lf.erstelleProdukt("Macbook", "234-r", 999, 1700);
         ProduktTyp aldiPC = lf.erstelleProdukt("ALDI-PC", "238-w", 999, 700);
 
+        //Zugriff auf die Fassade per GUI 
+        IVerkauf verkaufFassade = new VerkaufFassade();
+
+        /* 
+         * Kunde interiessert sich für Produkte
+         * Kunde ruft an 
+         * Agent legt neu Kunde im System
+         * oder ruft vorhandene Kunden aus dem Datenbank
+         */
+
         //Kunden erstellen
-        IVerkauf verkaufF = new VerkaufFassade();
-        KundenTyp sergej = verkaufF.erstelleKunde("Sergej", "Chan", adr1, telNr);
-        KundenTyp niko = verkaufF.erstelleKunde("Nikolay", "Anderson", adr1, telNr);
-        KundenTyp nidal = verkaufF.erstelleKunde("Nidal", "Smith", adr1, telNr);
+        try {
+            KundenTyp neueKundeSergej = verkaufFassade.erstelleKunde("Sergej", "Chan", adr1, telNr);
+            KundenTyp neueKundeNiko = verkaufFassade.erstelleKunde("Nikolay", "Anderson", adr1, telNr);
+            KundenTyp neueKundeNidal = verkaufFassade.erstelleKunde("Nidal", "Smith", adr1, telNr);
 
 
-        //Szenario
-        //hole Kunde
-        // KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
-        //KundenTyp kunde1 = verkaufF.getKunde(niko.getKundenNr());
-        KundenTyp kunde1 = verkaufF.getKunde(niko.getvorName(), niko.getnachName(), niko.getAdresse());
-        System.out.println("Kunde Information: " + kunde1.toString());
+            //Kunde holen per vorname, nachname, Adresse
+            KundenTyp stammKundeNiko1 = verkaufFassade.getKunde("Nicolay", "Anderson", adr1);
+            //Kunde holen per KundenNummer
+            KundenTyp stammKundeNiko2 = verkaufFassade.getKunde(neueKundeNiko.getKundenNr());
+            //Kunde holen per TelefonNummer
+            KundenTyp stammKundeNiko3 = verkaufFassade.getKunde(neueKundeNiko.getTelNr());
 
-        //hole Produktinformation
-        ProduktTyp thinkPad = verkaufF.fordereProduktInformationen(thinkpad.getProduktNr());
-        System.out.println("Produckt Information: " + thinkPad.toString());
-
-        //erstelle Angebot
-        AngebotTyp angebot1 = verkaufF.erstelleAngebot(kunde1, datum, produktListe);
-        System.out.println("Angebot wurde erstellt: " + angebot1.toString());
+            System.out.println("Kunde Information: " + stammKundeNiko2.toString());
 
 
-        //erstelle Auftrag
-        AuftragTyp auftrag1 = verkaufF.erstelleAuftrag(angebot1);
-        System.out.println("Auftrag erstellt :" + auftrag1.toString());
+            /*
+             * Kunde fragt nach Produkte
+             * Agent ruft Produkt aus dem DatenBank per ProduktNummer
+             */
 
-        //auftrag status
-        //  auftrag1.toString();
+            ProduktTyp thinkPad = verkaufFassade.fordereProduktInformationen(thinkpad.getProduktNr());
 
-        // get rechnung 
-        IRechnungFassade RF;
-        RF = new RechnungLogic();
-        RechnungTyp rechnung1 = RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
+            System.out.println("Produckt Information: " + thinkPad.toString());
 
-        //Überweisung ist angekommen
-        IBank sparkasse;
-        sparkasse = new ZahlungsEingangLogic();
-        sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
+            /*
+             * Kunde hat mehrere Produkte zusammen gefasst
+             * Agent erstellt Angebot
+             */
+            
+            produktEinkaufList.put(aldiPC, 20);
+            produktEinkaufList.put(thinkPad, 2);
+            produktEinkaufList.put(macbook, 20);
+            AngebotTyp angebotfüerNiko = verkaufFassade.erstelleAngebot(stammKundeNiko1, datum, produktEinkaufList);
 
-        //nacht ablauf (bezahlte verträge abschliessen)
+            System.out.println("Angebot wurde erstellt: " + angebotfüerNiko.toString());
 
-        IAuftragManager iam = new AuftragLogic();
-        iam.schliesseBezahlteAuftraege();
-        
-       
-        //get neue Auftrag status
-        System.out.println(verkaufF.getAuftragPerAuftragNr(auftrag1.getAuftragsNr()));
+            /*
+             * Kunde entscheidet sich für das Angebot
+             * Agent legt Auftrag im DatenBank per angebot
+             */
+
+            AuftragTyp auftragfuerNiko = verkaufFassade.erstelleAuftrag(angebotfüerNiko);
+
+            System.out.println("Auftrag erstellt :" + auftragfuerNiko.toString());
+
+            /*
+             * nach dem Auftrag Erstellung wird eine Lieferung automatich (falls lager Bestand ausreichend ist)erstellt 
+             * sowie eine Rechnung
+             */
+
+            /*
+             *  Die Bank greift auf unser Schnitstelle (IBank) und benachricht ZahlungEingan
+             *  per RechnungNummer und Betrag
+             */
+
+            IRechnungFassade RF = new RechnungLogic();
+            RechnungTyp rechnung1 = RF.getRechnungPerAuftragNr(auftragfuerNiko.getAuftragsNr());
+
+            //Überweisung ist angekommen
+            IBank sparkasse = new ZahlungsEingangLogic();
+            sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
+
+            /*
+             * Jede Nacht wird diese Process aufgerufen um bezahlte Auftrage ab zu schliessen
+             */
+            IAuftragManager iAuftragManager = new AuftragLogic();
+            iAuftragManager.schliesseBezahlteAuftraege();
+
+
+            //Zeige das Neue Status des Auftrages
+            System.out.println(verkaufFassade.getAuftragPerAuftragNr(auftragfuerNiko.getAuftragsNr()));
+
+        } catch (KundeException kEx) {
+            System.out.println(kEx.getMessage());
+        } catch (RechnungException rEx) {
+            System.out.println(rEx.getMessage());
+        }
         session.close();
     }
-//    private static void saveOrUpdate(Object object) {
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        Transaction transaction = null;
-//
-//        try {
-//            transaction = session.beginTransaction();
-//
-//            session.saveOrUpdate(object);
-//            // Committing the change in the database.
-//            session.flush();
-//            transaction.commit();
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//
-//            // Rolling back the changes to make the data consistent in case of any failure
-//            // in between multiple database write operations.
-//            transaction.rollback();
-//        } finally {
-//            if (session != null) {
-//                session.close();
-//            }
-//        }
-//    }
 }

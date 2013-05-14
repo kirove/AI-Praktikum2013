@@ -3,6 +3,7 @@ package Verkauf;
 import java.util.*;
 
 import Datentypen.*;
+import Exceptions.KundeException;
 
 /**
  *
@@ -10,11 +11,13 @@ import Datentypen.*;
  */
 public interface IVerkauf {
     
-    public KundenTyp getKunde(String kundeNr);
+    public KundenTyp getKunde(String kundeNr)throws KundeException;
     
-    public KundenTyp getKunde(String vorname,String nachname,AdresseTyp adresse);
+    public KundenTyp getKunde(String vorname,String nachname,AdresseTyp adresse)throws KundeException;
     
-    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp dresse, TelefonNrTyp telefon);
+    public KundenTyp getKunde(TelefonNrTyp tel)throws KundeException;
+    
+    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp dresse, TelefonNrTyp telefon)throws KundeException;
 
     public ProduktTyp fordereProduktInformationen(String produktNummer);
 

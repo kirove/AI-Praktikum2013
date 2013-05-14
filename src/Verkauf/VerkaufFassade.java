@@ -38,35 +38,29 @@ public class VerkaufFassade implements IVerkauf {
     }
 
     @Override
-    public KundenTyp getKunde(String kundeNr) {
-        try {
-            return KM.getKunde(kundeNr);
-        } catch (KundeException ex) {
-            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+    public KundenTyp getKunde(String kundeNr) throws KundeException {
+
+        return KM.getKunde(kundeNr);
+
     }
 
     @Override
-    public KundenTyp getKunde(String vorname, String nachname, AdresseTyp adresse) {
-        try {
-            return KM.getKunde(vorname, nachname, adresse);
-        } catch (KundeException ex) {
-            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+    public KundenTyp getKunde(TelefonNrTyp tel) throws KundeException {
+        return KM.getKunde(tel);
     }
 
     @Override
-    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
-        try {
-            System.out.println("Kunde wurde erstellt :)");
-            return KM.erstelleKunde(vorName, nachName, adresse, telefon);
-        } catch (KundeException ex) {
-            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Kunde wurde nicht erstellt :(");
-            return null;
-        }
+    public KundenTyp getKunde(String vorname, String nachname, AdresseTyp adresse) throws KundeException {
+
+        return KM.getKunde(vorname, nachname, adresse);
+
+    }
+
+    @Override
+    public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws KundeException {
+
+        return KM.erstelleKunde(vorName, nachName, adresse, telefon);
+
     }
 
     @Override
@@ -110,5 +104,4 @@ public class VerkaufFassade implements IVerkauf {
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) {
         return AufM.sucheAuftragePerNr(auftragNr);
     }
-    
 }
