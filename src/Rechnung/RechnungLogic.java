@@ -20,6 +20,10 @@ import java.util.logging.Logger;
 public class RechnungLogic implements IRechnungFassade {
 
     RechnungRepository RR;
+    
+    public RechnungLogic(){
+        this.RR = new RechnungRepository();
+    }
 
     @Override
     public RechnungTyp erstelleRechnung(double betrag, String auftragNr, Date date, String KundenNr) {
@@ -41,12 +45,12 @@ public class RechnungLogic implements IRechnungFassade {
     }
 
     @Override
-    public RechnungTyp getRechnungPerID(String rechnungsNr) throws Exception{
+    public RechnungTyp getRechnungPerID(String rechnungsNr) {
             return this.RR.getRechnung(rechnungsNr).getTyp();
     }
 
     @Override
-    public RechnungTyp getRechnungPerAuftragNr(String auftragNr) throws Exception {
-        return this.RR.getRechnung(auftragNr).getTyp();
+    public RechnungTyp getRechnungPerAuftragNr(String auftragNr)  {
+        return this.RR.getRechnungPerAuftragNr(auftragNr).getTyp();
     }
 }

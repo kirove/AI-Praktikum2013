@@ -41,17 +41,17 @@ public class ProduktRepository {
         return result;//produktListe;
     }
 
-    public static Produkt getProdukt() {
-        Produkt produkt = null;
-        // hybernate
-        Session session = HibernateUtil.getSession();
-        Transaction tx = session.beginTransaction();
-        produkt = (Produkt) session.createSQLQuery(null);
+    public static Produkt getProdukt(String produktNummer) {
 
-        session.flush();
-        tx.commit();
-        session.close();
-        // hybernate
+        Session session = HibernateUtil.getSession();
+        List<Produkt> produkte = session
+                .createQuery("FROM Produkt produkt WHERE produktNr = :produktNummer")
+                .setParameter("produktNummer", produktNummer).list();
+        Produkt produkt = null;
+        if (!produkte.isEmpty()) {
+            produkt = produkte.get(0);
+        }
+
         return produkt;//produkt;
     }
 

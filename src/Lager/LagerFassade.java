@@ -31,7 +31,7 @@ public class LagerFassade implements ILagerFassade {
 
     @Override
     public ProduktTyp fordereProduktInformationen(String produktNummer) {
-        return ProduktRepository.getProdukt().getTyp();
+        return ProduktRepository.getProdukt(produktNummer).getTyp();
     }
 
     @Override

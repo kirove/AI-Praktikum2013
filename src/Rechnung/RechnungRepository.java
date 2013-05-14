@@ -21,12 +21,12 @@ public class RechnungRepository {
 
     public Rechnung createRechnung(double betrag, String auftragNr, Date date, String KundenNr) {
         Rechnung newRechnung = new Rechnung(betrag, auftragNr, date, KundenNr);
-        
+
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(newRechnung);
         session.getTransaction().commit();
-        
+
         return newRechnung;
     }
 
@@ -36,13 +36,33 @@ public class RechnungRepository {
         return rechnungenListe;
     }
 
-    Rechnung getRechnung(String rechnungsNr) throws Exception {
-        //get from DB
+    Rechnung getRechnung(String rechnungsNr) {
+
+        Session session = HibernateUtil.getSession();
+        List<Rechnung> rechnungen = session
+                .createQuery("FROM Rechnung rechnung WHERE id = :rechnungsNr")
+                .setParameter("rechnungsNr", rechnungsNr).list();
+
         Rechnung rechnung = null;
-        if (rechnung == null) {
-            throw SQLException;
+        if (!rechnungen.isEmpty()) {
+            rechnung = rechnungen.get(0);
         }
+
         return rechnung;
     }
 
+    Rechnung getRechnungPerAuftragNr(String auftragNr) {
+        
+        Session session = HibernateUtil.getSession();
+        List<Rechnung> rechnungen = session
+                .createQuery("FROM Rechnung rechnung WHERE auftragNr = :auftragNr")
+                .setParameter("auftragNr", auftragNr).list();
+
+        Rechnung rechnung = null;
+        if (!rechnungen.isEmpty()) {
+            rechnung = rechnungen.get(0);
+        }
+
+        return rechnung;
+    }
 }

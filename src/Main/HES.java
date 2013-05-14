@@ -85,12 +85,7 @@ public class HES {
         // get rechnung 
         IRechnungFassade RF;
         RF = new RechnungLogic();
-        RechnungTyp rechnung1= null;
-        try {
-            rechnung1 = RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
-        } catch (Exception ex) {
-            Logger.getLogger(HES.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        RechnungTyp rechnung1= RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
 
         //Überweisung ist angekommen
         IBank sparkasse;
