@@ -2,6 +2,7 @@ package Verkauf;
 
 import Datentypen.AngebotTyp;
 import Datentypen.AuftragTyp;
+import Datentypen.RechnungTyp;
 import java.util.ArrayList;
 import java.util.List;
 import Lager.ILagerFassade;
@@ -92,5 +93,21 @@ public class AuftragLogic implements IAuftragManager {
         }
 
         return nichtAbgeschlosseneAuftraegeListe;
+    }
+
+    @Override
+    public void schliesseBezahlteAuftraege() {
+        List<AuftragTyp> nichtAbgeschlosseneAuftraege = getNichtAbgeschlosseneAuftraege();
+        for (int i = 0; i < nichtAbgeschlosseneAuftraege.size(); i++) {
+            try {
+                RechnungTyp rechnung = this.RF.getRechnungPerAuftragNr(nichtAbgeschlosseneAuftraege.get(i).getAuftragsNr());
+
+                if (rechnung.IsBezahlt()) {
+                    this.schliesseAuftrag(nichtAbgeschlosseneAuftraege.get(i));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

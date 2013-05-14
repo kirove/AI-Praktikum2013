@@ -22,12 +22,9 @@ public class KundenLogic implements IKundeFassade {
 
     @Override
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws KundeException {
-        try {
-            return this.KR.erstelleKunde(vorName, nachName, adresse, telefon).getKundenTyp();
-        } catch (Exception ex) {
-            throw new KundeException();
 
-        }
+        return this.KR.erstelleKunde(vorName, nachName, adresse, telefon).getKundenTyp();
+
     }
 
     @Override

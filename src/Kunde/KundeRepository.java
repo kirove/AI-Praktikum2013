@@ -7,6 +7,7 @@ package Kunde;
 import Datentypen.AdresseTyp;
 import Datentypen.TelefonNrTyp;
 import Datentypen.KundenTyp;
+import Exceptions.KundeException;
 import Exceptions.SQLException;
 import Main.HibernateUtil;
 import java.sql.SQLClientInfoException;
@@ -16,17 +17,17 @@ import org.hibernate.SessionFactory;
 
 public class KundeRepository {
 
-    private static Exception SQLException;
-
-    public static Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws Exception {
+    public Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws SQLClientInfoException {
         Kunde newkunde = new Kunde(vorName, nachName, adresse, telefon);
 
+        try{
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(newkunde);
         session.getTransaction().commit();
-        if (newkunde == null) {
-            throw SQLException;
+        }catch (Exception ex){
+            KundeException ke = new KundeException();
+            
         }
         return newkunde;
     }

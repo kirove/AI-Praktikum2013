@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Verkauf;
 
 import Datentypen.*;
@@ -22,4 +18,6 @@ public interface IAuftragManager {
     public AuftragTyp erstelleAuftrag(AngebotTyp angebot);
 
     public List<AuftragTyp> getNichtAbgeschlosseneAuftraege();
+    
+    public void schliesseBezahlteAuftraege();
 }

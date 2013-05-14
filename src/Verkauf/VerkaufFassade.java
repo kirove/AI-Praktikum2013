@@ -101,20 +101,4 @@ public class VerkaufFassade implements IVerkauf {
         return AufM.sucheAuftragePerNr(auftragNr);
     }
     
-    
-    public void markiereBezahlteAuftraege() {
-        List<AuftragTyp> nichtAbgeschlosseneAuftraege =  AufM.getNichtAbgeschlosseneAuftraege();
-        for (int i = 0; i <nichtAbgeschlosseneAuftraege.size() ; i++){
-            try {
-                RechnungTyp rechnung = this.RF.getRechnungPerAuftragNr(nichtAbgeschlosseneAuftraege.get(i).getAuftragsNr());
-                
-                if (rechnung.IsBezahlt()){
-                    this.AufM.schliesseAuftrag(nichtAbgeschlosseneAuftraege.get(i));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }
 }
