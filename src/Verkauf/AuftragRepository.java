@@ -4,6 +4,7 @@ import Datentypen.AngebotTyp;
 import Main.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -57,7 +58,29 @@ public class AuftragRepository {
 
     public Auftrag updateAuftrag(Auftrag auftrag) {
 
-        // update auftrag
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            session.saveOrUpdate(auftrag);
+            // Committing the change in the database.
+            session.flush();
+            transaction.commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            // Rolling back the changes to make the data consistent in case of any failure
+            // in between multiple database write operations.
+            transaction.rollback();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
         return auftrag;
     }
 

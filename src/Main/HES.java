@@ -47,7 +47,7 @@ public class HES {
         produktListe.put(produktT, 1);
         Date datum = new Date((long) 10);
         AdresseTyp adr2 = new AdresseTyp("Hauptstr.", 1, 33423, "Hamburg", "Germany");
-        
+
         //Produkt erstellen
         ILagerFassade lf = new LagerFassade();
         ProduktTyp thinkpad = lf.erstelleProdukt("Thinkpad", "435-f", 999, 1400);
@@ -60,52 +60,50 @@ public class HES {
         KundenTyp niko = verkaufF.erstelleKunde("Nikolay", "Anderson", adr1, telNr);
         KundenTyp nidal = verkaufF.erstelleKunde("Nidal", "Smith", adr1, telNr);
 
-        
+
         //Szenario
         //hole Kunde
         // KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
         //KundenTyp kunde1 = verkaufF.getKunde(niko.getKundenNr());
-        KundenTyp kunde1 = verkaufF.getKunde(niko.getvorName(),niko.getnachName(),niko.getAdresse());
-        System.out.println("Kunde Information: "+ kunde1.toString());
-        
+        KundenTyp kunde1 = verkaufF.getKunde(niko.getvorName(), niko.getnachName(), niko.getAdresse());
+        System.out.println("Kunde Information: " + kunde1.toString());
+
         //hole Produktinformation
         ProduktTyp thinkPad = verkaufF.fordereProduktInformationen(thinkpad.getProduktNr());
-        System.out.println("Produckt Information: "+thinkPad.toString());
-        
+        System.out.println("Produckt Information: " + thinkPad.toString());
+
         //erstelle Angebot
         AngebotTyp angebot1 = verkaufF.erstelleAngebot(kunde1, datum, produktListe);
-        System.out.println("Angebot wurde erstellt: "+ angebot1.toString());
-        
-        
+        System.out.println("Angebot wurde erstellt: " + angebot1.toString());
+
+
         //erstelle Auftrag
         AuftragTyp auftrag1 = verkaufF.erstelleAuftrag(angebot1);
-        System.out.println("Auftrag erstellt :"+ auftrag1.toString());
-        
+        System.out.println("Auftrag erstellt :" + auftrag1.toString());
+
         //auftrag status
-     //  auftrag1.toString();
-        
+        //  auftrag1.toString();
+
         // get rechnung 
         IRechnungFassade RF;
         RF = new RechnungLogic();
-        RechnungTyp rechnung1= RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
+        RechnungTyp rechnung1 = RF.getRechnungPerAuftragNr(auftrag1.getAuftragsNr());
 
         //Überweisung ist angekommen
         IBank sparkasse;
         sparkasse = new ZahlungsEingangLogic();
         sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
-        
+
         //nacht ablauf (bezahlte verträge abschliessen)
-        
+
         IAuftragManager iam = new AuftragLogic();
-    iam.schliesseBezahlteAuftraege();
+        iam.schliesseBezahlteAuftraege();
         
-        
+       
         //get neue Auftrag status
-      //  auftrag1.toString();
-System.out.println(auftrag1);
+        System.out.println(verkaufF.getAuftragPerAuftragNr(auftrag1.getAuftragsNr()));
         session.close();
     }
-
 //    private static void saveOrUpdate(Object object) {
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = null;

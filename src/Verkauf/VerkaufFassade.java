@@ -38,25 +38,35 @@ public class VerkaufFassade implements IVerkauf {
     }
 
     @Override
-    public KundenTyp getKunde(String kundeNr) throws    {
-        return KM.getKunde(kundeNr);
+    public KundenTyp getKunde(String kundeNr) {
+        try {
+            return KM.getKunde(kundeNr);
+        } catch (KundeException ex) {
+            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override
     public KundenTyp getKunde(String vorname, String nachname, AdresseTyp adresse) {
-        return KM.getKunde(vorname, nachname, adresse);
+        try {
+            return KM.getKunde(vorname, nachname, adresse);
+        } catch (KundeException ex) {
+            Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
-      /*  try {*/
+        try {
             System.out.println("Kunde wurde erstellt :)");
             return KM.erstelleKunde(vorName, nachName, adresse, telefon);
-      /*  } catch (KundeException ex) {
+        } catch (KundeException ex) {
             Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Kunde wurde nicht erstellt :(");
             return null;
-        }*/
+        }
     }
 
     @Override
