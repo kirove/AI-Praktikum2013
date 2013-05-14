@@ -38,11 +38,19 @@ public class AuftragRepository {
         return auftrag;
     }
 
-    public List<Auftrag> getAuftrage(String kundenName) {
-         Session session = HibernateUtil.getSession();
-        List<Angebote> angebote = session
-                .createQuery("FROM Rechnung rechnung WHERE auftragsNr = :auftragsNr")
-                .setParameter("auftragsNr", auftragsNr).list();
+    public List<Auftrag> getAuftrage(String kunde) {
+        Session session = HibernateUtil.getSession();
+        List<Angebot> angebote = session
+                .createQuery("FROM Angebot angebot WHERE kunde = :kunde")
+                .setParameter("kunde", kunde).list();
+        List<Auftrag> auftraege = null;
+        for (Angebot angebot : angebote) {
+            List<Auftrag> auftraegen = session
+                    .createQuery("FROM Auftrag auftrag WHERE angebot = :angebot")
+                    .setParameter("angebot", angebot).list();
+            auftraege.addAll(auftraegen);
+        }
+
         return auftraege;
 
     }
@@ -54,8 +62,12 @@ public class AuftragRepository {
     }
 
     public List<Auftrag> getAuftrag(boolean isAbgeschlossen) {
-        List<Auftrag> auftraegeListe = null;
+        Session session = HibernateUtil.getSession();
+        List<Auftrag> auftraege = session
+                .createQuery("FROM Auftrag auftrag WHERE isAbgeschlossen = :isAbgeschlossen")
+                .setParameter("isAbgeschlossen", isAbgeschlossen).list();
+
         //get alle aufträge die noch nicht abgeschlossen sind
-        return auftraegeListe;
+        return auftraege;
     }
 }
