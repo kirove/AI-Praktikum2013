@@ -13,6 +13,10 @@ import java.util.logging.Logger;
 public class ZahlungsEingangLogic implements IBank {
 
     RechnungRepository RR;
+    
+    public ZahlungsEingangLogic(){
+        this.RR = new RechnungRepository();
+    }
 
     @Override
     public void zahlungseingangBuchen(double betrag, String rechnungsNr) {

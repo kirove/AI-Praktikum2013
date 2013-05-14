@@ -8,15 +8,19 @@ import Datentypen.LieferungTyp;
 import Datentypen.AuftragTyp;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
- *
- * @author Barzgun
- */
+@Entity
+@Table(name = "Lieferung")
 public class Lieferung {
 
-    AuftragTyp auftrag;
+    @Id
     String lieferungNr;
+    @Column(name="auftrag", length = 100000) 
+    AuftragTyp auftrag;
     boolean lieferungErfolgt;
 
     public Lieferung() {

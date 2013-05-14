@@ -17,5 +17,6 @@
     <mapping class="Lager.WarenEingangMeldung"/>
     <mapping class="Verkauf.Angebot"/>
     <mapping class="Verkauf.Auftrag"/>
+    <mapping class="Versand.Lieferung"/>
   </session-factory>
 </hibernate-configuration>

@@ -11,12 +11,12 @@ import java.util.List;
  * @author NED
  */
 public interface IRechnungFassade {
-    public RechnungTyp erstelleRechnung(double betrag, String auftragNr, Date date, String KundenNr) throws Exception;
+    public RechnungTyp erstelleRechnung(double betrag, String auftragNr, Date date, String KundenNr) ;
 
     public List<RechnungTyp> getRechnungenPerKunde(String kundenNr);
 
-    public RechnungTyp getRechnungPerID(String rechnungsNr)throws Exception;
+    public RechnungTyp getRechnungPerID(String rechnungsNr);
     
-    public RechnungTyp getRechnungPerAuftragNr(String auftragNr)throws Exception;
+    public RechnungTyp getRechnungPerAuftragNr(String auftragNr);
     
 }

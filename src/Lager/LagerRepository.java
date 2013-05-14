@@ -38,10 +38,10 @@ public class LagerRepository {
     public static WarenAusgangMeldung triggerWarenAusgangMeldung(AuftragTyp auftrag) {
         HashMap<ProduktTyp, Integer> produktListe = auftrag.getAngebot().getProduktListe();
         WarenAusgangMeldung wam = new WarenAusgangMeldung(new Date(), produktListe);
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(wam);
-        session.getTransaction().commit();
+//        Session session = HibernateUtil.getSession();
+//        session.beginTransaction();
+//        session.save(wam);
+//        session.getTransaction().commit();
 
         return wam;
     }

@@ -69,7 +69,7 @@ public class AuftragLogic implements IAuftragManager {
             try {
                 this.RF.erstelleRechnung(angebot.getPreis(), auftrag.getAuftragsNr(), new Date(), angebot.getKunde().getKundenNr());
             } catch (Exception ex) {
-                Logger.getLogger(AuftragLogic.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
 
             return auftrag;
