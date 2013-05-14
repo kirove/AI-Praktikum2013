@@ -49,14 +49,14 @@ public class VerkaufFassade implements IVerkauf {
 
     @Override
     public KundenTyp erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) {
-        try {
+      /*  try {*/
             System.out.println("Kunde wurde erstellt :)");
             return KM.erstelleKunde(vorName, nachName, adresse, telefon);
-        } catch (KundeException ex) {
+      /*  } catch (KundeException ex) {
             Logger.getLogger(VerkaufFassade.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Kunde wurde nicht erstellt :(");
             return null;
-        }
+        }*/
     }
 
     @Override

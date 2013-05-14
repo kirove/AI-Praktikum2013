@@ -9,6 +9,8 @@ import Rechnung.IBank;
 import Rechnung.IRechnungFassade;
 import Rechnung.RechnungLogic;
 import Rechnung.ZahlungsEingangLogic;
+import Verkauf.AuftragLogic;
+import Verkauf.IAuftragManager;
 
 import Verkauf.IVerkauf;
 import Verkauf.VerkaufFassade;
@@ -80,7 +82,7 @@ public class HES {
         System.out.println("Auftrag erstellt :"+ auftrag1.toString());
         
         //auftrag status
-        auftrag1.toString();
+     //  auftrag1.toString();
         
         // get rechnung 
         IRechnungFassade RF;
@@ -93,12 +95,14 @@ public class HES {
         sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
         
         //nacht ablauf (bezahlte verträge abschliessen)
-        VerkaufFassade vf = new VerkaufFassade();
-        vf.markiereBezahlteAuftraege();
+        
+        IAuftragManager iam = new AuftragLogic();
+    iam.schliesseBezahlteAuftraege();
+        
         
         //get neue Auftrag status
-        auftrag1.toString();
-
+      //  auftrag1.toString();
+System.out.println(auftrag1);
         session.close();
     }
 

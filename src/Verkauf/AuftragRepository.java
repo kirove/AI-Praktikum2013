@@ -14,7 +14,7 @@ public class AuftragRepository {
     public Auftrag createAuftrag(AngebotTyp angebot) {
 
         Auftrag newAuftrag = new Auftrag(angebot);
-        
+
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         session.save(newAuftrag);
@@ -23,16 +23,28 @@ public class AuftragRepository {
         return newAuftrag;
     }
 
-    public Auftrag getAuftragPerNr(String auftragNr) {
+    public Auftrag getAuftragPerNr(String auftragsNr) {
+
+        Session session = HibernateUtil.getSession();
+        List<Auftrag> auftraege = session
+                .createQuery("FROM Auftrag auftrag WHERE auftragsNr = :auftragsNr")
+                .setParameter("auftragsNr", auftragsNr).list();
+
         Auftrag auftrag = null;
-        //get Auftrag anhand auftragNr
+        if (!auftraege.isEmpty()) {
+            auftrag = auftraege.get(0);
+        }
+
         return auftrag;
     }
 
     public List<Auftrag> getAuftrage(String kundenName) {
-        List<Auftrag> auftraegeListe = null;
-        //get aufträge Liste anhand KundenName
-        return auftraegeListe;
+         Session session = HibernateUtil.getSession();
+        List<Angebote> angebote = session
+                .createQuery("FROM Rechnung rechnung WHERE auftragsNr = :auftragsNr")
+                .setParameter("auftragsNr", auftragsNr).list();
+        return auftraege;
+
     }
 
     public Auftrag updateAuftrag(Auftrag auftrag) {
@@ -43,7 +55,7 @@ public class AuftragRepository {
 
     public List<Auftrag> getAuftrag(boolean isAbgeschlossen) {
         List<Auftrag> auftraegeListe = null;
-       //get alle aufträge die noch nicht abgeschlossen sind
+        //get alle aufträge die noch nicht abgeschlossen sind
         return auftraegeListe;
     }
 }

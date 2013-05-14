@@ -30,10 +30,19 @@ public class RechnungRepository {
         return newRechnung;
     }
 
-    List<Rechnung> getRechnungen(String kundenNr) {
-        List<Rechnung> rechnungenListe = null;
+    List<Rechnung> getRechnungen(String kundeNr) {
+     //   List<Rechnung> rechnungen = null;
+         Session session = HibernateUtil.getSession();
+        List<Rechnung> rechnungen = session
+                .createQuery("FROM Rechnung rechnung WHERE kundeNr = :kundeNr")
+                .setParameter("kundeNr", kundeNr).list();
+
+//        Rechnung rechnung = null;
+//        if (!rechnungen.isEmpty()) {
+//            rechnung = rechnungen.get(0);
+//        }
         // get from DB
-        return rechnungenListe;
+        return rechnungen;
     }
 
     Rechnung getRechnung(String rechnungsNr) {
