@@ -55,13 +55,15 @@ public class HES {
         //Kunden erstellen
         IVerkauf verkaufF = new VerkaufFassade();
         KundenTyp sergej = verkaufF.erstelleKunde("Sergej", "Chan", adr1, telNr);
-        KundenTyp Nico = verkaufF.erstelleKunde("Nicolay", "Anderson", adr1, telNr);
+        KundenTyp niko = verkaufF.erstelleKunde("Nikolay", "Anderson", adr1, telNr);
         KundenTyp nidal = verkaufF.erstelleKunde("Nidal", "Smith", adr1, telNr);
 
         
         //Szenario
         //hole Kunde
-        KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
+        // KundenTyp kunde1 = verkaufF.getKunde("Nicolay","Anderson",adr1);
+        //KundenTyp kunde1 = verkaufF.getKunde(niko.getKundenNr());
+        KundenTyp kunde1 = verkaufF.getKunde(niko.getvorName(),niko.getnachName(),niko.getAdresse());
         System.out.println("Kunde Information: "+ kunde1.toString());
         
         //hole Produktinformation

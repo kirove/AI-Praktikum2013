@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class KundenLogic implements IKundeFassade {
 
-    KundeRepository KR;
+    KundeRepository KR = new KundeRepository();
     IKundeFassade kf;
     private Exception KundeException;
 

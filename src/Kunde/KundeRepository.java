@@ -10,10 +10,12 @@ import Datentypen.KundenTyp;
 import Exceptions.SQLException;
 import Main.HibernateUtil;
 import java.sql.SQLClientInfoException;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class KundeRepository {
+
     private static Exception SQLException;
 
     public static Kunde erstelleKunde(String vorName, String nachName, AdresseTyp adresse, TelefonNrTyp telefon) throws Exception {
@@ -23,37 +25,60 @@ public class KundeRepository {
         session.beginTransaction();
         session.save(newkunde);
         session.getTransaction().commit();
-        if (newkunde == null)
+        if (newkunde == null) {
             throw SQLException;
+        }
         return newkunde;
     }
 
-    public Kunde getKunde(String kundeNr) {
+    public Kunde getKunde(String kdnr) {
 
-        // select Kunde anhand kunde ID
-        return null;//kunde.getKundenTyp();
+        Session session = HibernateUtil.getSession();
+        List<Kunde> kunden = session
+                .createQuery("FROM Kunde kunde WHERE kundenNr = :kdnr")
+                .setParameter("kdnr", kdnr).list();
+        Kunde kunde = null;
+        if (!kunden.isEmpty()) {
+            kunde = kunden.get(0);
+        }
+        return kunde;
     }
 
     public Kunde getKunde(TelefonNrTyp tel) {
 
-        // select Kunde anhand kunde TelefonNummer
-        return null;//kunde.getKundenTyp();
+        Session session = HibernateUtil.getSession();
+        List<Kunde> kunden = session
+                .createQuery("FROM Kunde kunde WHERE telNr = :tel")
+                .setParameter("tel", tel).list();
+        Kunde kunde = null;
+        if (!kunden.isEmpty()) {
+            kunde = kunden.get(0);
+        }
+        return kunde;
     }
-
 
     public Kunde getKunde(String vorname, String nachname, AdresseTyp adresse) {
 
-        // select Kunde anhand kunde Vorname, Nachname, Adresse
-        return null;//kunde.getKundenTyp();
+        Session session = HibernateUtil.getSession();
+        List<Kunde> kunden = session
+                .createQuery("FROM Kunde kunde WHERE vorname = :vorname AND nachname = :nachname AND adresse = :adresse")
+                .setParameter("nachname", nachname)
+                .setParameter("vorname", vorname)
+                .setParameter("adresse", adresse)
+                .list();
+        Kunde kunde = null;
+        if (!kunden.isEmpty()) {
+            kunde = kunden.get(0);
+        }
+        return kunde;
     }
-    
-    public static void save(Kunde kunde) {
-		if (kunde != null) {
-			Session session = HibernateUtil.getSession();
-			session.beginTransaction();
-			session.save(kunde);
-			session.getTransaction().commit();
-		}
-	}
 
+    public static void save(Kunde kunde) {
+        if (kunde != null) {
+            Session session = HibernateUtil.getSession();
+            session.beginTransaction();
+            session.save(kunde);
+            session.getTransaction().commit();
+        }
+    }
 }

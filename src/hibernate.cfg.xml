@@ -12,7 +12,6 @@
     <mapping class="Kunde.Kunde"/>
     <mapping class="Lager.Produkt"/>
     <mapping class="Lieferant.Lieferant"/>
-    <mapping class="Transport.Lieferung"/>
     <mapping class="Rechnung.Rechnung"/>
     <mapping class="Lager.WarenAusgangMeldung"/>
     <mapping class="Lager.WarenEingangMeldung"/>
