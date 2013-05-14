@@ -8,6 +8,9 @@ package Exceptions;
  *
  * @author NED
  */
-public class BestellungException {
-    
+public class BestellungException extends Exception{
+
+    public BestellungException(String ex) {
+        super(ex);
+    }
 }

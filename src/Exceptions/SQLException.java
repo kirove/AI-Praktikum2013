@@ -8,6 +8,9 @@ package Exceptions;
  *
  * @author NED
  */
-public class SQLException {
-    
+public class SQLException extends Exception{
+
+    public SQLException(String ex) {
+        super(ex);
+    }
 }

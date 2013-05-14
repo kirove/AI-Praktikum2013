@@ -8,6 +8,9 @@ package Exceptions;
  *
  * @author NED
  */
-public class KundeException  extends Exception{
-    
+public class KundeException extends Exception {
+
+    public KundeException(String ex) {
+        super(ex);
+    }
 }

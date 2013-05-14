@@ -8,6 +8,10 @@ package Exceptions;
  *
  * @author NED
  */
-public class AuftragException {
+public class AuftragException extends Exception{
     
+    public AuftragException(String ex){
+        super(ex);
+    }
+           
 }

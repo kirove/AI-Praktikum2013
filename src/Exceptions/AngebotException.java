@@ -8,6 +8,10 @@ package Exceptions;
  *
  * @author NED
  */
-public class AngebotException {
+public class AngebotException extends Exception{
+    
+    public AngebotException(String ex){
+        super(ex);
+    }
     
 }
