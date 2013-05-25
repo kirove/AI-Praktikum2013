@@ -48,12 +48,12 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
         }
         // Assign a security manager, in the event that dynamic
         // classes are loaded
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new RMISecurityManager());
-        }
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new RMISecurityManager());
+//        }
         try {
 
-            Naming.rebind("Server", new HESServer());
+            Naming.rebind("HESServer", new HESServer());
         } catch (MalformedURLException ex) {
             System.out.println(ex.getMessage());
         } catch (RemoteException ex) {
