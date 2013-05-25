@@ -1,5 +1,6 @@
 package Main;
 
+import Client.ClientInterface;
 import Datentypen.*;
 import Exceptions.KundeException;
 import Exceptions.RechnungException;
@@ -39,6 +40,8 @@ public class HES {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
 
+        ClientInterface gui= new ClientInterface();
+        gui.setVisible(true);
         //Typen erstellen
         AdresseTyp adr1 = new AdresseTyp("Berliner Tor", 5, 20537, "Hamburg", "Germany");
         TelefonNrTyp telNr = new TelefonNrTyp("040", 123456);
