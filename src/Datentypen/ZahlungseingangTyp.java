@@ -5,6 +5,7 @@
 package Datentypen;
 
 import Rechnung.Rechnung;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class ZahlungseingangTyp {
+public class ZahlungseingangTyp implements Serializable{
      private Rechnung rechnung;
     private Date datum;
     private double betrag;
