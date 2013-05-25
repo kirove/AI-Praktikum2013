@@ -4,6 +4,7 @@
  */
 package Datentypen;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author Barzgun
  */
-public class TransportAuftragTyp {
+public class TransportAuftragTyp implements Serializable{
     Date datum;
     LieferungTyp lieferung;
     
