@@ -69,7 +69,7 @@ public class HES {
 
 
             //Kunde holen per vorname, nachname, Adresse
-            KundenTyp stammKundeNiko1 = verkaufFassade.getKunde("Nicolay", "Anderson", adr1);
+            KundenTyp stammKundeNiko1 = verkaufFassade.getKunde("Nikolay", "Anderson", adr1);
             //Kunde holen per KundenNummer
             KundenTyp stammKundeNiko2 = verkaufFassade.getKunde(neueKundeNiko.getKundenNr());
             //Kunde holen per TelefonNummer
