@@ -5,6 +5,7 @@
 package Client;
 
 import Datentypen.KundenTyp;
+import Datentypen.ProduktTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import Verkauf.IVerkauf;
@@ -55,6 +56,14 @@ public class ClientInterface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         EdtSucheVorwahl = new javax.swing.JTextField();
         jPanelProdukte = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        EdtSucheProduktName = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TblProdukt = new javax.swing.JTable();
+        BtnSucheProdukt = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        EdtSucheProduktNr = new javax.swing.JTextField();
+        BtnErstelleProdukt = new javax.swing.JButton();
         jPanelMonitor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,15 +198,86 @@ public class ClientInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Kunden", jPanelKunden);
 
+        jLabel6.setText("Name:");
+
+        TblProdukt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ProduktNr.:", "Name", "Preis", "reserviert?", "LagerBestand"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TblProdukt);
+        TblProdukt.getColumnModel().getColumn(0).setResizable(false);
+        TblProdukt.getColumnModel().getColumn(1).setResizable(false);
+        TblProdukt.getColumnModel().getColumn(2).setResizable(false);
+        TblProdukt.getColumnModel().getColumn(3).setResizable(false);
+        TblProdukt.getColumnModel().getColumn(4).setResizable(false);
+
+        BtnSucheProdukt.setText("suchen");
+        BtnSucheProdukt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnSucheProduktMouseClicked(evt);
+            }
+        });
+
+        jLabel7.setText("ProduktNr.:");
+
+        BtnErstelleProdukt.setText("erstelle Produkt");
+
         javax.swing.GroupLayout jPanelProdukteLayout = new javax.swing.GroupLayout(jPanelProdukte);
         jPanelProdukte.setLayout(jPanelProdukteLayout);
         jPanelProdukteLayout.setHorizontalGroup(
             jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 824, Short.MAX_VALUE)
+            .addGroup(jPanelProdukteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
+                    .addGroup(jPanelProdukteLayout.createSequentialGroup()
+                        .addGroup(jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(EdtSucheProduktNr, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                            .addComponent(EdtSucheProduktName))
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnSucheProdukt)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProdukteLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BtnErstelleProdukt)))
+                .addContainerGap())
         );
         jPanelProdukteLayout.setVerticalGroup(
             jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGroup(jPanelProdukteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(EdtSucheProduktNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelProdukteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(EdtSucheProduktName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnSucheProdukt))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnErstelleProdukt)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Produkte", jPanelProdukte);
@@ -269,6 +349,17 @@ public class ClientInterface extends javax.swing.JFrame {
         kundenGUI.setVisible(true);
     }//GEN-LAST:event_BtnErstelleKundeMouseClicked
 
+    private void BtnSucheProduktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheProduktMouseClicked
+        
+        TblProdukt.removeAll();
+        String produktNr = EdtSucheProduktNr.getText();
+        String produktName = EdtSucheProduktName.getText();
+        
+        //ProduktTyp produkt = verkaufFassade.ge(produktNr);
+        
+        
+    }//GEN-LAST:event_BtnSucheProduktMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -305,21 +396,29 @@ public class ClientInterface extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnErstelleKunde;
+    private javax.swing.JButton BtnErstelleProdukt;
     private javax.swing.JButton BtnSucheKunde;
+    private javax.swing.JButton BtnSucheProdukt;
     private javax.swing.JTextField EdtSucheKDNR;
     private javax.swing.JTextField EdtSucheNachname;
+    private javax.swing.JTextField EdtSucheProduktName;
+    private javax.swing.JTextField EdtSucheProduktNr;
     private javax.swing.JTextField EdtSucheTelNr;
     private javax.swing.JTextField EdtSucheVorname;
     private javax.swing.JTextField EdtSucheVorwahl;
     private javax.swing.JTable TblKunde;
+    private javax.swing.JTable TblProdukt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanelKunden;
     private javax.swing.JPanel jPanelMonitor;
     private javax.swing.JPanel jPanelProdukte;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
