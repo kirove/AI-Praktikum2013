@@ -6,7 +6,10 @@ package HesClient;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,59 +22,70 @@ import java.util.logging.Logger;
  *
  */
 public class HESMonitor extends Thread {
-
+    
     private List<InetAddress> liste;
     private List<InetAddress> onlineListe;
-
-    public HESMonitor(List<InetAddress> liste) {
-        this.liste = liste;
+    
+    public HESMonitor() {
+        this.liste = new ArrayList<>();
+        try {
+        InetAddress  host1 = InetAddress.getByName("141.22.88.112");
+        InetAddress host2 = InetAddress.getByName("141.22.85.213");
+ 
+        liste.add(host1);
+        liste.add(host2);
+        } catch (UnknownHostException ex) {
+            System.out.println("Cannot find Host!");
+        }
         this.onlineListe = new ArrayList<>();
     }
-
+    
     public List<InetAddress> getOnlineListe() {
         return onlineListe;
     }
-
+    
     public void addElem(InetAddress inetAdress) {
         liste.add(inetAdress);
     }
-
+    
     public void run() {
         while (!isInterrupted()) {
             try {
                 updateList();
-                System.out.println("verfügbare server: "+onlineListe);
+                System.out.println("verfügbare server: " + onlineListe);
                 sleep(3000);
             } catch (InterruptedException e) {
             }
         }
     }
-
+    
     public void updateList() {
-      //  boolean alive = false;
+
         onlineListe.clear();
         int port = Registry.REGISTRY_PORT;
         for (InetAddress adr : liste) {
             try {
-              // long tm = System.nanoTime();
-                Socket so = new Socket(adr, port);
-                so.close();
-          //      alive = true;
+                SocketAddress sockaddr = new InetSocketAddress(adr, port);
+                Socket socket = new Socket();
+                socket.connect(sockaddr, 500);
+                socket.close();
+                System.out.println("Verbunden mit dem Server "+adr.getHostName());
+                
                 onlineListe.add(adr);
             } catch (IOException ex) {
-               // Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
-                System.err.println("Server: "+adr+" ist ausgeschaltet!");
+                // Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Server: " + adr + " ist ausgeschaltet!");
             }
         }
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.liste);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -86,7 +100,7 @@ public class HESMonitor extends Thread {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "HESMonitor{" + "liste=" + liste + '}';
