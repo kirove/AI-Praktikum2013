@@ -1,12 +1,21 @@
 package HesClient;
 
+import Client.ClientInterface;
 import HESServer.RmiServerInterface;
+import java.awt.Color;
 import static java.lang.Thread.sleep;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,9 +27,12 @@ public class Dispatcher extends Thread {
     private Deque<RmiServerInterface> dq = new ArrayDeque<>();
     private List<RmiServerInterface> onlineRMIServers;
 
-    public Dispatcher() {
-        monitor = new HESMonitor();
+
+    public Dispatcher(JLabel LabelAlpha, JLabel LabelBeta) {
+        monitor = new HESMonitor(LabelAlpha, LabelBeta);
         monitor.start();
+        onlineRMIServers = new ArrayList<>();
+
     }
 
     public RmiServerInterface liefereServer() {
@@ -37,18 +49,31 @@ public class Dispatcher extends Thread {
         }
     }
 
-    public List<RmiServerInterface> getOnlineRMIServers() throws Exception {
+    public List<RmiServerInterface> getOnlineRMIServers() {
         for (InetAddress host : monitor.getOnlineListe()) {
-            onlineRMIServers.add((RmiServerInterface) Naming.lookup("rmi://" + host + "/HESServer"));
+            try {
+                RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://" + host.getHostAddress() + "/HESServer");
+                onlineRMIServers.add(service);
+
+               
+
+            } catch (NotBoundException ex) {
+                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return onlineRMIServers;
     }
 
     public void run() {
+        List<RmiServerInterface> serverliste;
         while (!isInterrupted()) {
             try {
-                List<RmiServerInterface> serverliste = getOnlineRMIServers();
+                serverliste = getOnlineRMIServers();
                 if (dq.isEmpty()) {
                     dq.addAll(serverliste);
                 } else {
@@ -58,10 +83,10 @@ public class Dispatcher extends Thread {
                         }
                     }
                 }
+
                 sleep(3000);
             } catch (InterruptedException e) {
             } catch (Exception ex) {
-                System.out.println("Noch ist keine Server Online!");
             }
         }
     }
