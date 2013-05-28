@@ -22,7 +22,7 @@ public class HesServiceClient {
 //            System.setSecurityManager(new RMISecurityManager());
 //        }
 
-        InetAddress host1 = InetAddress.getByName("141.22.95.128");
+        InetAddress host1 = InetAddress.getByName("141.22.86.139");
         InetAddress host3 = InetAddress.getByName("141.22.85.215");
         
         List<InetAddress> liste = new ArrayList<InetAddress>();
@@ -30,8 +30,11 @@ public class HesServiceClient {
         liste.add(host3);
         HESMonitor hesMonitor = new HESMonitor(liste);
         hesMonitor.start();
+        while(true){
         while(!hesMonitor.getOnlineListe().isEmpty()){
-       InetAddress host2 =  hesMonitor.getOnlineListe().get(0);
+       InetAddress host2 =  hesMonitor.getOnlineListe().get(1);
+        System.out.println("-----------------------------ggg");
+        System.out.println(host2);
         // Call registry for PowerService
    //     RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://localhost/HESServer");
        
@@ -47,6 +50,7 @@ public class HesServiceClient {
         System.out.println(service2.erstelleKunde("first2", "last2", adr2, telNr2).toString());
 
       //  Boolean anwort = service.areYouAlive();
+    }
     }
     }
 }
