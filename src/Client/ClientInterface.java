@@ -5,12 +5,10 @@
 package Client;
 
 import Datentypen.KundenTyp;
-import Datentypen.ProduktTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
 import HesClient.Dispatcher;
-import java.awt.Dialog;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +28,9 @@ public class ClientInterface extends javax.swing.JFrame {
      */
     public ClientInterface() {
         initComponents();
-        this.dispatcher = new Dispatcher(LabelAlpha,LabelBeta);
+        this.dispatcher = new Dispatcher(LabelAlpha, LabelBeta);
         this.dispatcher.start();
-        
+
     }
 
     /**
@@ -363,38 +361,40 @@ public class ClientInterface extends javax.swing.JFrame {
 
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
         onlineServer = dispatcher.liefereServer();
-        TblKunde.removeAll();
-        String kdnr = EdtSucheKDNR.getText();
-        String vorname = EdtSucheVorname.getText();
-        String nachname = EdtSucheNachname.getText();
-        String vorwahl = EdtSucheVorwahl.getText();
-        String tel = EdtSucheTelNr.getText();
-        try {
-            //if(vorwahl!="" && tel!="") {
-            int telNr = Integer.valueOf(tel);
-            TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
-            KundenTyp kunde;
+        if (onlineServer == null) {
+            JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            TblKunde.removeAll();
+            String kdnr = EdtSucheKDNR.getText();
+            String vorname = EdtSucheVorname.getText();
+            String nachname = EdtSucheNachname.getText();
+            String vorwahl = EdtSucheVorwahl.getText();
+            String tel = EdtSucheTelNr.getText();
             try {
-     
-                kunde = onlineServer.getKunde(telefonNR);
+                int telNr = Integer.valueOf(tel);
+                TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
+                KundenTyp kunde = onlineServer.getKunde(telefonNR);
 
                 TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
                 TblKunde.getModel().setValueAt(kunde.getvorName(), 0, 1);
                 TblKunde.getModel().setValueAt(kunde.getnachName(), 0, 2);
                 TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
                 TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
-//                //get new server
-//                this.dispatcher.liefereServer();
+
+
             } catch (RemoteException ex) {
                 Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+
+            } catch (KundeException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Kunde nicht gefunden", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Telefonnummer darf nicht leer sein!", "Telefonnummer", JOptionPane.ERROR_MESSAGE);
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!", "Kunde", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (KundeException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Kunde nicht gefunden", JOptionPane.ERROR_MESSAGE);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Telefonnummer darf nicht leer sein!", "Telefonnummer", JOptionPane.ERROR_MESSAGE);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!", "Kunde", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnSucheKundeMouseClicked
 

@@ -1,6 +1,5 @@
 package HesClient;
 
-import Client.ClientInterface;
 import HESServer.RmiServerInterface;
 import java.awt.Color;
 import static java.lang.Thread.sleep;
@@ -27,7 +26,6 @@ public class Dispatcher extends Thread {
     private Deque<RmiServerInterface> dq = new ArrayDeque<>();
     private List<RmiServerInterface> onlineRMIServers;
 
-
     public Dispatcher(JLabel LabelAlpha, JLabel LabelBeta) {
         monitor = new HESMonitor(LabelAlpha, LabelBeta);
         monitor.start();
@@ -49,13 +47,15 @@ public class Dispatcher extends Thread {
         }
     }
 
-    public List<RmiServerInterface> getOnlineRMIServers() {
-        for (InetAddress host : monitor.getOnlineListe()) {
+    public void getOnlineRMIServers() {
+        onlineRMIServers.clear();
+        List<InetAddress> monitorServerListe = monitor.getOnlineListe();
+
+        for (InetAddress host : monitorServerListe) {
             try {
                 RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://" + host.getHostAddress() + "/HESServer");
-                onlineRMIServers.add(service);
+                this.onlineRMIServers.add(service);
 
-               
 
             } catch (NotBoundException ex) {
                 Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,25 +65,22 @@ public class Dispatcher extends Thread {
                 Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        return onlineRMIServers;
     }
 
     public void run() {
-        List<RmiServerInterface> serverliste;
         while (!isInterrupted()) {
             try {
-                serverliste = getOnlineRMIServers();
-                if (dq.isEmpty()) {
-                    dq.addAll(serverliste);
+                getOnlineRMIServers();
+                if (this.onlineRMIServers.isEmpty()) {
+                    dq.clear();
                 } else {
-                    for (RmiServerInterface server : dq) {
-                        if (!serverliste.contains(server)) {
+                    for (RmiServerInterface server : this.onlineRMIServers) {
+                        if (!dq.contains(server)) {
                             dq.addLast(server);
                         }
                     }
                 }
-
+                System.out.println("verfügbare server: " + dq);
                 sleep(3000);
             } catch (InterruptedException e) {
             } catch (Exception ex) {

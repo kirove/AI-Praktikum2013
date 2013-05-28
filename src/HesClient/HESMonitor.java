@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
@@ -29,12 +27,13 @@ public class HESMonitor extends Thread {
     private List<InetAddress> liste;
     private List<InetAddress> onlineListe;
     private JLabel LabelAlpha, LabelBeta;
+    private InetAddress host1, host2;
 
     public HESMonitor(JLabel LabelAlpha, JLabel LabelBeta) {
         this.liste = new ArrayList<>();
         try {
-            InetAddress host1 = InetAddress.getByName("141.22.88.112");
-            InetAddress host2 = InetAddress.getByName("141.22.85.213");
+            this.host1 = InetAddress.getByName("141.22.83.80");
+            this.host2 = InetAddress.getByName("141.22.85.213");
 
             liste.add(host1);
             liste.add(host2);
@@ -58,7 +57,6 @@ public class HESMonitor extends Thread {
         while (!isInterrupted()) {
             try {
                 updateList();
-                System.out.println("verfügbare server: " + onlineListe);
                 sleep(3000);
             } catch (InterruptedException e) {
             }
@@ -115,33 +113,29 @@ public class HESMonitor extends Thread {
     }
 
     private void updateMonitor(List<InetAddress> onlineListe) {
-        System.out.println("updating monitor");
-        System.out.println("online liste " + onlineListe);
-        if (!onlineListe.isEmpty() || onlineListe == null) {
-            for (InetAddress host : onlineListe) {
-                if (host.getHostAddress().equals("141.22.88.112")) {
-                    LabelAlpha.setText("Online");
-                    LabelAlpha.setForeground(Color.green);
-                } else {
-                    System.out.println("am here");
-                    LabelAlpha.setText("Offline");
-                    LabelAlpha.setForeground(Color.red);
-                }
-                if (host.getHostAddress().equals("141.22.85.213")) {
-                    LabelBeta.setText("Online");
-                    LabelBeta.setForeground(Color.green);
-                } else {
-                    System.out.println("am here beta");
-                    LabelBeta.setText("Offline");
-                    LabelBeta.setForeground(Color.red);
-                }
+       
+      //  if (!onlineListe.isEmpty() || onlineListe == null) {
+
+            if (onlineListe.contains(host1)) {
+                LabelAlpha.setText("Online");
+                LabelAlpha.setForeground(Color.green);
+            } else {
+                LabelAlpha.setText("Offline");
+                LabelAlpha.setForeground(Color.red);
             }
-        } else {
-            System.out.println("liste ist empty");
-            LabelAlpha.setText("Offline");
-            LabelAlpha.setForeground(Color.red);
-            LabelBeta.setText("Offline");
-            LabelBeta.setForeground(Color.red);
-        }
+            if (onlineListe.contains(host2)) {
+                LabelBeta.setText("Online");
+                LabelBeta.setForeground(Color.green);
+            } else {
+                LabelBeta.setText("Offline");
+                LabelBeta.setForeground(Color.red);
+
+            }
+//        } else {
+//            LabelAlpha.setText("Offline");
+//            LabelAlpha.setForeground(Color.red);
+//            LabelBeta.setText("Offline");
+//            LabelBeta.setForeground(Color.red);
+//        }
     }
 }

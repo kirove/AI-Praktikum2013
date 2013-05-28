@@ -10,8 +10,6 @@ import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
 import HesClient.Dispatcher;
-import Verkauf.IVerkauf;
-import Verkauf.VerkaufFassade;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,14 +22,14 @@ import javax.swing.JOptionPane;
 public class KundeView extends javax.swing.JFrame {
 
     private Dispatcher dispatcher;
-    private RmiServerInterface server;
+    private RmiServerInterface onlineServer;
+
     /**
      * Creates new form KundeView
      */
     public KundeView(Dispatcher dispatcher) {
         initComponents();
         this.dispatcher = dispatcher;
-        this.server = dispatcher.liefereServer();
     }
 
     /**
@@ -195,47 +193,48 @@ public class KundeView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnKundenErstelltMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKundenErstelltMouseClicked
-        
-        String vorname = EdtErstelleVorname.getText();
-        String nachname = EdtErstelleNachname.getText();
-        String strasse = EdtErstelleStrasse.getText();
-        String hausNr_ = EdtErstelleHausnummer.getText();
-        String plz_ = EdtErstellePLZ.getText();        
-        String stadt = EdtErstelleStadt.getText();
-        String land = EdtErstelleLand.getText();
-        String vorwahl = EdtErstelleVorwahl.getText();
-        String tel_ = EdtErstelleTelNr.getText();
-        
-        
-        
-        try {
-            int hausNr = Integer.valueOf(hausNr_);
-            int plz = Integer.valueOf(plz_);
-            int tel = Integer.valueOf(tel_);
-            AdresseTyp adr = new AdresseTyp(strasse, hausNr, plz, stadt, land);
-            TelefonNrTyp telNr = new TelefonNrTyp(vorwahl, tel);
-            System.out.println("server" + server.toString());
-                KundenTyp neuerKunde = server.erstelleKunde(vorname, nachname, adr, telNr);
-            
-            JOptionPane.showMessageDialog(rootPane, "Kunde wurde erfolgreich erstellt!");
-            this.setVisible(false);
-        } catch (KundeException ex) {
-            Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (NumberFormatException ex){
-             JOptionPane.showMessageDialog(rootPane, "Felder dürfen nicht leer sein!","leere Felder",JOptionPane.ERROR_MESSAGE);
-        } catch (RemoteException ex) {
+        this.onlineServer = dispatcher.liefereServer();
+        if (onlineServer == null) {
+            JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            String vorname = EdtErstelleVorname.getText();
+            String nachname = EdtErstelleNachname.getText();
+            String strasse = EdtErstelleStrasse.getText();
+            String hausNr_ = EdtErstelleHausnummer.getText();
+            String plz_ = EdtErstellePLZ.getText();
+            String stadt = EdtErstelleStadt.getText();
+            String land = EdtErstelleLand.getText();
+            String vorwahl = EdtErstelleVorwahl.getText();
+            String tel_ = EdtErstelleTelNr.getText();
+
+            try {
+                int hausNr = Integer.valueOf(hausNr_);
+                int plz = Integer.valueOf(plz_);
+                int tel = Integer.valueOf(tel_);
+                AdresseTyp adr = new AdresseTyp(strasse, hausNr, plz, stadt, land);
+                TelefonNrTyp telNr = new TelefonNrTyp(vorwahl, tel);
+                KundenTyp neuerKunde = onlineServer.erstelleKunde(vorname, nachname, adr, telNr);
+
+                JOptionPane.showMessageDialog(rootPane, "Kunde wurde erfolgreich erstellt!");
+                this.setVisible(false);
+            } catch (KundeException ex) {
+                Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Felder dürfen nicht leer sein!", "leere Felder", JOptionPane.ERROR_MESSAGE);
+            } catch (RemoteException ex) {
                 Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
 
     }//GEN-LAST:event_BtnKundenErstelltMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnKundenErstellt;
     private javax.swing.JTextField EdtErstelleHausnummer;
