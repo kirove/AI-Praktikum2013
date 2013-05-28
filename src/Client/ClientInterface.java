@@ -9,9 +9,9 @@ import Datentypen.ProduktTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
-import Verkauf.IVerkauf;
-import Verkauf.VerkaufFassade;
+import HesClient.Dispatcher;
 import java.awt.Dialog;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class ClientInterface extends javax.swing.JFrame {
 
-    private Dispatcher dispacher;
+    private Dispatcher dispatcher;
     private RmiServerInterface onlineServer;
 
     /**
@@ -373,15 +373,20 @@ public class ClientInterface extends javax.swing.JFrame {
             //if(vorwahl!="" && tel!="") {
             int telNr = Integer.valueOf(tel);
             TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
-            KundenTyp kunde = onlineServer.getKunde(telefonNR);
+            KundenTyp kunde;
+            try {
+                kunde = onlineServer.getKunde(telefonNR);
             TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
             TblKunde.getModel().setValueAt(kunde.getvorName(), 0, 1);
             TblKunde.getModel().setValueAt(kunde.getnachName(), 0, 2);
             TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
             TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
+            } catch (RemoteException ex) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             //get new server
-            this.onlineServer.liefereServer();
+            this.dispatcher.liefereServer();
             //}
         } catch (KundeException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Kunde nicht gefunden", JOptionPane.ERROR_MESSAGE);
