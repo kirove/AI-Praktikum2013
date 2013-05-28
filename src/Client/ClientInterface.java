@@ -65,6 +65,10 @@ public class ClientInterface extends javax.swing.JFrame {
         EdtSucheProduktNr = new javax.swing.JTextField();
         BtnErstelleProdukt = new javax.swing.JButton();
         jPanelMonitor = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        LabelAlpha = new javax.swing.JLabel();
+        LabelBeta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -282,15 +286,54 @@ public class ClientInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Produkte", jPanelProdukte);
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Server Alpha:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("Server Beta:");
+
+        LabelAlpha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LabelAlpha.setForeground(new java.awt.Color(255, 0, 0));
+        LabelAlpha.setText("Offline");
+        LabelAlpha.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        LabelAlpha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                LabelAlphaPropertyChange(evt);
+            }
+        });
+
+        LabelBeta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LabelBeta.setForeground(new java.awt.Color(255, 0, 0));
+        LabelBeta.setText("Offline");
+        LabelBeta.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanelMonitorLayout = new javax.swing.GroupLayout(jPanelMonitor);
         jPanelMonitor.setLayout(jPanelMonitorLayout);
         jPanelMonitorLayout.setHorizontalGroup(
             jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 824, Short.MAX_VALUE)
+            .addGroup(jPanelMonitorLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(29, 29, 29)
+                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelBeta)
+                    .addComponent(LabelAlpha))
+                .addContainerGap(586, Short.MAX_VALUE))
         );
         jPanelMonitorLayout.setVerticalGroup(
             jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGroup(jPanelMonitorLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(LabelAlpha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(LabelBeta))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Monitor", jPanelMonitor);
@@ -360,6 +403,10 @@ public class ClientInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BtnSucheProduktMouseClicked
 
+    private void LabelAlphaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_LabelAlphaPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LabelAlphaPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -406,15 +453,19 @@ public class ClientInterface extends javax.swing.JFrame {
     private javax.swing.JTextField EdtSucheTelNr;
     private javax.swing.JTextField EdtSucheVorname;
     private javax.swing.JTextField EdtSucheVorwahl;
+    private javax.swing.JLabel LabelAlpha;
+    private javax.swing.JLabel LabelBeta;
     private javax.swing.JTable TblKunde;
     private javax.swing.JTable TblProdukt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelKunden;
     private javax.swing.JPanel jPanelMonitor;
     private javax.swing.JPanel jPanelProdukte;
