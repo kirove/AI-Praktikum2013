@@ -71,7 +71,7 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
 //        }
         try {
 
-            Naming.rebind("HESServer2", new HESServer());
+            Naming.rebind("HESServer", new HESServer());
         } catch (MalformedURLException ex) {
             System.out.println(ex.getMessage());
         } catch (RemoteException ex) {
