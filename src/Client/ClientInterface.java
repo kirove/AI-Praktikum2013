@@ -8,6 +8,7 @@ import Datentypen.KundenTyp;
 import Datentypen.ProduktTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
+import HESServer.RmiServerInterface;
 import Verkauf.IVerkauf;
 import Verkauf.VerkaufFassade;
 import java.awt.Dialog;
@@ -21,13 +22,17 @@ import javax.swing.JOptionPane;
  */
 public class ClientInterface extends javax.swing.JFrame {
 
-    IVerkauf verkaufFassade;
+    private Dispatcher dispacher;
+    private RmiServerInterface onlineServer;
+
     /**
      * Creates new form ClientInterface
      */
     public ClientInterface() {
         initComponents();
-        verkaufFassade = new VerkaufFassade();
+        this.dispatcher = new Dispatcher();
+        this.dispatcher.start();
+        this.onlineServer = dispatcher.liefereServer();
     }
 
     /**
@@ -357,34 +362,34 @@ public class ClientInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
-        
+
         TblKunde.removeAll();
         String kdnr = EdtSucheKDNR.getText();
         String vorname = EdtSucheVorname.getText();
         String nachname = EdtSucheNachname.getText();
         String vorwahl = EdtSucheVorwahl.getText();
         String tel = EdtSucheTelNr.getText();
-        try {     
+        try {
             //if(vorwahl!="" && tel!="") {
-        int telNr = Integer.valueOf(tel);
-            TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr); 
-            KundenTyp kunde = verkaufFassade.getKunde(telefonNR);  
+            int telNr = Integer.valueOf(tel);
+            TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
+            KundenTyp kunde = onlineServer.getKunde(telefonNR);
             TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
             TblKunde.getModel().setValueAt(kunde.getvorName(), 0, 1);
             TblKunde.getModel().setValueAt(kunde.getnachName(), 0, 2);
             TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
             TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
+            
+            //get new server
+            this.onlineServer.liefereServer();
             //}
         } catch (KundeException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(),"Kunde nicht gefunden",JOptionPane.ERROR_MESSAGE);
-        }catch (NumberFormatException ex){
-             JOptionPane.showMessageDialog(rootPane, "Telefonnummer darf nicht leer sein!","Telefonnummer",JOptionPane.ERROR_MESSAGE);
-        }catch (NullPointerException ex){
-             JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!","Kunde",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Kunde nicht gefunden", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Telefonnummer darf nicht leer sein!", "Telefonnummer", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!", "Kunde", JOptionPane.ERROR_MESSAGE);
         }
-    
-        
-        
     }//GEN-LAST:event_BtnSucheKundeMouseClicked
 
     private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
@@ -393,14 +398,14 @@ public class ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnErstelleKundeMouseClicked
 
     private void BtnSucheProduktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheProduktMouseClicked
-        
+
         TblProdukt.removeAll();
         String produktNr = EdtSucheProduktNr.getText();
         String produktName = EdtSucheProduktName.getText();
-        
+
         //ProduktTyp produkt = verkaufFassade.ge(produktNr);
-        
-        
+
+
     }//GEN-LAST:event_BtnSucheProduktMouseClicked
 
     private void LabelAlphaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_LabelAlphaPropertyChange
