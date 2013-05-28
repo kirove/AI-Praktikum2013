@@ -30,9 +30,9 @@ public class ClientInterface extends javax.swing.JFrame {
      */
     public ClientInterface() {
         initComponents();
-        this.dispatcher = new Dispatcher();
+        this.dispatcher = new Dispatcher(LabelAlpha,LabelBeta);
         this.dispatcher.start();
-        this.onlineServer = dispatcher.liefereServer();
+        
     }
 
     /**
@@ -362,7 +362,7 @@ public class ClientInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
-
+        onlineServer = dispatcher.liefereServer();
         TblKunde.removeAll();
         String kdnr = EdtSucheKDNR.getText();
         String vorname = EdtSucheVorname.getText();
@@ -375,19 +375,20 @@ public class ClientInterface extends javax.swing.JFrame {
             TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
             KundenTyp kunde;
             try {
+     
                 kunde = onlineServer.getKunde(telefonNR);
-            TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
-            TblKunde.getModel().setValueAt(kunde.getvorName(), 0, 1);
-            TblKunde.getModel().setValueAt(kunde.getnachName(), 0, 2);
-            TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
-            TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
+
+                TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
+                TblKunde.getModel().setValueAt(kunde.getvorName(), 0, 1);
+                TblKunde.getModel().setValueAt(kunde.getnachName(), 0, 2);
+                TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
+                TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
+//                //get new server
+//                this.dispatcher.liefereServer();
             } catch (RemoteException ex) {
                 Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            //get new server
-            this.dispatcher.liefereServer();
-            //}
+
         } catch (KundeException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Kunde nicht gefunden", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException ex) {
@@ -398,8 +399,9 @@ public class ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSucheKundeMouseClicked
 
     private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
-        KundeView kundenGUI = new KundeView();
+        KundeView kundenGUI = new KundeView(dispatcher);
         kundenGUI.setVisible(true);
+        onlineServer = dispatcher.liefereServer();
     }//GEN-LAST:event_BtnErstelleKundeMouseClicked
 
     private void BtnSucheProduktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheProduktMouseClicked
@@ -463,8 +465,8 @@ public class ClientInterface extends javax.swing.JFrame {
     private javax.swing.JTextField EdtSucheTelNr;
     private javax.swing.JTextField EdtSucheVorname;
     private javax.swing.JTextField EdtSucheVorwahl;
-    private javax.swing.JLabel LabelAlpha;
-    private javax.swing.JLabel LabelBeta;
+    public javax.swing.JLabel LabelAlpha;
+    public javax.swing.JLabel LabelBeta;
     private javax.swing.JTable TblKunde;
     private javax.swing.JTable TblProdukt;
     private javax.swing.JLabel jLabel1;

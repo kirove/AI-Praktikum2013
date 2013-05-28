@@ -8,8 +8,11 @@ import Datentypen.AdresseTyp;
 import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
+import HESServer.RmiServerInterface;
+import HesClient.Dispatcher;
 import Verkauf.IVerkauf;
 import Verkauf.VerkaufFassade;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,13 +23,15 @@ import javax.swing.JOptionPane;
  */
 public class KundeView extends javax.swing.JFrame {
 
-    IVerkauf verkaufFassade;
+    private Dispatcher dispatcher;
+    private RmiServerInterface server;
     /**
      * Creates new form KundeView
      */
-    public KundeView() {
+    public KundeView(Dispatcher dispatcher) {
         initComponents();
-        verkaufFassade = new VerkaufFassade();
+        this.dispatcher = dispatcher;
+        this.server = dispatcher.liefereServer();
     }
 
     /**
@@ -216,51 +221,21 @@ public class KundeView extends javax.swing.JFrame {
             int tel = Integer.valueOf(tel_);
             AdresseTyp adr = new AdresseTyp(strasse, hausNr, plz, stadt, land);
             TelefonNrTyp telNr = new TelefonNrTyp(vorwahl, tel);
-            KundenTyp neuerKunde = verkaufFassade.erstelleKunde(vorname, nachname, adr, telNr);
+            System.out.println("server" + server.toString());
+                KundenTyp neuerKunde = server.erstelleKunde(vorname, nachname, adr, telNr);
+            
             JOptionPane.showMessageDialog(rootPane, "Kunde wurde erfolgreich erstellt!");
             this.setVisible(false);
         } catch (KundeException ex) {
             Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
         }catch (NumberFormatException ex){
              JOptionPane.showMessageDialog(rootPane, "Felder dürfen nicht leer sein!","leere Felder",JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (RemoteException ex) {
+                Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }//GEN-LAST:event_BtnKundenErstelltMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KundeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KundeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KundeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KundeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new KundeView().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnKundenErstellt;
     private javax.swing.JTextField EdtErstelleHausnummer;
