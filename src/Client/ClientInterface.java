@@ -8,7 +8,7 @@ import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
-import HesClient.Dispatcher;
+import HESClient.Dispatcher;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,9 +28,9 @@ public class ClientInterface extends javax.swing.JFrame {
      */
     public ClientInterface() {
         initComponents();
-        this.dispatcher = new Dispatcher(LabelAlpha, LabelBeta);
+        this.setTitle("HES");
+        this.dispatcher = new Dispatcher();
         this.dispatcher.start();
-
     }
 
     /**
@@ -68,10 +68,6 @@ public class ClientInterface extends javax.swing.JFrame {
         EdtSucheProduktNr = new javax.swing.JTextField();
         BtnErstelleProdukt = new javax.swing.JButton();
         jPanelMonitor = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        LabelAlpha = new javax.swing.JLabel();
-        LabelBeta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -289,57 +285,18 @@ public class ClientInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Produkte", jPanelProdukte);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText("Server Alpha:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("Server Beta:");
-
-        LabelAlpha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LabelAlpha.setForeground(new java.awt.Color(255, 0, 0));
-        LabelAlpha.setText("Offline");
-        LabelAlpha.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-        LabelAlpha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                LabelAlphaPropertyChange(evt);
-            }
-        });
-
-        LabelBeta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LabelBeta.setForeground(new java.awt.Color(255, 0, 0));
-        LabelBeta.setText("Offline");
-        LabelBeta.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
         javax.swing.GroupLayout jPanelMonitorLayout = new javax.swing.GroupLayout(jPanelMonitor);
         jPanelMonitor.setLayout(jPanelMonitorLayout);
         jPanelMonitorLayout.setHorizontalGroup(
             jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMonitorLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(29, 29, 29)
-                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelBeta)
-                    .addComponent(LabelAlpha))
-                .addContainerGap(586, Short.MAX_VALUE))
+            .addGap(0, 824, Short.MAX_VALUE)
         );
         jPanelMonitorLayout.setVerticalGroup(
             jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMonitorLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(LabelAlpha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(LabelBeta))
-                .addContainerGap(330, Short.MAX_VALUE))
+            .addGap(0, 429, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Monitor", jPanelMonitor);
+        jTabbedPane1.addTab("", jPanelMonitor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -359,13 +316,28 @@ public class ClientInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnSucheProduktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheProduktMouseClicked
+
+        TblProdukt.removeAll();
+        String produktNr = EdtSucheProduktNr.getText();
+        String produktName = EdtSucheProduktName.getText();
+
+        //ProduktTyp produkt = verkaufFassade.ge(produktNr);
+    }//GEN-LAST:event_BtnSucheProduktMouseClicked
+
+    private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
+        KundeView kundenGUI = new KundeView(dispatcher);
+        kundenGUI.setVisible(true);
+        onlineServer = dispatcher.liefereServer();
+    }//GEN-LAST:event_BtnErstelleKundeMouseClicked
+
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
         onlineServer = dispatcher.liefereServer();
         if (onlineServer == null) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
 
         } else {
-
+            
             TblKunde.removeAll();
             String kdnr = EdtSucheKDNR.getText();
             String vorname = EdtSucheVorname.getText();
@@ -383,7 +355,6 @@ public class ClientInterface extends javax.swing.JFrame {
                 TblKunde.getModel().setValueAt(kunde.getAdresse(), 0, 3);
                 TblKunde.getModel().setValueAt(kunde.getTelNr(), 0, 4);
 
-
             } catch (RemoteException ex) {
                 Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -397,27 +368,6 @@ public class ClientInterface extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_BtnSucheKundeMouseClicked
-
-    private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
-        KundeView kundenGUI = new KundeView(dispatcher);
-        kundenGUI.setVisible(true);
-        onlineServer = dispatcher.liefereServer();
-    }//GEN-LAST:event_BtnErstelleKundeMouseClicked
-
-    private void BtnSucheProduktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheProduktMouseClicked
-
-        TblProdukt.removeAll();
-        String produktNr = EdtSucheProduktNr.getText();
-        String produktName = EdtSucheProduktName.getText();
-
-        //ProduktTyp produkt = verkaufFassade.ge(produktNr);
-
-
-    }//GEN-LAST:event_BtnSucheProduktMouseClicked
-
-    private void LabelAlphaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_LabelAlphaPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LabelAlphaPropertyChange
 
     /**
      * @param args the command line arguments
@@ -465,19 +415,15 @@ public class ClientInterface extends javax.swing.JFrame {
     private javax.swing.JTextField EdtSucheTelNr;
     private javax.swing.JTextField EdtSucheVorname;
     private javax.swing.JTextField EdtSucheVorwahl;
-    public javax.swing.JLabel LabelAlpha;
-    public javax.swing.JLabel LabelBeta;
     private javax.swing.JTable TblKunde;
     private javax.swing.JTable TblProdukt;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelKunden;
     private javax.swing.JPanel jPanelMonitor;
     private javax.swing.JPanel jPanelProdukte;

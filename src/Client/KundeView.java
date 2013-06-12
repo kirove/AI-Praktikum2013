@@ -9,10 +9,11 @@ import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
-import HesClient.Dispatcher;
+import HESClient.Dispatcher;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +30,9 @@ public class KundeView extends javax.swing.JFrame {
      */
     public KundeView(Dispatcher dispatcher) {
         initComponents();
+        this.setTitle("erstelle Kundne");
         this.dispatcher = dispatcher;
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
