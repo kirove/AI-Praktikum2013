@@ -70,7 +70,27 @@ public class Dispatcher extends Thread {
     public void run() {
         while (!isInterrupted()) {
             try {
-                getOnlineRMIServers();
+               /* getOnlineRMIServers();
+                if (this.onlineRMIServers.isEmpty()) {
+                    dq.clear();
+                } else {
+                    for (RmiServerInterface server : this.onlineRMIServers) {
+                        if (!dq.contains(server)) {
+                            dq.addLast(server);
+                        }
+                    }
+                }
+                System.out.println("verfügbare server: " + dq);*/
+                updateQueue();
+                sleep(3000);
+            } catch (InterruptedException e) {
+            } catch (Exception ex) {
+            }
+        }
+    }
+    
+    private void updateQueue(){
+        getOnlineRMIServers();
                 if (this.onlineRMIServers.isEmpty()) {
                     dq.clear();
                 } else {
@@ -81,10 +101,5 @@ public class Dispatcher extends Thread {
                     }
                 }
                 System.out.println("verfügbare server: " + dq);
-                sleep(3000);
-            } catch (InterruptedException e) {
-            } catch (Exception ex) {
-            }
-        }
     }
 }
