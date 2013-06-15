@@ -21,34 +21,17 @@ public class UDPServer {
         try {
             serverSocket = new DatagramSocket(55555);
 
-
-
             while (true) {
-                byte[] receiveData = new byte[256];
                 byte[] sendData = new byte[256];
-                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                try {
-                    serverSocket.receive(receivePacket);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                String sentence = new String(receivePacket.getData());
-                System.out.println("RECEIVED: " + sentence);
-
-                InetAddress IPAddress = receivePacket.getAddress();
-                int port = receivePacket.getPort();
-
-
                 sendData = amAlive.getBytes();
+
                 DatagramPacket sendPacket =
-                        new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                try {
-                    serverSocket.send(sendPacket);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                        new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 55555);
+                serverSocket.send(sendPacket);
             }
         } catch (SocketException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
