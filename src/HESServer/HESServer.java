@@ -4,6 +4,7 @@
  */
 package HESServer;
 
+import BankMQAdapter.BankAdapter;
 import Datentypen.AdresseTyp;
 import Datentypen.AngebotTyp;
 import Datentypen.AuftragTyp;
@@ -39,6 +40,7 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
         super();
         this.VF = new VerkaufFassade();
         new UDPServer().start();
+        new BankAdapter().start();
     }
 
 
@@ -52,7 +54,7 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
         try {
 
             Naming.rebind("HESServer", new HESServer());
-            System.err.println("HES - Server gestartet...");
+            System.out.println("HES - Server gestartet...");
         } catch (MalformedURLException ex) {
             System.out.println(ex.getMessage());
         } catch (RemoteException ex) {

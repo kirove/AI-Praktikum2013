@@ -6,6 +6,8 @@ package HESServer;
 
 import java.io.*;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,11 +33,14 @@ public class UDPServer extends Thread {
                 DatagramPacket sendPacket =
                         new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 55555);
                 serverSocket.send(sendPacket);
+                sleep(2000);
             }
         } catch (SocketException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UDPServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

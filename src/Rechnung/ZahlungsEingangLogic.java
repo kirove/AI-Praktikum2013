@@ -24,6 +24,7 @@ public class ZahlungsEingangLogic implements IBank {
             Rechnung rechnung = RR.getRechnung(rechnungsNr);
             if (rechnung.getBetrag() <= betrag) {
                 rechnung.setIsBezahlt(true);
+                RR.save(rechnung);
             } else {
                 rechnung.setBetrag(rechnung.getBetrag() - betrag);
 

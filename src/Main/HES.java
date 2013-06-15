@@ -125,8 +125,8 @@ public class HES {
             RechnungTyp rechnung1 = RF.getRechnungPerAuftragNr(auftragfuerNiko.getAuftragsNr());
 
             //Überweisung ist angekommen
-            IBank sparkasse = new ZahlungsEingangLogic();
-            sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
+            //IBank sparkasse = new ZahlungsEingangLogic();
+            //sparkasse.zahlungseingangBuchen(500000, rechnung1.getId());
 
             /*
              * Jede Nacht wird diese Process aufgerufen um bezahlte Auftrage ab zu schliessen

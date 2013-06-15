@@ -87,4 +87,20 @@ public class RechnungRepository {
         }
         return rechnung;
     }
+    
+    public void save(Rechnung rechnung) throws SQLException, RechnungException{
+          if (rechnung != null) {
+            try {
+                Session session = HibernateUtil.getSession();
+                session.beginTransaction();
+                session.update(rechnung);
+                session.getTransaction().commit();
+            } catch (Exception ex) {
+                throw new SQLException("saveRechnung Exception!");
+            }
+        } else {
+            throw new RechnungException("kann nicht leeres RechnungObject speichern!");
+        }
+        
+    }
 }
