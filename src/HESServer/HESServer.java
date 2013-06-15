@@ -38,25 +38,9 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
     HESServer() throws RemoteException {
         super();
         this.VF = new VerkaufFassade();
+        new UDPServer();
     }
 
-//    public static void main(String[] args) {
-//
-//        // Assign a security manager, in the event that dynamic
-//        // classes are loaded
-////        if (System.getSecurityManager() == null) {
-////            System.setSecurityManager(new RMISecurityManager());
-////        }
-//        try {
-//            HESServer hesServer = new HESServer();
-//            RmiServerInterface stub = (RmiServerInterface) UnicastRemoteObject.exportObject(hesServer);
-//
-//            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-//            registry.bind("HESServer", stub);
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        } 
-//    }
 
      public static void main(String[] args) {
         try {
