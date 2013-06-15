@@ -11,11 +11,14 @@ import java.net.*;
  *
  * @author NED
  */
-public class UDPServer {
+public class UDPServer extends Thread {
 
     String amAlive = "AM ALIVE";
 
     public UDPServer() {
+    }
+
+    public void run() {
         DatagramSocket serverSocket;
 
         try {
@@ -34,6 +37,5 @@ public class UDPServer {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 }
