@@ -16,7 +16,7 @@ public class LieferungLogic {
 //      return  LieferungRepository.erstelleLieferung(auftrag).getTyp();
 //    }
 
-    public boolean getLieferungStatus(LieferungTyp lieferung) {
-        return lieferung.isLieferungErfolgt();
-    }
+//    public boolean getLieferungStatus(LieferungTyp lieferung) {
+//        return lieferung.isLieferungErfolgt();
+//    }
 }

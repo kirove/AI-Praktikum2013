@@ -25,7 +25,7 @@ public class LieferungTyp {
         this.lieferungErfolgt = lieferungErfolgt;
     }
 
-    public AuftragTyp getTransportAuftrag() {
+    public AuftragTyp getAuftrag() {
         return auftrag;
     }
 
@@ -69,6 +69,6 @@ public class LieferungTyp {
 
     @Override
     public String toString() {
-        return "LieferungTyp{" + "auftrag=" + auftrag + ", lieferungNr=" + lieferungNr + ", lieferungErfolgt=" + lieferungErfolgt + '}';
+        return "LieferungTyp{" + "auftrag=" + auftrag + ", lieferungNr=" + lieferungNr +  '}';
     }
 }

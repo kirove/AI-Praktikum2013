@@ -6,7 +6,7 @@ package Versand;
 
 import Datentypen.AuftragTyp;
 import Datentypen.LieferungTyp;
-import Datentypen.TransportAuftragTyp;
+//import Datentypen.TransportAuftragTyp;
 
 /**
  *
@@ -16,5 +16,4 @@ public interface IVersandFassade {
 
     public LieferungTyp erstelleLieferung(AuftragTyp auftrag);
 
-    public TransportAuftragTyp erstelleTransportAuftrag(LieferungTyp lieferung);
 }

@@ -6,7 +6,7 @@ package Versand;
 
 import Datentypen.AuftragTyp;
 import Datentypen.LieferungTyp;
-import Datentypen.TransportAuftragTyp;
+//import Datentypen.TransportAuftragTyp;
 
 /**
  *
@@ -18,7 +18,5 @@ public class VersandFassade implements IVersandFassade{
         return LieferungRepository.erstelleLieferung(auftrag).getTyp();
     }
 
-    public TransportAuftragTyp erstelleTransportAuftrag(LieferungTyp lieferung) {
-        return TransportRepository.erstelleTransportAuftrag(lieferung).getTyp();
-    }
+   
 }

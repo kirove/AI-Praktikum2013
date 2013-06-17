@@ -1,7 +1,6 @@
-package HesClient;
+package HESClient;
 
 import HESServer.RmiServerInterface;
-import java.awt.Color;
 import static java.lang.Thread.sleep;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -14,7 +13,6 @@ import java.util.Deque;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 
 /**
  *
@@ -26,8 +24,8 @@ public class Dispatcher extends Thread {
     private Deque<RmiServerInterface> dq = new ArrayDeque<>();
     private List<RmiServerInterface> onlineRMIServers;
 
-    public Dispatcher(JLabel LabelAlpha, JLabel LabelBeta) {
-        monitor = new HESMonitor(LabelAlpha, LabelBeta);
+    public Dispatcher() {
+        monitor = new HESMonitor();
         monitor.start();
         onlineRMIServers = new ArrayList<>();
 
@@ -47,21 +45,17 @@ public class Dispatcher extends Thread {
         }
     }
 
-    public void getOnlineRMIServers() {
+    public synchronized void getOnlineRMIServers() {
         onlineRMIServers.clear();
         List<InetAddress> monitorServerListe = monitor.getOnlineListe();
-
+       
         for (InetAddress host : monitorServerListe) {
             try {
                 RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://" + host.getHostAddress() + "/HESServer");
                 this.onlineRMIServers.add(service);
 
 
-            } catch (NotBoundException ex) {
-                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (RemoteException ex) {
+            } catch (NotBoundException | MalformedURLException | RemoteException ex) {
                 Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
