@@ -1,4 +1,4 @@
-package HESClient;
+package HESDispatcher;
 
 import HESServer.RmiServerInterface;
 import static java.lang.Thread.sleep;
@@ -11,6 +11,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +26,7 @@ public class Dispatcher extends Thread {
     private List<RmiServerInterface> onlineRMIServers;
 
     public Dispatcher() {
+        System.out.println("starting Dispatcher");
         monitor = new HESMonitor();
         monitor.start();
         onlineRMIServers = new ArrayList<>();
@@ -47,7 +49,7 @@ public class Dispatcher extends Thread {
 
     public synchronized void getOnlineRMIServers() {
         onlineRMIServers.clear();
-        List<InetAddress> monitorServerListe = monitor.getOnlineListe();
+        Set<InetAddress> monitorServerListe = monitor.getOnlineListe();
        
         for (InetAddress host : monitorServerListe) {
             try {

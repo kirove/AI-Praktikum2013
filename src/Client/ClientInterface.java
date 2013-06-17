@@ -8,7 +8,7 @@ import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
 import HESServer.RmiServerInterface;
-import HESClient.Dispatcher;
+import HESDispatcher.Dispatcher;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
