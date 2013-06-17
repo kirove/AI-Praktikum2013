@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package HESServer;
 
 import java.io.*;
@@ -16,24 +13,24 @@ import java.util.logging.Logger;
 public class UDPServer extends Thread {
 
     String amAlive = "AM ALIVE";
-
-    public UDPServer() {
-    }
+    int udpPort = 55555;
+    int sendingFrequence = 2000;
 
     public void run() {
         DatagramSocket serverSocket;
 
         try {
-            serverSocket = new DatagramSocket(55555);
+            serverSocket = new DatagramSocket(udpPort);
 
             while (true) {
+                System.out.println("Broadcasting..." + amAlive + " on Port: " + udpPort);
                 byte[] sendData = new byte[256];
                 sendData = amAlive.getBytes();
 
                 DatagramPacket sendPacket =
-                        new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 55555);
+                        new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), udpPort);
                 serverSocket.send(sendPacket);
-                sleep(2000);
+                sleep(sendingFrequence);
             }
         } catch (SocketException ex) {
             ex.printStackTrace();
