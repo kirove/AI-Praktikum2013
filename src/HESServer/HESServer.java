@@ -40,20 +40,16 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
         super();
         this.VF = new VerkaufFassade();
         new UDPServer().start();
-        new BankAdapter().start();
+      //  new BankAdapter().start();
     }
 
+    public static void main(String[] args) {
 
-     public static void main(String[] args) {
         try {
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-        } catch (RemoteException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        try {
 
             Naming.rebind("HESServer", new HESServer());
+            
             System.out.println("HES - Server gestartet...");
         } catch (MalformedURLException ex) {
             System.out.println(ex.getMessage());
@@ -61,6 +57,7 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
             System.out.println(ex.getMessage());
         }
     }
+
     @Override
     public KundenTyp getKunde(String kundeNr) throws KundeException, RemoteException {
         return VF.getKunde(kundeNr);
@@ -115,7 +112,6 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) throws RemoteException {
         return VF.getAuftragPerAuftragNr(auftragNr);
     }
-
 //    @Override
 //    public Boolean areYouAlive() throws RemoteException {
 //        return true;

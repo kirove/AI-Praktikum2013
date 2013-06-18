@@ -14,7 +14,7 @@ public class UDPServer extends Thread {
 
     String amAlive = "AM ALIVE";
     int udpPort = 55555;
-    int sendingFrequence = 2000;
+    int sendingFrequence = 500;
 
     public void run() {
         DatagramSocket serverSocket;
