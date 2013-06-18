@@ -67,7 +67,6 @@ public class ClientInterface extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         EdtSucheProduktNr = new javax.swing.JTextField();
         BtnErstelleProdukt = new javax.swing.JButton();
-        jPanelMonitor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +118,11 @@ public class ClientInterface extends javax.swing.JFrame {
         BtnErstelleKunde.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnErstelleKundeMouseClicked(evt);
+            }
+        });
+        BtnErstelleKunde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnErstelleKundeActionPerformed(evt);
             }
         });
 
@@ -285,19 +289,6 @@ public class ClientInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Produkte", jPanelProdukte);
 
-        javax.swing.GroupLayout jPanelMonitorLayout = new javax.swing.GroupLayout(jPanelMonitor);
-        jPanelMonitor.setLayout(jPanelMonitorLayout);
-        jPanelMonitorLayout.setHorizontalGroup(
-            jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 824, Short.MAX_VALUE)
-        );
-        jPanelMonitorLayout.setVerticalGroup(
-            jPanelMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("", jPanelMonitor);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -328,16 +319,14 @@ public class ClientInterface extends javax.swing.JFrame {
     private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
         KundeView kundenGUI = new KundeView(dispatcher);
         kundenGUI.setVisible(true);
-        onlineServer = dispatcher.liefereServer();
     }//GEN-LAST:event_BtnErstelleKundeMouseClicked
 
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
-        onlineServer = dispatcher.liefereServer();
-        if (onlineServer == null) {
+        if (dispatcher.onlineServers == null) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
-
-        } else {
             
+        } else {
+
             TblKunde.removeAll();
             String kdnr = EdtSucheKDNR.getText();
             String vorname = EdtSucheVorname.getText();
@@ -347,6 +336,7 @@ public class ClientInterface extends javax.swing.JFrame {
             try {
                 int telNr = Integer.valueOf(tel);
                 TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
+                onlineServer = dispatcher.liefereServer();
                 KundenTyp kunde = onlineServer.getKunde(telefonNR);
 
                 TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);
@@ -368,6 +358,10 @@ public class ClientInterface extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_BtnSucheKundeMouseClicked
+
+    private void BtnErstelleKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErstelleKundeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnErstelleKundeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -425,7 +419,6 @@ public class ClientInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanelKunden;
-    private javax.swing.JPanel jPanelMonitor;
     private javax.swing.JPanel jPanelProdukte;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

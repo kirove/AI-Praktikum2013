@@ -1,61 +1,78 @@
-
 package HESDispatcher;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
  *
- *@author NED
+ * @author NED
  */
 public class HESMonitor extends Thread {
 
     private Map<InetAddress, Long[]> onlineServerListe;
-    private JLabel labelAlpha, labelBeta;
+    private JLabel labelAlpha, labelBeta, labelAlphaTime, labelBetaTime, labelAlphaCount, labelBetaCount;
+    private InetAddress server1;
+    private InetAddress server2;
+    Dashboard dashboard;
 
     public HESMonitor() {
+        try {
+            this.server1 = InetAddress.getByName("192.168.137.70");
+            // this.server2 = InetAddress.getByName("server2");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Starting Monitor..");
         this.onlineServerListe = new HashMap<>();
         Dashboard dashboard = new Dashboard();
         dashboard.setVisible(true);
         this.labelAlpha = dashboard.getLabelAlpha();
         this.labelBeta = dashboard.getLabelBeta();
-
-    }
-
-    public void run() {
+        this.labelAlphaTime = dashboard.getLabelAlphaTime();
+        this.labelBetaTime = dashboard.getLabelBetaTime();
+        this.labelAlphaCount = dashboard.getLabelAlphaCount();
+        this.labelBetaCount = dashboard.getLabelBetaCount();
+        labelAlphaCount.setText("0 Anfragen");
+        labelBetaCount.setText("0 Anfragen");
 
         //Thread to calculate the lastUpdateTime and remove Server from OnlineServerListe if time difference is more than 2 Seconds
         new Thread() {
             public void run() {
 
                 while (true) {
-                    for (Map.Entry<InetAddress, Long[]> entry : onlineServerListe.entrySet()) {
-                        //if lastUpdateTime is longer than 2 Seconds remove Server from the list
-                        if (System.currentTimeMillis() - getlastUpdateTime(entry.getKey()) > 2000) {
-                            onlineServerListe.remove(entry);
-                            updateMonitor();
+                    if (!onlineServerListe.isEmpty()) {
+                        for (Map.Entry<InetAddress, Long[]> entry : onlineServerListe.entrySet()) {
+                            //if lastUpdateTime is longer than 2 Seconds remove Server from the list
+                            if ((System.currentTimeMillis() - getlastUpdateTime(entry.getKey())) > 3000) {
+                                System.out.println("Removing at: " + (System.currentTimeMillis() - getlastUpdateTime(entry.getKey())));
+                                onlineServerListe.remove(entry.getKey());
+                                updateMonitor();
+                            }
                         }
                     }
+
                 }
             }
-        }.start();
+        }
+                .start();
 
         ////// end Thread Definition////////
+
+    }
+
+    public void run() {
+
+
 
 
 
@@ -66,39 +83,61 @@ public class HESMonitor extends Thread {
             byte[] receiveData = new byte[256];
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
+            System.out.println("Waiting for Server..");
             while (true) {
-                System.out.println("Waiting for Server..");
                 serverSocket.receive(receivePacket);
                 String sentence = new String(receivePacket.getData());
                 System.out.println("RECEIVED: " + sentence);
 
-                if (sentence.equalsIgnoreCase("AM ALIVE")) {
+                if (sentence.indexOf("AM ALIVE") > -1) {
+
                     updateServerOnlineListe(receivePacket.getAddress());
                 }
             }
         } catch (SocketException ex) {
             ex.printStackTrace();
+
+
         } catch (IOException ex) {
-            Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HESMonitor.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    public void updateMonitor(InetAddress server, Integer anzahl) {
+        System.out.println("server to update " + server.getHostAddress());
+
+        if (server.equals(server1)) {
+            labelAlphaCount.setText(anzahl + " Anfragen");
+        } else if (server.equals(server2)) {
+            labelBetaCount.setText(anzahl + " Anfragen");
+        }
+
+
+
 
     }
 
     private void updateMonitor() {
 
-        if (onlineServerListe.contains(host1)) {
-            labelAlpha.setText("Online");
+        if (onlineServerListe.keySet().contains(server1)) {
             labelAlpha.setForeground(Color.green);
+            labelAlpha.setText("Online");
+            labelAlphaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server1)[0]) / 1000) + " Seconds");
         } else {
-            labelAlpha.setText("Offline");
             labelAlpha.setForeground(Color.red);
+            labelAlpha.setText("Offline");
+            labelAlphaTime.setText("0 Seconds");
         }
-        if (onlineServerListe.contains(host2)) {
-            labelBeta.setText("Online");
+        if (onlineServerListe.keySet().contains(server2)) {
             labelBeta.setForeground(Color.green);
+            labelBeta.setText("Online");
+            labelBetaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server2)[0]) / 1000) + " Seconds");
         } else {
-            labelBeta.setText("Offline");
             labelBeta.setForeground(Color.red);
+            labelBeta.setText("Offline");
+            labelBetaTime.setText("0 Seconds");
         }
 
     }
@@ -115,48 +154,41 @@ public class HESMonitor extends Thread {
         return Long.MIN_VALUE;
     }
 
-    public Set<InetAddress> getOnlineListe() {
-        return onlineServerListe.keySet();
+    public List<InetAddress> getOnlineListe() {
+        return new ArrayList<InetAddress>(onlineServerListe.keySet());
     }
 
     public Long getRegisterTime(InetAddress onlineServerAddress) {
 
-        for (Map.Entry<InetAddress, Long[]> entry : this.onlineServerListe.entrySet()) {
-            if (onlineServerAddress.equals(entry.getKey())) {
-                return entry.getValue()[0];
-            }
+        if (onlineServerListe.containsKey(onlineServerAddress)) {
+            return onlineServerListe.get(onlineServerAddress)[0];
+        } else {
+            return Long.MIN_VALUE;
         }
-        return Long.MIN_VALUE;
     }
 
     public Long getlastUpdateTime(InetAddress onlineServerAddress) {
-
-        for (Map.Entry<InetAddress, Long[]> entry : this.onlineServerListe.entrySet()) {
-            if (onlineServerAddress.equals(entry.getKey())) {
-                return entry.getValue()[1];
-            }
+        if (onlineServerListe.containsKey(onlineServerAddress)) {
+            return onlineServerListe.get(onlineServerAddress)[1];
+        } else {
+            return Long.MAX_VALUE;
         }
-        return Long.MAX_VALUE;
     }
 
     private void updateServerOnlineListe(InetAddress serverAdresse) {
 
-        for (Map.Entry<InetAddress, Long[]> entry : onlineServerListe.entrySet()) {
+        //loop throw onlineServerList to check if server already registered
 
-            //Server Vorhanden nur lastUpdateTime erstezen
-            if (serverAdresse.equals(entry.getKey())) {
-
-                // LastUpdateTime erstezen 
-                Long lastUpdateTime = System.currentTimeMillis();
-                Long[] serverTimes = {getRegisterTime(serverAdresse), lastUpdateTime};
-                entry.setValue(serverTimes);
-
-            } //neuer Server
-            else {
-                Long[] serverStartTime = {System.currentTimeMillis(), System.currentTimeMillis()};
-                onlineServerListe.put(serverAdresse, serverStartTime);
-            }
+        if (!onlineServerListe.keySet().contains(serverAdresse)) {
+            //new Server
+            Long[] serverStartTime = {System.currentTimeMillis(), System.currentTimeMillis()};
+            onlineServerListe.put(serverAdresse, serverStartTime);
+        } else {
+            Long lastUpdateTime = System.currentTimeMillis();
+            Long[] serverTimes = {getRegisterTime(serverAdresse), lastUpdateTime};
+            onlineServerListe.put(serverAdresse, serverTimes);
         }
+
         updateMonitor();
     }
 }
