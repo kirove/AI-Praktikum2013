@@ -1,9 +1,10 @@
-package HESDispatcher;
+package HESKonnektor;
 
-import HESServer.RmiServerInterface;
+import ClientAdapter.ClientAdapterInterface;
 import static java.lang.Thread.sleep;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class Dispatcher extends Thread {
 
-    public HESMonitor monitor;
+    public Monitor monitor;
     private Deque<InetAddress> dq = new ArrayDeque<>();
     // private List<RmiServerInterface> onlineRMIServers;
     public List<InetAddress> onlineServers;
@@ -32,25 +33,25 @@ public class Dispatcher extends Thread {
 
     public Dispatcher() {
         System.out.println("starting Dispatcher");
-        monitor = new HESMonitor();
+        monitor = new Monitor(this);
         monitor.start();
         //  onlineRMIServers = new ArrayList<>();
         this.serverAnfragen = new HashMap<>();
 
     }
 
-    public RmiServerInterface liefereServer() {
+    public ClientAdapterInterface liefereServer() {
 
         if (!dq.isEmpty()) {
 
             try {
                 // Remove Host from the Top and connect RMI
                 InetAddress server = dq.removeFirst();
-                RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://" + server.getHostAddress() + "/HESServer");
+                ClientAdapterInterface service = (ClientAdapterInterface) Naming.lookup("rmi://" + server.getHostAddress() + "/HESServer");
 
                 dq.addLast(server); // Put the Host back at the End
                 setAnfragenZaehler(server);
-                
+
                 return service;
             } catch (NotBoundException | MalformedURLException | RemoteException ex) {
                 Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,34 +63,31 @@ public class Dispatcher extends Thread {
         return null;
     }
 
+    public void turnOff(String serverName) {
+        try {
+            InetAddress server = InetAddress.getByName(serverName);
+
+            if (dq.contains(server)) {
+                ClientAdapterInterface service = (ClientAdapterInterface) Naming.lookup("rmi://" + server.getHostAddress() + "/HESServer");
+                service.turnOff();
+                dq.remove(server);
+
+            }
+        } catch (NotBoundException | MalformedURLException | RemoteException ex) {
+            Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (UnknownHostException ex) {
+                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+
     public void setAnfragenZaehler(InetAddress server) {
         if (!serverAnfragen.containsKey(server)) {
             serverAnfragen.put(server, 1);
         } else {
             serverAnfragen.put(server, serverAnfragen.get(server) + 1);
         }
-        monitor.updateMonitor(server,serverAnfragen.get(server));
+        monitor.updateDashboard(server, serverAnfragen.get(server));
     }
-    /*
-     public synchronized void getOnlineRMIServers() {
-     onlineRMIServers.clear();
-     List<InetAddress> monitorServerListe = monitor.getOnlineListe();
-     if (!monitorServerListe.isEmpty()) {
-     for (InetAddress host : monitorServerListe) {
-     try {
-     RmiServerInterface service = (RmiServerInterface) Naming.lookup("rmi://" + host.getHostAddress() + "/HESServer");
-     this.onlineRMIServers.add(service);
-     this.serverAnfragen.put(host, 0);
-
-
-
-     } catch (NotBoundException | MalformedURLException | RemoteException ex) {
-     Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     }
-     }
-     }
-     */
 
     public void run() {
         while (!isInterrupted()) {
@@ -102,27 +100,8 @@ public class Dispatcher extends Thread {
     }
 
     private void updateQueue() {
-//        getOnlineRMIServers();
-//        if (this.onlineRMIServers.isEmpty()) {
-//            dq.clear();
-//        } else {
-//            //Add new Servers to the Quee
-//            for (RmiServerInterface service : this.onlineRMIServers) {
-//                if (!dq.contains(service)) {
-//                    dq.addLast(service);
-//                }
-//            }
-//            //Remove Servers that are in the Quee but not in the OnlineList
-//            for (RmiServerInterface service : this.dq) {
-//                if (!onlineRMIServers.contains(service)) {
-//                    dq.remove(service);
-//                }
-//            }
-//        }
-//        System.out.println("verfügbare server: " + dq);
-//    }
         this.onlineServers = monitor.getOnlineListe();
-        System.out.println("onlineServers Monitor sicht "+ onlineServers);
+        System.out.println("onlineServers Monitor sicht " + onlineServers);
         if (this.onlineServers.isEmpty()) {
             dq.clear();
         } else {
@@ -139,6 +118,6 @@ public class Dispatcher extends Thread {
                 }
             }
         }
-        System.out.println("verfügbare server: " + dq);
+       // System.out.println("verfügbare server: " + dq);
     }
 }

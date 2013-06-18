@@ -1,5 +1,7 @@
-package HESDispatcher;
+package Betriebsteam;
 
+import HESKonnektor.Dispatcher;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -9,15 +11,18 @@ import javax.swing.JLabel;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    Dispatcher dispatcher;
+
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    public Dashboard(Dispatcher dis) {
         initComponents();
         this.setTitle("Dashboard");
         this.setLocationRelativeTo(null);
         this.setAlwaysOnTop(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.dispatcher = dis;
     }
 
     /**
@@ -88,6 +93,11 @@ public class Dashboard extends javax.swing.JFrame {
         LabelBetaTime.setText("0");
 
         jButton1.setText("ON");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("ON");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -170,8 +180,20 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelAlphaPropertyChange
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        this.dispatcher.turnOff(jButton2.getName());
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispatcher.turnOff(jButton1.getName());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public JButton getAlphaButton() {
+        return jButton2;
+    }
+
+    public JButton getBetaButton() {
+        return jButton1;
+    }
 
     public JLabel getLabelAlpha() {
         return LabelAlpha;
@@ -188,7 +210,7 @@ public class Dashboard extends javax.swing.JFrame {
     public JLabel getLabelBetaTime() {
         return LabelBetaTime;
     }
-    
+
     public JLabel getLabelAlphaCount() {
         return LabelAlphaCount;
     }
@@ -227,17 +249,17 @@ public class Dashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+              //  new Dashboard().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel LabelAlpha;
     public javax.swing.JLabel LabelAlphaCount;
-    private javax.swing.JLabel LabelAlphaTime;
+    public javax.swing.JLabel LabelAlphaTime;
     public javax.swing.JLabel LabelBeta;
     public javax.swing.JLabel LabelBetaCount;
-    private javax.swing.JLabel LabelBetaTime;
+    public javax.swing.JLabel LabelBetaTime;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

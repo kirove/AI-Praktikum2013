@@ -1,5 +1,5 @@
 
-package HESServer;
+package ClientAdapter;
 
 import java.io.*;
 import java.net.*;
@@ -14,7 +14,7 @@ public class UDPServer extends Thread {
 
     String amAlive = "AM ALIVE";
     int udpPort = 55555;
-    int sendingFrequence = 500;
+    int sendingFrequence = 1000;
 
     public void run() {
         DatagramSocket serverSocket;

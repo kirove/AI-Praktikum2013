@@ -1,5 +1,6 @@
-package HESDispatcher;
+package HESKonnektor;
 
+import Betriebsteam.Dashboard;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -16,7 +17,7 @@ import javax.swing.JLabel;
  *
  * @author NED
  */
-public class HESMonitor extends Thread {
+public class Monitor extends Thread {
 
     private Map<InetAddress, Long[]> onlineServerListe;
     private JLabel labelAlpha, labelBeta, labelAlphaTime, labelBetaTime, labelAlphaCount, labelBetaCount;
@@ -24,16 +25,19 @@ public class HESMonitor extends Thread {
     private InetAddress server2;
     Dashboard dashboard;
 
-    public HESMonitor() {
-        try {
-            this.server1 = InetAddress.getByName("169.254.149.147");
-            this.server2 = InetAddress.getByName("169.254.44.70");
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Monitor(Dispatcher dis) {
         System.out.println("Starting Monitor..");
         this.onlineServerListe = new HashMap<>();
-        Dashboard dashboard = new Dashboard();
+        try {
+            this.server1 = InetAddress.getByName("169.254.149.147");
+            this.server2 = InetAddress.getByName("141.22.95.125");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        //Dashboard Controller
+        Dashboard dashboard = new Dashboard(dis);
         dashboard.setVisible(true);
         this.labelAlpha = dashboard.getLabelAlpha();
         this.labelBeta = dashboard.getLabelBeta();
@@ -43,9 +47,19 @@ public class HESMonitor extends Thread {
         this.labelBetaCount = dashboard.getLabelBetaCount();
         labelAlphaCount.setText("0 Anfragen");
         labelBetaCount.setText("0 Anfragen");
+        dashboard.getAlphaButton().setName(server1.getHostAddress());
+        dashboard.getBetaButton().setName(server2.getHostAddress());
+
+
+
+    }
+
+    @Override
+    public void run() {
 
         //Thread to calculate the lastUpdateTime and remove Server from OnlineServerListe if time difference is more than 2 Seconds
         new Thread() {
+            @Override
             public void run() {
 
                 while (true) {
@@ -55,7 +69,7 @@ public class HESMonitor extends Thread {
                             if ((System.currentTimeMillis() - getlastUpdateTime(entry.getKey())) > 3000) {
                                 System.out.println("Removing at: " + (System.currentTimeMillis() - getlastUpdateTime(entry.getKey())));
                                 onlineServerListe.remove(entry.getKey());
-                                updateMonitor();
+                                updateDashboard();
                             }
                         }
                     }
@@ -66,12 +80,6 @@ public class HESMonitor extends Thread {
         }.start();
 
         ////// end Thread Definition////////
-
-    }
-
-    public void run() {
-
-
 
 
 
@@ -98,13 +106,13 @@ public class HESMonitor extends Thread {
 
 
         } catch (IOException ex) {
-            Logger.getLogger(HESMonitor.class
+            Logger.getLogger(Monitor.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public void updateMonitor(InetAddress server, Integer anzahl) {
+    public void updateDashboard(InetAddress server, Integer anzahl) {
         System.out.println("server to update " + server.getHostAddress());
 
         if (server.equals(server1)) {
@@ -118,7 +126,7 @@ public class HESMonitor extends Thread {
 
     }
 
-    private void updateMonitor() {
+    private void updateDashboard() {
 
         if (onlineServerListe.keySet().contains(server1)) {
             labelAlpha.setForeground(Color.green);
@@ -188,6 +196,6 @@ public class HESMonitor extends Thread {
             onlineServerListe.put(serverAdresse, serverTimes);
         }
 
-        updateMonitor();
+        updateDashboard();
     }
 }
