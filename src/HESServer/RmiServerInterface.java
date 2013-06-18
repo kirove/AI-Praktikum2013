@@ -46,5 +46,5 @@ public interface RmiServerInterface extends Remote {
 
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) throws RemoteException;
 
-//    public Boolean areYouAlive() throws RemoteException;
+    public void turnOff() throws RemoteException;
 }

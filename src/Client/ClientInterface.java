@@ -100,9 +100,9 @@ public class ClientInterface extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TblKunde);
 
         BtnSucheKunde.setText("suchen");
-        BtnSucheKunde.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnSucheKundeMouseClicked(evt);
+        BtnSucheKunde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSucheKundeActionPerformed(evt);
             }
         });
 
@@ -311,10 +311,7 @@ public class ClientInterface extends javax.swing.JFrame {
         //ProduktTyp produkt = verkaufFassade.ge(produktNr);
     }//GEN-LAST:event_BtnSucheProduktMouseClicked
 
-    private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
-    }//GEN-LAST:event_BtnSucheKundeMouseClicked
-
-    private void BtnErstelleKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErstelleKundeActionPerformed
+    private void BtnSucheKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSucheKundeActionPerformed
         if (dispatcher.onlineServers == null) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
 
@@ -348,8 +345,14 @@ public class ClientInterface extends javax.swing.JFrame {
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!", "Kunde", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }//GEN-LAST:event_BtnSucheKundeActionPerformed
 
-        }    }//GEN-LAST:event_BtnErstelleKundeActionPerformed
+    private void BtnErstelleKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErstelleKundeActionPerformed
+            KundeView kv = new KundeView(dispatcher);
+            kv.setVisible(true);
+
+    }//GEN-LAST:event_BtnErstelleKundeActionPerformed
 
     /**
      * @param args the command line arguments
