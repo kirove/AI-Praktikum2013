@@ -1,6 +1,6 @@
 package Transportdienstleister;
 
-import ReSTAdaptor.TransportListe;
+import ReSTAdaptor.TransportDatenTypen.TransportListe;
 import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.client.Client;
@@ -11,7 +11,7 @@ public class TDL {
 	public static void main(String[] args){
 		
 		Client create = Client.create();
-		WebResource service = create.resource("http://localhost:8888/rest");
+		WebResource service = create.resource("http://localhost:8080/rest");
 			
 		TransportListe tl = new TransportListe();
 		tl.transporte = service.path("transportauftraege")

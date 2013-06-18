@@ -11,7 +11,8 @@ import Lager.LagerLogic;
 import Versand.IVersandFassade;
 import Rechnung.IRechnungFassade;
 import Rechnung.RechnungLogic;
-import Versand.VersandFassade;
+import Versand.IVersandFassade;
+import Versand.LieferungLogic;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ public class AuftragLogic implements IAuftragManager {
     public AuftragLogic() {
         this.AR = new AuftragRepository();
         this.LF = new LagerFassade();
-        this.VF = new VersandFassade();
+        this.VF = new LieferungLogic();
         this.RF = new RechnungLogic();
     }
 

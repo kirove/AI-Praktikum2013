@@ -1,4 +1,4 @@
-package ReSTAdaptor;
+package ReSTAdaptor.TransportDatenTypen;
 
 import java.util.ArrayList;
 import java.util.List;
