@@ -115,11 +115,6 @@ public class ClientInterface extends javax.swing.JFrame {
         jLabel4.setText("TelefonNr.:");
 
         BtnErstelleKunde.setText("erstelle Kunde");
-        BtnErstelleKunde.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnErstelleKundeMouseClicked(evt);
-            }
-        });
         BtnErstelleKunde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnErstelleKundeActionPerformed(evt);
@@ -316,15 +311,13 @@ public class ClientInterface extends javax.swing.JFrame {
         //ProduktTyp produkt = verkaufFassade.ge(produktNr);
     }//GEN-LAST:event_BtnSucheProduktMouseClicked
 
-    private void BtnErstelleKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnErstelleKundeMouseClicked
-        KundeView kundenGUI = new KundeView(dispatcher);
-        kundenGUI.setVisible(true);
-    }//GEN-LAST:event_BtnErstelleKundeMouseClicked
-
     private void BtnSucheKundeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucheKundeMouseClicked
+    }//GEN-LAST:event_BtnSucheKundeMouseClicked
+
+    private void BtnErstelleKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErstelleKundeActionPerformed
         if (dispatcher.onlineServers == null) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
-            
+
         } else {
 
             TblKunde.removeAll();
@@ -356,12 +349,7 @@ public class ClientInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Kunde existiert nicht!", "Kunde", JOptionPane.ERROR_MESSAGE);
             }
 
-        }
-    }//GEN-LAST:event_BtnSucheKundeMouseClicked
-
-    private void BtnErstelleKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErstelleKundeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnErstelleKundeActionPerformed
+        }    }//GEN-LAST:event_BtnErstelleKundeActionPerformed
 
     /**
      * @param args the command line arguments

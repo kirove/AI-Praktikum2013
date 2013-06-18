@@ -246,7 +246,6 @@
                 <Property name="text" type="java.lang.String" value="erstelle Kunde"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnErstelleKundeMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnErstelleKundeActionPerformed"/>
               </Events>
             </Component>

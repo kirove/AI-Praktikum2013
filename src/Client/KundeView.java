@@ -87,11 +87,6 @@ public class KundeView extends javax.swing.JFrame {
         jLabel9.setText("Land:");
 
         BtnKundenErstellt.setText("erstellen");
-        BtnKundenErstellt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnKundenErstelltMouseClicked(evt);
-            }
-        });
         BtnKundenErstellt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnKundenErstelltActionPerformed(evt);
@@ -206,9 +201,6 @@ public class KundeView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BtnKundenErstelltMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKundenErstelltMouseClicked
-    }//GEN-LAST:event_BtnKundenErstelltMouseClicked
 
     private void BtnKundenErstelltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKundenErstelltActionPerformed
         if (dispatcher.onlineServers.isEmpty()) {
