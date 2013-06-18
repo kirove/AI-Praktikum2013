@@ -1,19 +1,14 @@
-package ReSTAdaptor.Verwalter;
+package ReSTTransportAdaptor.Verwalter;
 
-import ReSTAdaptor.TransportDatenTypen.TransportListe;
-import ReSTAdaptor.TransportDatenTypen.Transporttyp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import ReSTTransportAdaptor.TransportDatenTypen.TransportListe;
+import ReSTTransportAdaptor.TransportDatenTypen.Transporttyp;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Path("transportauftraege")
 public class RestKonnektor {
-
-    //@PUT
+  //  @PUT
     @POST
     @Consumes(MediaType.TEXT_XML)
     public Transporttyp postMessage(Transporttyp daten) {
@@ -27,4 +22,6 @@ public class RestKonnektor {
         TransportListe tl = KonnektorDaten.getInstance().getDaten();
         return tl;
     }
+    
+  
 }

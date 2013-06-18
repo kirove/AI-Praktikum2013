@@ -1,6 +1,6 @@
-package Transportdienstleister;
+package ExternTransportdienstleister;
 
-import ReSTAdaptor.TransportDatenTypen.TransportListe;
+import ReSTTransportAdaptor.TransportDatenTypen.TransportListe;
 import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.client.Client;

@@ -6,8 +6,8 @@ package Versand;
 
 import Datentypen.AuftragTyp;
 import Datentypen.LieferungTyp;
-import ReSTAdaptor.ITransportAuftrag;
-import ReSTAdaptor.Verwalter.TDLAdapter;
+import ReSTTransportAdaptor.ITransportAuftrag;
+import ReSTTransportAdaptor.Verwalter.TDLAdapter;
 
 /**
  *

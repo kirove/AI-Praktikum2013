@@ -5,12 +5,7 @@
 package Versand;
 
 //import ReSTAdaptor.TransportdienstleisterAdapter;
-import ReSTAdaptor.Server_Starten;
-
-import Datentypen.AuftragTyp;
 import Main.HibernateUtil;
-import ReSTAdaptor.ITransportAuftrag;
-import ReSTAdaptor.Verwalter.TDLAdapter;
 import org.hibernate.Session;
 
 /**
