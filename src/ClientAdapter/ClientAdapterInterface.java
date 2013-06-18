@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package HESServer;
+package ClientAdapter;
 
 import Datentypen.AdresseTyp;
 import Datentypen.AngebotTyp;
@@ -21,7 +21,7 @@ import java.util.List;
  * Entfernte Methoden werden durch das Interface java.rmi.Remote definiert
  *
  */
-public interface RmiServerInterface extends Remote {
+public interface ClientAdapterInterface extends Remote {
     //   public void method() throws RemoteException;//Eine RemoteException kann z.B. auftreten, wenn das entfernte Objekt nicht mehr verfügbar ist oder wenn das Netz gestört ist.
 
     public KundenTyp getKunde(String kundeNr) throws KundeException, RemoteException;

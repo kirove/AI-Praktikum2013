@@ -8,8 +8,8 @@ import Datentypen.AdresseTyp;
 import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
-import HESServer.RmiServerInterface;
-import HESDispatcher.Dispatcher;
+import ClientAdapter.ClientAdapterInterface;
+import HESKonnektor.Dispatcher;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class KundeView extends javax.swing.JFrame {
 
     private Dispatcher dispatcher;
-    private RmiServerInterface onlineServer;
+    private ClientAdapterInterface onlineServer;
 
     /**
      * Creates new form KundeView

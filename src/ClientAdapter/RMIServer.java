@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package HESServer;
+package ClientAdapter;
 
 import BankMQAdapter.BankAdapter;
 import Datentypen.AdresseTyp;
@@ -31,12 +31,12 @@ import java.util.List;
  * Verwendung von RMI bereitstellt.
  *
  */
-public class HESServer extends UnicastRemoteObject implements RmiServerInterface {
+public class RMIServer extends UnicastRemoteObject implements ClientAdapterInterface {
 
     private static final long serialVersionUID = -851919772922635440L;
     private IVerkauf VF;
 
-    HESServer() throws RemoteException {
+    RMIServer() throws RemoteException {
         super();
         this.VF = new VerkaufFassade();
         new UDPServer().start();
@@ -48,7 +48,7 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
         try {
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
-            Naming.rebind("HESServer", new HESServer());
+            Naming.rebind("HESServer", new RMIServer());
             
             System.out.println("HES - Server gestartet...");
         } catch (MalformedURLException ex) {

@@ -7,8 +7,8 @@ package Client;
 import Datentypen.KundenTyp;
 import Datentypen.TelefonNrTyp;
 import Exceptions.KundeException;
-import HESServer.RmiServerInterface;
-import HESDispatcher.Dispatcher;
+import ClientAdapter.ClientAdapterInterface;
+import HESKonnektor.Dispatcher;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class ClientInterface extends javax.swing.JFrame {
 
     private Dispatcher dispatcher;
-    private RmiServerInterface onlineServer;
+    private ClientAdapterInterface onlineServer;
 
     /**
      * Creates new form ClientInterface
@@ -312,7 +312,7 @@ public class ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSucheProduktMouseClicked
 
     private void BtnSucheKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSucheKundeActionPerformed
-        if (dispatcher.onlineServers == null) {
+        if (dispatcher.onlineServers.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
 
         } else {
