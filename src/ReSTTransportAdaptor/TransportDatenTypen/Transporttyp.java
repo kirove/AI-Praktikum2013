@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ReSTAdaptor;
+package ReSTTransportAdaptor.TransportDatenTypen;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,7 +24,7 @@ public class Transporttyp{
 
 	public String toString(){
 		String ausgabe = "";
-		ausgabe += "\n           Lieferungsnummer: " + nr + "\n";
+		ausgabe += "Lieferungsnummer: " + nr + "\n";
 	//	ausgabe += "           Ausgangsdatum: " + ausgangsdatum;
 		ausgabe += "Kundenname: "+kundenname;
 		ausgabe += " Adresse: " + kundenadresse;

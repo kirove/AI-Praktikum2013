@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ReSTAdaptor;
+package ReSTTransportAdaptor.Verwalter;
 
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
@@ -20,7 +20,7 @@ public class Server_Starten extends Thread{
     public void run(){
          try {
 
-            HttpServer server = HttpServerFactory.create("http://localhost:8888/rest");
+            HttpServer server = HttpServerFactory.create("http://localhost:8080/rest");
             server.start();
             JOptionPane.showMessageDialog(null, "Server Beenden?");
 //            		TransportListe tl = new TransportListe();

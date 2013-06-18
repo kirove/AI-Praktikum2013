@@ -1,5 +1,7 @@
-package ReSTAdaptor;
+package ReSTTransportAdaptor.Verwalter;
 
+import ReSTTransportAdaptor.TransportDatenTypen.TransportListe;
+import ReSTTransportAdaptor.TransportDatenTypen.Transporttyp;
 import java.util.ArrayList;
 import java.util.List;
 
