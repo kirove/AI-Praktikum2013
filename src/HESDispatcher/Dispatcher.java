@@ -122,7 +122,8 @@ public class Dispatcher extends Thread {
 //        System.out.println("verfügbare server: " + dq);
 //    }
         this.onlineServers = monitor.getOnlineListe();
-        if (onlineServers.isEmpty()) {
+        System.out.println("onlineServers Monitor sicht "+ onlineServers);
+        if (this.onlineServers.isEmpty()) {
             dq.clear();
         } else {
             //Add new Servers to the Quee
@@ -133,7 +134,7 @@ public class Dispatcher extends Thread {
             }
             //Remove Servers that are in the Quee but not in the OnlineList
             for (InetAddress server : this.dq) {
-                if (!onlineServers.contains(server)) {
+                if (!this.onlineServers.contains(server)) {
                     dq.remove(server);
                 }
             }

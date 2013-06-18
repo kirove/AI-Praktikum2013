@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -27,8 +26,8 @@ public class HESMonitor extends Thread {
 
     public HESMonitor() {
         try {
-            this.server1 = InetAddress.getByName("192.168.137.70");
-            // this.server2 = InetAddress.getByName("server2");
+            this.server1 = InetAddress.getByName("169.254.149.147");
+            this.server2 = InetAddress.getByName("169.254.44.70");
         } catch (UnknownHostException ex) {
             Logger.getLogger(HESMonitor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,11 +59,11 @@ public class HESMonitor extends Thread {
                             }
                         }
                     }
+                    System.out.println("onlineServer Monitor sicht "+ onlineServerListe);
 
                 }
             }
-        }
-                .start();
+        }.start();
 
         ////// end Thread Definition////////
 
@@ -87,7 +86,7 @@ public class HESMonitor extends Thread {
             while (true) {
                 serverSocket.receive(receivePacket);
                 String sentence = new String(receivePacket.getData());
-                System.out.println("RECEIVED: " + sentence);
+                System.out.println(" From: "+ receivePacket.getAddress()+" RECEIVED: " + sentence );
 
                 if (sentence.indexOf("AM ALIVE") > -1) {
 

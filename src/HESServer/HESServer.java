@@ -112,8 +112,9 @@ public class HESServer extends UnicastRemoteObject implements RmiServerInterface
     public AuftragTyp getAuftragPerAuftragNr(String auftragNr) throws RemoteException {
         return VF.getAuftragPerAuftragNr(auftragNr);
     }
-//    @Override
-//    public Boolean areYouAlive() throws RemoteException {
-//        return true;
-//    }
+
+    @Override
+    public void turnOff() throws RemoteException {
+        System.exit(0);
+    }
 }
