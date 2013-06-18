@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -21,6 +22,7 @@ public class Monitor extends Thread {
 
     private Map<InetAddress, Long[]> onlineServerListe;
     private JLabel labelAlpha, labelBeta, labelAlphaTime, labelBetaTime, labelAlphaCount, labelBetaCount;
+    private JButton betaButton, alphaButton;
     private InetAddress server1;
     private InetAddress server2;
     Dashboard dashboard;
@@ -47,8 +49,10 @@ public class Monitor extends Thread {
         this.labelBetaCount = dashboard.getLabelBetaCount();
         labelAlphaCount.setText("0 Anfragen");
         labelBetaCount.setText("0 Anfragen");
-        dashboard.getAlphaButton().setName(server1.getHostAddress());
-        dashboard.getBetaButton().setName(server2.getHostAddress());
+        this.alphaButton = dashboard.getAlphaButton();
+        this.betaButton = dashboard.getBetaButton();
+        this.alphaButton.setName(server1.getHostAddress());
+        this.betaButton.setName(server2.getHostAddress());
 
 
 
@@ -65,7 +69,7 @@ public class Monitor extends Thread {
                 while (true) {
                     if (!onlineServerListe.isEmpty()) {
                         for (Map.Entry<InetAddress, Long[]> entry : onlineServerListe.entrySet()) {
-                            //if lastUpdateTime is longer than 2 Seconds remove Server from the list
+                            //if lastUpdateTime is longer than 3 Seconds remove Server from the list
                             if ((System.currentTimeMillis() - getlastUpdateTime(entry.getKey())) > 3000) {
                                 System.out.println("Removing at: " + (System.currentTimeMillis() - getlastUpdateTime(entry.getKey())));
                                 onlineServerListe.remove(entry.getKey());
@@ -73,7 +77,7 @@ public class Monitor extends Thread {
                             }
                         }
                     }
-                    System.out.println("onlineServer Monitor sicht "+ onlineServerListe);
+                    //System.out.println("onlineServer Monitor sicht "+ onlineServerListe);
 
                 }
             }
@@ -131,19 +135,24 @@ public class Monitor extends Thread {
         if (onlineServerListe.keySet().contains(server1)) {
             labelAlpha.setForeground(Color.green);
             labelAlpha.setText("Online");
+            alphaButton.setText("Off");
+            
             labelAlphaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server1)[0]) / 1000) + " Seconds");
         } else {
             labelAlpha.setForeground(Color.red);
             labelAlpha.setText("Offline");
+            alphaButton.setText("ON");
             labelAlphaTime.setText("0 Seconds");
         }
         if (onlineServerListe.keySet().contains(server2)) {
             labelBeta.setForeground(Color.green);
             labelBeta.setText("Online");
+            betaButton.setText("Off");
             labelBetaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server2)[0]) / 1000) + " Seconds");
         } else {
             labelBeta.setForeground(Color.red);
             labelBeta.setText("Offline");
+            betaButton.setText("ON");
             labelBetaTime.setText("0 Seconds");
         }
 

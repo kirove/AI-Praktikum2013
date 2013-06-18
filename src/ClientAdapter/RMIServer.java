@@ -40,7 +40,7 @@ public class RMIServer extends UnicastRemoteObject implements ClientAdapterInter
         super();
         this.VF = new VerkaufFassade();
         new UDPServer().start();
-      //  new BankAdapter().start();
+        new BankAdapter().start();
     }
 
     public static void main(String[] args) {
@@ -48,7 +48,7 @@ public class RMIServer extends UnicastRemoteObject implements ClientAdapterInter
         try {
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
-            Naming.rebind("HESServer", new RMIServer());
+            Naming.rebind("RMIServer", new RMIServer());
             
             System.out.println("HES - Server gestartet...");
         } catch (MalformedURLException ex) {
