@@ -1,4 +1,3 @@
-
 package HESDispatcher;
 
 import javax.swing.JFrame;
@@ -40,8 +39,8 @@ public class Dashboard extends javax.swing.JFrame {
         LabelBetaCount = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        LabelAlphaCount1 = new javax.swing.JLabel();
-        LabelAlphaCount2 = new javax.swing.JLabel();
+        LabelAlphaTime = new javax.swing.JLabel();
+        LabelBetaTime = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -82,15 +81,20 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel4.setText("Online Zeit");
 
-        LabelAlphaCount1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        LabelAlphaCount1.setText("0");
+        LabelAlphaTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelAlphaTime.setText("0");
 
-        LabelAlphaCount2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        LabelAlphaCount2.setText("0");
+        LabelBetaTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelBetaTime.setText("0");
 
         jButton1.setText("ON");
 
-        jButton2.setText("On");
+        jButton2.setText("ON");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,28 +109,26 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(LabelBetaCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelAlpha)
-                                .addComponent(LabelBeta)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelAlphaCount1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(LabelAlphaCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelAlphaCount2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LabelAlpha)
+                                    .addComponent(LabelBeta)))
+                            .addComponent(LabelAlphaTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LabelBetaTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LabelBetaCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(LabelAlphaCount, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addGap(35, 35, 35))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +145,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(LabelAlphaCount1))
+                    .addComponent(LabelAlphaTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -156,8 +158,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(LabelAlphaCount2))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(LabelBetaTime))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,14 +169,34 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_LabelAlphaPropertyChange
 
-    
-    public JLabel getLabelAlpha(){
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public JLabel getLabelAlpha() {
         return LabelAlpha;
     }
-    
-    public JLabel getLabelBeta(){
+
+    public JLabel getLabelBeta() {
         return LabelBeta;
     }
+
+    public JLabel getLabelAlphaTime() {
+        return LabelAlphaTime;
+    }
+
+    public JLabel getLabelBetaTime() {
+        return LabelBetaTime;
+    }
+    
+    public JLabel getLabelAlphaCount() {
+        return LabelAlphaCount;
+    }
+
+    public JLabel getLabelBetaCount() {
+        return LabelBetaCount;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -211,11 +233,11 @@ public class Dashboard extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel LabelAlpha;
-    private javax.swing.JLabel LabelAlphaCount;
-    private javax.swing.JLabel LabelAlphaCount1;
-    private javax.swing.JLabel LabelAlphaCount2;
+    public javax.swing.JLabel LabelAlphaCount;
+    private javax.swing.JLabel LabelAlphaTime;
     public javax.swing.JLabel LabelBeta;
-    private javax.swing.JLabel LabelBetaCount;
+    public javax.swing.JLabel LabelBetaCount;
+    private javax.swing.JLabel LabelBetaTime;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

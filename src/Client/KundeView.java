@@ -92,6 +92,11 @@ public class KundeView extends javax.swing.JFrame {
                 BtnKundenErstelltMouseClicked(evt);
             }
         });
+        BtnKundenErstellt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnKundenErstelltActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,8 +208,10 @@ public class KundeView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnKundenErstelltMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKundenErstelltMouseClicked
-        this.onlineServer = dispatcher.liefereServer();
-        if (onlineServer == null) {
+    }//GEN-LAST:event_BtnKundenErstelltMouseClicked
+
+    private void BtnKundenErstelltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKundenErstelltActionPerformed
+        if (dispatcher.onlineServers.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Keine Server Online!", "Error !", JOptionPane.ERROR_MESSAGE);
 
         } else {
@@ -224,6 +231,7 @@ public class KundeView extends javax.swing.JFrame {
                 int tel = Integer.valueOf(tel_);
                 AdresseTyp adr = new AdresseTyp(strasse, hausNr, plz, stadt, land);
                 TelefonNrTyp telNr = new TelefonNrTyp(vorwahl, tel);
+                this.onlineServer = dispatcher.liefereServer();
                 KundenTyp neuerKunde = onlineServer.erstelleKunde(vorname, nachname, adr, telNr);
 
                 JOptionPane.showMessageDialog(rootPane, "Kunde wurde erfolgreich erstellt!");
@@ -236,8 +244,7 @@ public class KundeView extends javax.swing.JFrame {
                 Logger.getLogger(KundeView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-    }//GEN-LAST:event_BtnKundenErstelltMouseClicked
+    }//GEN-LAST:event_BtnKundenErstelltActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnKundenErstellt;
     private javax.swing.JTextField EdtErstelleHausnummer;
