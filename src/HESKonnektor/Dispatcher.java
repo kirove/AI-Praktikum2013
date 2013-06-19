@@ -40,7 +40,7 @@ public class Dispatcher extends Thread {
 
     }
 
-    public ClientAdapterInterface liefereServer() {
+    public ClientAdapterInterface getService() {
 
         if (!dq.isEmpty()) {
 
@@ -75,9 +75,9 @@ public class Dispatcher extends Thread {
             }
         } catch (NotBoundException | MalformedURLException | RemoteException ex) {
             Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (UnknownHostException ex) {
-                Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setAnfragenZaehler(InetAddress server) {
@@ -91,16 +91,14 @@ public class Dispatcher extends Thread {
 
     public void run() {
         while (!isInterrupted()) {
-            try {
-                updateQueue();
-                sleep(3000);
-            } catch (InterruptedException e) {
-            }
+
+            this.onlineServers = monitor.getOnlineListe();
+            updateQueue();
+
         }
     }
 
     private void updateQueue() {
-        this.onlineServers = monitor.getOnlineListe();
         System.out.println("onlineServers Monitor sicht " + onlineServers);
         if (this.onlineServers.isEmpty()) {
             dq.clear();
@@ -118,6 +116,6 @@ public class Dispatcher extends Thread {
                 }
             }
         }
-       // System.out.println("verfügbare server: " + dq);
+        // System.out.println("verfügbare server: " + dq);
     }
 }

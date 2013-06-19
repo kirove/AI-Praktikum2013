@@ -326,7 +326,7 @@ public class ClientInterface extends javax.swing.JFrame {
             try {
                 int telNr = Integer.valueOf(tel);
                 TelefonNrTyp telefonNR = new TelefonNrTyp(vorwahl, telNr);
-                onlineServer = dispatcher.liefereServer();
+                onlineServer = dispatcher.getService();
                 KundenTyp kunde = onlineServer.getKunde(telefonNR);
 
                 TblKunde.getModel().setValueAt(kunde.getKundenNr(), 0, 0);

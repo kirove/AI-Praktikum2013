@@ -1,6 +1,13 @@
 package Betriebsteam;
 
 import HESKonnektor.Dispatcher;
+import HESKonnektor.Monitor;
+import java.awt.Color;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +19,7 @@ import javax.swing.JLabel;
 public class Dashboard extends javax.swing.JFrame {
 
     Dispatcher dispatcher;
+    private InetAddress server1, server2;
 
     /**
      * Creates new form Dashboard
@@ -23,6 +31,56 @@ public class Dashboard extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.dispatcher = dis;
+
+        try {
+            this.server1 = InetAddress.getByName("169.254.149.147");
+            this.server2 = InetAddress.getByName("141.22.95.125");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        LabelAlphaCount.setText("0 Anfragen");
+        LabelBetaCount.setText("0 Anfragen");
+        jButton2.setName(server1.getHostAddress());
+        jButton1.setName(server2.getHostAddress());
+    }
+
+    public void updateDashboard(Map<InetAddress, Long[]> onlineServerListe) {
+
+        if (onlineServerListe.keySet().contains(server1)) {
+            this.LabelAlpha.setForeground(Color.green);
+            LabelAlpha.setText("Online");
+            this.jButton2.setText("Off");
+
+            this.LabelAlphaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server1)[0]) / 1000) + " Seconds");
+        } else {
+            this.LabelAlpha.setForeground(Color.red);
+            this.LabelAlpha.setText("Offline");
+            this.jButton1.setText("ON");
+            this.LabelAlphaTime.setText("0 Seconds");
+        }
+        if (onlineServerListe.keySet().contains(server2)) {
+            this.LabelBeta.setForeground(Color.green);
+            this.LabelBeta.setText("Online");
+            this.jButton1.setText("Off");
+            this.LabelBetaTime.setText(((System.currentTimeMillis() - onlineServerListe.get(server2)[0]) / 1000) + " Seconds");
+        } else {
+            this.LabelBeta.setForeground(Color.red);
+            this.LabelBeta.setText("Offline");
+            this.jButton1.setText("ON");
+            this.LabelBetaTime.setText("0 Seconds");
+        }
+
+    }
+
+    public void updateDashboard(InetAddress server, Integer anzahl) {
+        System.out.println("server to update " + server.getHostAddress());
+
+        if (server.equals(server1)) {
+            this.LabelAlphaCount.setText(anzahl + " Anfragen");
+        } else if (server.equals(server2)) {
+            this.LabelAlpha.setText(anzahl + " Anfragen");
+        }
     }
 
     /**
@@ -249,7 +307,7 @@ public class Dashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              //  new Dashboard().setVisible(true);
+                //  new Dashboard().setVisible(true);
             }
         });
     }

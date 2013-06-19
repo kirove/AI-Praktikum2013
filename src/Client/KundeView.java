@@ -223,7 +223,7 @@ public class KundeView extends javax.swing.JFrame {
                 int tel = Integer.valueOf(tel_);
                 AdresseTyp adr = new AdresseTyp(strasse, hausNr, plz, stadt, land);
                 TelefonNrTyp telNr = new TelefonNrTyp(vorwahl, tel);
-                this.onlineServer = dispatcher.liefereServer();
+                this.onlineServer = dispatcher.getService();
                 KundenTyp neuerKunde = onlineServer.erstelleKunde(vorname, nachname, adr, telNr);
 
                 JOptionPane.showMessageDialog(rootPane, "Kunde wurde erfolgreich erstellt!");
